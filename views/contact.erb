@@ -1,0 +1,157 @@
+  <style>
+    .on_left{
+      margin-left: 7vw;
+      float:left;
+      width: 45%;
+    }
+    .on_left h5{
+      margin-top:30%;
+      font-size: 5vw;
+      z-index: 1;
+      margin-bottom:7%;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    #mail{
+      display: flex;
+      align-items: center;
+      width: 15vw;
+      padding: 1vw;
+      background-color: whitesmoke;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      border-radius: 25px;
+      border: 2px solid #D8F3EC;
+      margin-top:2%;
+    }
+    h2{
+      margin-left: 5%;
+    }
+
+    #email:hover svg path{
+      fill: forestgreen;
+      cursor: pointer;
+    }
+
+
+
+
+  .on_right{
+      border-radius: 25px;
+      border: 2px solid #D8F3EC;
+      margin-right: 7vw;
+      float: right;
+      padding: 3vw;
+      padding-top:1vw;
+      padding-bottom:1vw;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      background-color: whitesmoke;
+      margin-top:20%;
+    
+    }
+
+    .my_inputs{
+      height: 4vh;
+      font-size: 1.5vw;
+      display: flex;
+      align-items: center;
+      padding:1.3vw;
+
+}
+
+.my_labels{
+  height: 4vh;
+  font-size: 1.5vw;
+
+}
+   .container {
+  padding: 16px;
+  margin:5%;
+}
+
+h1 {
+  font-size: 1.5vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  display: inline-block;
+  position: relative;
+  padding-bottom: 1%;
+  color: black;
+}
+
+
+  .submit {
+  background-color: #04AA6D;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  height: 3vw;
+  cursor: pointer;
+  border-radius: 16px;
+  opacity: 0.9;
+  margin-bottom:1vw;
+}
+
+.submit:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+#message{
+  min-width: 18.5vw;
+  max-width: 18.5vw;
+  min-height:15vh;
+  max-height:20vh;
+}
+  </style>
+  
+  <div class="right" style = "background-color: #E3F8FF;">
+
+     <div class = "on_left">
+       <h5> Any Questions? </h5>
+       <div id = "mail">
+             <div id = "email">
+               <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                  <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+               </svg>
+           </div>
+             <h2> Email me directly</h2>
+      </div>
+
+     </div>
+      
+      <div class = "on_right">
+        <h1>Message me</h1>
+        <hr>
+        <form action = "/send_message" method = "post">
+          <div class = "container">
+            <label for="sender_name" class = "my_labels"><b>Full name</b></label>
+            <br>
+            <input type="text" placeholder="Enter full name" name="sender_name" id="sender_name" class = "my_inputs" required>
+            <br>
+            
+            <label for="message" class = "my_labels"><b>Message</b></label>
+                      <br>
+            <textarea id="message" class = "my_inputs" placeholder = "Enter message" name="message" required></textarea>
+            <br>
+            <br>
+            <button type = "submit" class="submit"> Submit </button>
+        </div>
+    </form>
+    </div>
+  </div>  
+    <script>
+        
+
+        let email = document.querySelector("#email");
+        email.addEventListener("click", () => {
+          openEmailClient();
+          console.log("clicked");
+        });
+        function openEmailClient() {
+          window.location.href = "mailto:penelopepbrody@gmail.com?subject=Contact%20Inquiry";
+        }
+    </script>

@@ -1,0 +1,441 @@
+  <style>
+.reflection-list {
+  width: 100%;
+  display: flex;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  padding-bottom: 10px;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  margin-left: 2%;
+  margin-right:2%;
+}
+.reflection-item {
+  height: 20vh;
+  width: 20vh;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  padding: 10px;
+  margin-right: 5%;
+  flex-shrink: 0; /* Prevent items from shrinking */
+  box-sizing: border-box;
+  scroll-snap-align: start;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+  .reflection-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .reflection-item h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ccc;
+  }
+
+  .reflection-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.3;
+    overflow: hidden;
+    
+  }
+
+
+
+  .rgb-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  .reflection-item p {
+    margin: 0;
+  }
+
+  .reflection-item strong {
+    font-weight: bold;
+  }
+
+
+
+.draw p {
+  margin: 0;
+}
+
+     .drawing-container {
+    width: 100%;
+    height: 25vh; /* Adjust the height as needed */
+    overflow-x: scroll; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Ensures drawings stay in a single line */
+    padding: 20px;
+    display: flex; /* Use flexbox for horizontal alignment */
+  }
+
+  .drawing-item {
+    flex: 0 0 auto; /* Prevent items from shrinking */
+    width: 25vh;
+    margin: 5px;
+    background-color: mediumaquamarine;
+    text-align: center;
+    position: relative;
+    border-radius: 5px;
+    display: flex; /* Display drawings side by side */
+    justify-content: center;
+    align-items: center;
+    margin-left: 2%;
+    margin-right: 2%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .drawing-item img {
+    max-width: 20vh;
+    max-height: 15vh;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    padding: 10px; /* Adjust padding as desired */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+  }
+
+  .drawing-item .delete-button {
+    position: absolute;
+    top: 3%;
+    right: 8%;
+  }
+
+    .reflection-content .delete-button {
+    position: absolute;
+    top: 0.25%;
+    right: 8%;
+  }
+
+.drawing-item .edit-button {
+  position: absolute;
+  top: 3%;
+  right: 20%;
+  z-index: 1;
+}
+
+
+  .hidden {
+    display: none;
+  }
+
+
+
+/* Optionally, you can add hover and focus styles */
+.delete-button:hover,
+.delete-button:focus {
+  background-color: #ff3333;
+}
+
+.reflection-container {
+  position: relative;
+
+      width: 100%;
+    height: 25vh; /* Adjust the height as needed */
+    overflow-x: scroll; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Ensures drawings stay in a single line */
+    padding: 20px;
+    display: flex; /* Use flexbox for horizontal alignment */
+}
+
+
+
+
+#container-2{
+  margin-top: 2%;
+  padding: 1%;
+  background-color: #F0B49D;
+  width: 72vw;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#container-3{
+  margin-top: 2%;
+  padding: 1%;
+  min-height: 35vh;
+  background-color: #F0B49D;
+  width: 72vw;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+  .reflection-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding-right: 20px; /* Add space for scrollbar */
+  }
+
+
+  .text-wrapper {
+    text-align: center;
+    position: relative;
+  }
+
+  .text-wrapper h2 {
+    display: inline-block;
+    position: relative;
+    padding-bottom: 1%;
+    color: whitesmoke;
+    z-index: 1;
+  }
+
+  .text-wrapper h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110%;
+    height: 2px;
+    background-color: #000;
+  }
+
+
+#container-1 h1 {
+  margin: 0;
+  color: whitesmoke;
+  text-align: center;
+  line-height: 100%;
+  z-index: 1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+.myTitle {
+  font-size: 80px;
+  color: whitesmoke;
+}
+
+
+#light_image {
+  display: none;
+  position: fixed;
+  width: 60%;
+  height: auto;
+  top: 12%;
+  left: 50%; /* Updated value */
+  transform: translateX(-50%); /* Center horizontally */
+
+  background-color: #ffffff;
+  z-index: 1002;
+
+}
+
+
+#dark_overlay{
+  display: none;
+  position: absolute;
+  width: 100%;
+  min-width: 100%;
+  height: 100%;
+  min-height: 100%;
+  background-color: #000000;
+  opacity: 0.75;
+  z-index: 1001;
+}
+.delete-button {
+  background-color: #ff0000;
+  color: #ffffff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
+  margin-right: 5px; /* Add margin-right to create spacing between the buttons */
+}
+
+.edit-button {
+  display: inline-block;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  float: right;
+  background-color: #09a2e3;
+  cursor: pointer;
+  width: 30px;
+  height: 25px;
+  background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 5px; /* Add margin-right to create spacing between the buttons */
+}
+
+
+/* Add this rule to center the page content */
+.page-container {
+   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding-right:5%;
+  margin-top:1%;
+}
+
+
+
+/* Adjust the container-1 styles */
+#container-1 {
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 15vh;
+  min-height:15vh;
+  background-color: paleturquoise;
+  min-width:72vw;
+  max-width:85vw;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Adjust the container-2 styles */
+#container-2 {
+  /* ... existing styles ... */
+  margin-top: 2%;
+  padding: 1%;
+  background-color: #F0B49D;
+  min-height:37vh;
+  min-width: 80%
+  
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjust the container-3 styles */
+#container-3 {
+  /* ... existing styles ... */
+  margin-top: 2%;
+  padding: 1%;
+  min-height: 37vh;
+  background-color: #F0B49D;
+  min-width: 72vw;
+  max-width:85vw;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+</style>
+
+
+<img id = "light_image" src = "" alt = "">
+
+  <div id = "dark_overlay" onclick = "closeLightbox();">
+  </div>
+<div class="right" style="background-color: #E3F8FF;">
+  
+
+<div class = "page-container">
+  <div id = "container-1"><h1 class = "myTitle">Dashboard</h1></div>
+  <div id = "container-2">
+    <div class = "text-wrapper">
+      <h2> Your Reflections </h2>
+    </div>
+  <div class = "reflection-container">
+
+
+  <div class="reflection-list">
+    <% reflections.each_with_index do |reflection, index| %>
+      <div class="reflection-item <%= index > 5 ? 'hidden' : '' %>">
+
+<div class = "reflection-content">
+
+  <div id="delete">
+    <form action="/delete/<%= reflection.id %>" method="POST" class="delete-form">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="X" class="delete-button">
+    </form>
+  </div>
+
+
+
+
+          <div class="rgb-circle" style="background-color: <%= reflection.rgb %>"></div>
+          <div class = "reflection-text">
+          <p><strong>Date:</strong> <%= reflection.created_at %></p>
+          <p><strong>Summary:</strong> <%= reflection.summary %></p>
+        </div>
+      </div>
+    </div>
+      <% end %>
+    </div>
+
+
+
+
+</div>
+</div>
+
+
+
+  <div id="container-3">
+  <div class = "text-wrapper">
+      <h2> Your Drawings </h2>
+    </div>
+    <div class="draw">
+      <% if @drawings.empty? %>
+        <p>No drawings found.</p>
+      <% else %>
+        <div class="drawing-container">
+           <% @drawings.each do |drawing| %>
+            <div class="drawing-item">
+
+              <form action="/delete_drawing/<%= File.basename(drawing.path) %>" method="POST" class="delete-form">
+                <input type="hidden" name="_method" value="delete">
+                <input type="submit" value="X" class="delete-button">
+              </form>
+
+              <form action="/edit_drawing/<%= File.basename(drawing.path) %>" method="POST">
+                <button type="submit" class="edit-button"></button>
+            </form>
+
+              <img style = "background-color: <%= drawing.rgb %>;" id = "thisDrawing<%= session[:user_id] %>/<%= File.basename(drawing.path) %>" onclick = "showLightbox(this.id);" src="/user_drawings/<%= session[:user_id] %>/<%= File.basename(drawing.path) %>" alt="drawing">
+            
+
+              
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+
+
+</div>
+</div>
+
+<script>
+
+// light box
+function showLightbox(id){
+  var small_img = document.getElementById(id);
+  var big_img = document.getElementById("light_image");
+  big_img.src = small_img.src;
+  big_img.alt = small_img.alt;
+  big_img.style.backgroundColor = small_img.style.backgroundColor;
+  big_img.style.display = "block";
+  document.getElementById("dark_overlay").style.display = "block";
+  console.log("work");
+
+}
+function closeLightbox(){
+  var img = document.getElementById("light_image");
+  img.src = "";
+  img.alt = "";
+  img.style.display = "none";
+  document.getElementById("dark_overlay").style.display = "none";
+}
+   
+
+</script>

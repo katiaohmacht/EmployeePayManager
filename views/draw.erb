@@ -1,0 +1,1573 @@
+
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+}
+
+
+  .download:hover,
+  .save:hover {
+    background-color: #458551;
+  }
+
+
+
+  .my_buttons {
+    width: 95%;
+    display: flex;
+    gap: 10px;
+    margin-top: 0.5%;
+    margin-bottom: 1%;
+  }
+
+  .download,
+  .save {
+    background-color: #A0CEA9;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    flex: 1;
+  }
+
+      #canvas{
+        position: relative;
+        width: 95%;
+        height: 70%;
+        background-color: whitesmoke;
+        border-radius: 2%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        padding: 2%;
+        border: 2px solid #D8F3EC;
+        overflow: hidden; /* Prevent drawing outside of the page */
+        margin-bottom: 1%;
+}
+
+      .drawing-area {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        cursor: none;
+      }
+
+
+
+
+    .dot {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+      
+    .brush-size-container {
+      display: flex;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .brush-size-label {
+        margin-right: 10px;
+    }
+
+    .brush-size-slider {
+      flex-grow: 1;
+    }  
+
+    #eraser:hover svg path{
+        fill: limegreen;
+        
+    }
+
+    #bucket:hover svg path{
+      fill: limegreen;
+    }
+    #clear{
+      margin-bottom: 20px;
+    }
+
+    #clear:hover svg path{
+      fill: limegreen;
+    }
+    #pen:hover svg path{
+      fill: limegreen;
+    }
+
+    #brush:hover svg path{
+      fill: limegreen;
+    }
+    #clear {
+      order: 3;
+    }
+
+    #toolbox {
+      order: 1;
+    }
+
+    #brush {
+      order: 2;
+    }
+    .right-div {
+  grid-column: 2 / 4;
+  display: flex;
+  justify-content: space-between;
+}
+
+.right-div button {
+  flex: 1;
+}
+    #toolbox:hover svg path{
+      fill: limegreen;
+    }
+    #flowerButton{
+      float: left;
+      padding: 20px;
+
+    }
+    #flowerButton:hover svg path{
+      fill: limegreen;
+    }
+    #airplaneButton{
+      float: left;
+      padding: 20px;
+    }
+    #airplaneButton:hover svg path{
+      fill: limegreen;
+    }
+        #lightbulbButton{
+      float: left;
+      padding: 20px;
+    }
+    #lightbulbButton:hover svg path{
+      fill: limegreen;
+    }
+    #weatherButton{
+      float: left;
+      padding: 20px;
+    }
+    #weatherButton:hover svg path{
+      fill: limegreen;
+    }
+    #drinkButton{
+      float: left;
+      padding: 20px;
+    }
+    #drinkButton:hover svg path{
+      fill: limegreen;
+    }
+    #bus{
+      float: left;
+      padding: 20px;
+    }
+    #bus:hover svg path{
+      fill: limegreen;
+    }
+        #butterfly{
+      float: left;
+      padding: 20px;
+    }
+    #butterfly:hover svg path{
+      fill: limegreen;
+    }
+
+            #camera{
+      float: left;
+      padding: 20px;
+    }
+    #camera:hover svg path{
+      fill: limegreen;
+    }
+
+    #car{
+      float: left;
+      padding: 20px;
+    }
+    #car:hover svg path{
+      fill: limegreen;
+    }
+        #sun{
+      float: left;
+      padding: 20px;
+    }
+    #sun:hover svg path{
+      fill: limegreen;
+    }
+
+     #design{
+      float: left;
+      padding: 20px;
+    }
+    #design:hover svg path{
+      fill: limegreen;
+    }
+         #earth{
+      float: left;
+      padding: 20px;
+    }
+    #earth:hover svg path{
+      fill: limegreen;
+    }
+
+    #phone{
+      float: left;
+      padding: 20px;
+    }
+    #phone:hover svg path{
+      fill: limegreen;
+    }
+    #bells{
+      float: left;
+      padding: 20px;
+    }
+    #bells:hover svg path{
+      fill: limegreen;
+    }
+
+    #pig{
+      float: left;
+      padding: 20px;
+    }
+    #pig:hover svg path{
+      fill: limegreen;
+    }
+
+    #ship{
+      float: left;
+      padding: 20px;
+    }
+    #ship:hover svg path{
+      fill: limegreen;
+    }
+
+    .box {
+    width: 95%;
+    height: 25%;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 2%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    column-count:2;
+    column-gap: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    border: 2px solid #D8F3EC;
+    overflow:hidden;
+  }
+
+  .box h2 {
+    font-size: 20px;
+    margin-top: 0;
+  }
+
+  .box p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .my-container{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-gap: 10px;
+      margin-top: 20px;
+      overflow:hidden;
+      }
+
+  .box .button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-top: 10px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .box .button:hover {
+    background-color: #555;
+  }
+
+.box .box-content {
+  text-align: center;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Adjust the number of columns as desired */
+  grid-gap: 20px; /* Adjust the gap between items as desired */
+  grid-auto-flow: column;
+}
+
+.box .box-content h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.box .box-content p {
+  margin-bottom: 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.box .box-content .item:nth-child(3n+1) {
+  grid-column: 3; /* Place items starting from the third column */
+}
+
+.box .box-content .clear-button {
+  grid-column: 3; /* Place the clear button in the third column */
+}
+
+#dark_overlay{
+        display: none;
+        position: absolute;
+        width: 100%;
+        min-width: 1000px;
+        height: 100%;
+        min-height: 1000px;
+        background-color: #000000;
+        opacity: 0.75;
+        z-index: 1001;
+    }
+
+   #light_image {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  width: 400px;
+  height: 400px;
+  background-color: #ffffff;
+  z-index: 1002;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  text-align: center;
+}
+
+#light_image button {
+  background-color: #F2CDDC;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.float_right{
+  float: right;
+}
+.color-picker-container .picker-container .canvas-container {
+  margin: 20px;
+  position: relative;
+  float: left;
+  display: inline-block;
+}
+
+.color-picker-container .picker-container .canvas-container.active {
+  display: block;
+}
+
+.color-picker-container .picker-container .canvas-container canvas {
+  cursor: crosshair;
+
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 0 4px #E8E8E8;
+
+}
+
+.color-picker-container .picker-container .canvas-container .pointer {
+  width: 15px;
+  height: 15px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  position: absolute;
+  pointer-events: none;
+  background: hidden;
+}
+
+.box .color-box {
+  position: relative;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  overflow:hidden;
+}
+
+
+
+
+
+
+</style>
+<div id = "dark_overlay" onclick = "closeLightbox();">
+</div>
+
+<div id = "right" class = "right" style = "background-color: #E3F8FF;">
+<form action = "/color_process" method = "post" id = "colorForm">
+  <input type = "hidden" name = "rgb" id = "rgb">
+</form>
+<div id = "light_image">
+  <div id = "flowerButton" onclick = "showFlower(event)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill=#D8BFD8 class="bi bi-flower3" viewBox="0 0 16 16">
+  <path d="M11.424 8c.437-.052.811-.136 1.04-.268a2 2 0 0 0-2-3.464c-.229.132-.489.414-.752.767C9.886 4.63 10 4.264 10 4a2 2 0 1 0-4 0c0 .264.114.63.288 1.035-.263-.353-.523-.635-.752-.767a2 2 0 0 0-2 3.464c.229.132.603.216 1.04.268-.437.052-.811.136-1.04.268a2 2 0 1 0 2 3.464c.229-.132.489-.414.752-.767C6.114 11.37 6 11.736 6 12a2 2 0 1 0 4 0c0-.264-.114-.63-.288-1.035.263.353.523.635.752.767a2 2 0 1 0 2-3.464c-.229-.132-.603-.216-1.04-.268zM9 4a1.468 1.468 0 0 1-.045.205c-.039.132-.1.295-.183.484a12.88 12.88 0 0 1-.637 1.223L8 6.142a21.73 21.73 0 0 1-.135-.23 12.88 12.88 0 0 1-.637-1.223 4.216 4.216 0 0 1-.183-.484A1.473 1.473 0 0 1 7 4a1 1 0 1 1 2 0zM3.67 5.5a1 1 0 0 1 1.366-.366 1.472 1.472 0 0 1 .156.142c.094.1.204.233.326.4.245.333.502.747.742 1.163l.13.232a21.86 21.86 0 0 1-.265.002 12.88 12.88 0 0 1-1.379-.06 4.214 4.214 0 0 1-.51-.083 1.47 1.47 0 0 1-.2-.064A1 1 0 0 1 3.67 5.5zm1.366 5.366a1 1 0 0 1-1-1.732c.001 0 .016-.008.047-.02.037-.013.087-.028.153-.044.134-.032.305-.06.51-.083a12.88 12.88 0 0 1 1.379-.06c.09 0 .178 0 .266.002a21.82 21.82 0 0 1-.131.232c-.24.416-.497.83-.742 1.163a4.1 4.1 0 0 1-.327.4 1.483 1.483 0 0 1-.155.142zM9 12a1 1 0 0 1-2 0 1.476 1.476 0 0 1 .045-.206c.039-.131.1-.294.183-.483.166-.378.396-.808.637-1.223L8 9.858l.135.23c.241.415.47.845.637 1.223.083.19.144.352.183.484A1.338 1.338 0 0 1 9 12zm3.33-6.5a1 1 0 0 1-.366 1.366 1.478 1.478 0 0 1-.2.064c-.134.032-.305.06-.51.083-.412.045-.898.061-1.379.06-.09 0-.178 0-.266-.002l.131-.232c.24-.416.497-.83.742-1.163a4.1 4.1 0 0 1 .327-.4c.046-.05.085-.086.114-.11.026-.022.04-.03.041-.032a1 1 0 0 1 1.366.366zm-1.366 5.366a1.494 1.494 0 0 1-.155-.141 4.225 4.225 0 0 1-.327-.4A12.88 12.88 0 0 1 9.74 9.16a22 22 0 0 1-.13-.232l.265-.002c.48-.001.967.015 1.379.06.205.023.376.051.51.083.066.016.116.031.153.044l.048.02a1 1 0 1 1-1 1.732zM8 9a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+</svg>
+  </div>
+  <div id = "airplaneButton" onclick = "showAirplane(event)">
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="black" class="bi bi-airplane" viewBox="0 0 16 16">
+  <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849Zm.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1c-.213 0-.458.158-.678.599Z"/>
+</svg>
+  </div>
+  <div id = "lightbulbButton" onclick = "showLightbulb(event)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill=#F1EB9C class="bi bi-lightbulb-fill" viewBox="0 0 16 16">
+  <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13h-5a.5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6zm3 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1-.5-.5z"/>
+</svg>
+  </div>
+
+  <div id = "weatherButton" onclick = "showWeather(event)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="teal" class="bi bi-cloud-lightning" viewBox="0 0 16 16">
+  <path d="M13.405 4.027a5.001 5.001 0 0 0-9.499-1.004A3.5 3.5 0 1 0 3.5 10H13a3 3 0 0 0 .405-5.973zM8.5 1a4 4 0 0 1 3.976 3.555.5.5 0 0 0 .5.445H13a2 2 0 0 1 0 4H3.5a2.5 2.5 0 1 1 .605-4.926.5.5 0 0 0 .596-.329A4.002 4.002 0 0 1 8.5 1zM7.053 11.276A.5.5 0 0 1 7.5 11h1a.5.5 0 0 1 .474.658l-.28.842H9.5a.5.5 0 0 1 .39.812l-2 2.5a.5.5 0 0 1-.875-.433L7.36 14H6.5a.5.5 0 0 1-.447-.724l1-2z"/>
+</svg>
+  </div>
+
+  <div id = "drinkButton" onclick = "showDrink(event)">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="olive" class="bi bi-cup-hot" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M.5 6a.5.5 0 0 0-.488.608l1.652 7.434A2.5 2.5 0 0 0 4.104 16h5.792a2.5 2.5 0 0 0 2.44-1.958l.131-.59a3 3 0 0 0 1.3-5.854l.221-.99A.5.5 0 0 0 13.5 6H.5ZM13 12.5a2.01 2.01 0 0 1-.316-.025l.867-3.898A2.001 2.001 0 0 1 13 12.5ZM2.64 13.825 1.123 7h11.754l-1.517 6.825A1.5 1.5 0 0 1 9.896 15H4.104a1.5 1.5 0 0 1-1.464-1.175Z"/>
+  <path d="m4.4.8-.003.004-.014.019a4.167 4.167 0 0 0-.204.31 2.327 2.327 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.31 3.31 0 0 1-.202.388 5.444 5.444 0 0 1-.253.382l-.018.025-.005.008-.002.002A.5.5 0 0 1 3.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 3.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 3 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 4.4.8Zm3 0-.003.004-.014.019a4.167 4.167 0 0 0-.204.31 2.327 2.327 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.31 3.31 0 0 1-.202.388 5.444 5.444 0 0 1-.253.382l-.018.025-.005.008-.002.002A.5.5 0 0 1 6.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 6.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 6 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 7.4.8Zm3 0-.003.004-.014.019a4.077 4.077 0 0 0-.204.31 2.337 2.337 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.593.593 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3.198 3.198 0 0 1-.202.388 5.385 5.385 0 0 1-.252.382l-.019.025-.005.008-.002.002A.5.5 0 0 1 9.6 4.2l.003-.004.014-.019a4.149 4.149 0 0 0 .204-.31 2.06 2.06 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.593.593 0 0 0-.09-.252A4.334 4.334 0 0 0 9.6 2.8l-.01-.012a5.099 5.099 0 0 1-.37-.543A1.53 1.53 0 0 1 9 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a5.446 5.446 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 10.4.8Z"/>
+</svg>
+  </div>
+
+  <div id = "bus" onclick = "showBus(event)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="brown" class="bi bi-bus-front-fill" viewBox="0 0 16 16">
+  <path d="M16 7a1 1 0 0 1-1 1v3.5c0 .818-.393 1.544-1 2v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5V14H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2a2.496 2.496 0 0 1-1-2V8a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1V2.64C1 1.452 1.845.408 3.064.268A43.608 43.608 0 0 1 8 0c2.1 0 3.792.136 4.936.268C14.155.408 15 1.452 15 2.64V4a1 1 0 0 1 1 1v2ZM3.552 3.22A43.306 43.306 0 0 1 8 3c1.837 0 3.353.107 4.448.22a.5.5 0 0 0 .104-.994A44.304 44.304 0 0 0 8 2c-1.876 0-3.426.109-4.552.226a.5.5 0 1 0 .104.994ZM8 4c-1.876 0-3.426.109-4.552.226A.5.5 0 0 0 3 4.723v3.554a.5.5 0 0 0 .448.497C4.574 8.891 6.124 9 8 9c1.876 0 3.426-.109 4.552-.226A.5.5 0 0 0 13 8.277V4.723a.5.5 0 0 0-.448-.497A44.304 44.304 0 0 0 8 4Zm-3 7a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm8 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-7 0a1 1 0 0 0 1 1h2a1 1 0 1 0 0-2H7a1 1 0 0 0-1 1Z"/>
+</svg>
+  </div>
+
+  <div id = "butterfly" onclick = "showButterfly(event)">
+   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="lavender" class="bi bi-bug-fill" viewBox="0 0 16 16">
+  <path d="M4.978.855a.5.5 0 1 0-.956.29l.41 1.352A4.985 4.985 0 0 0 3 6h10a4.985 4.985 0 0 0-1.432-3.503l.41-1.352a.5.5 0 1 0-.956-.29l-.291.956A4.978 4.978 0 0 0 8 1a4.979 4.979 0 0 0-2.731.811l-.29-.956z"/>
+  <path d="M13 6v1H8.5v8.975A5 5 0 0 0 13 11h.5a.5.5 0 0 1 .5.5v.5a.5.5 0 1 0 1 0v-.5a1.5 1.5 0 0 0-1.5-1.5H13V9h1.5a.5.5 0 0 0 0-1H13V7h.5A1.5 1.5 0 0 0 15 5.5V5a.5.5 0 0 0-1 0v.5a.5.5 0 0 1-.5.5H13zm-5.5 9.975V7H3V6h-.5a.5.5 0 0 1-.5-.5V5a.5.5 0 0 0-1 0v.5A1.5 1.5 0 0 0 2.5 7H3v1H1.5a.5.5 0 0 0 0 1H3v1h-.5A1.5 1.5 0 0 0 1 11.5v.5a.5.5 0 1 0 1 0v-.5a.5.5 0 0 1 .5-.5H3a5 5 0 0 0 4.5 4.975z"/>
+</svg>
+  </div>
+
+  <div id = "camera" onclick = "showCamera(event)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="orange" class="bi bi-camera-fill" viewBox="0 0 16 16">
+  <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+  <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+</svg>
+  </div>
+
+  <div id = "car" onclick = "showCar(event)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="red" class="bi bi-car-front-fill" viewBox="0 0 16 16">
+  <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679c.033.161.049.325.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.807.807 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6ZM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17 1.247 0 3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"/>
+</svg>
+  </div>
+
+  <div id = "sun" onclick = "showSun(event)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="yellow" class="bi bi-brightness-high-fill" viewBox="0 0 16 16">
+  <path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+</svg>
+  </div>
+
+  <div id = "design" onclick = "showDesign(event)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="purple" class="bi bi-tsunami" viewBox="0 0 16 16">
+  <path d="M.036 12.314a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.757-.703a.5.5 0 0 1-.278-.65zm0 2a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.757-.703a.5.5 0 0 1-.278-.65zM2.662 8.08c-.456 1.063-.994 2.098-1.842 2.804a.5.5 0 0 1-.64-.768c.652-.544 1.114-1.384 1.564-2.43.14-.328.281-.68.427-1.044.302-.754.624-1.559 1.01-2.308C3.763 3.2 4.528 2.105 5.7 1.299 6.877.49 8.418 0 10.5 0c1.463 0 2.511.4 3.179 1.058.67.66.893 1.518.819 2.302-.074.771-.441 1.516-1.02 1.965a1.878 1.878 0 0 1-1.904.27c-.65.642-.907 1.679-.71 2.614C11.076 9.215 11.784 10 13 10h2.5a.5.5 0 0 1 0 1H13c-1.784 0-2.826-1.215-3.114-2.585-.232-1.1.005-2.373.758-3.284L10.5 5.06l-.777.388a.5.5 0 0 1-.447 0l-1-.5a.5.5 0 0 1 .447-.894l.777.388.776-.388a.5.5 0 0 1 .447 0l1 .5a.493.493 0 0 1 .034.018c.44.264.81.195 1.108-.036.328-.255.586-.729.637-1.27.05-.529-.1-1.076-.525-1.495-.426-.42-1.19-.77-2.477-.77-1.918 0-3.252.448-4.232 1.123C5.283 2.8 4.61 3.738 4.07 4.79c-.365.71-.655 1.433-.945 2.16-.15.376-.301.753-.463 1.13z"/>
+</svg>
+  </div>
+
+  <div id = "earth" onclick = "showEarth(event)">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="green" class="bi bi-globe-americas" viewBox="0 0 16 16">
+  <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z"/>
+</svg>
+  </div>
+
+  <div id = "phone" onclick = "showPhone(event)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="grey" class="bi bi-telephone" viewBox="0 0 16 16">
+  <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+</svg>
+  </div>
+
+  <div id = "bells" onclick = "showBells(event)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="blue" class="bi bi-bell" viewBox="0 0 16 16">
+  <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+</svg>
+  </div>
+
+  <div id = "pig" onclick = "showPig(event)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="pink" class="bi bi-piggy-bank" viewBox="0 0 16 16">
+  <path d="M5 6.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.138-1.496A6.613 6.613 0 0 1 7.964 4.5c.666 0 1.303.097 1.893.273a.5.5 0 0 0 .286-.958A7.602 7.602 0 0 0 7.964 3.5c-.734 0-1.441.103-2.102.292a.5.5 0 1 0 .276.962z"/>
+  <path fill-rule="evenodd" d="M7.964 1.527c-2.977 0-5.571 1.704-6.32 4.125h-.55A1 1 0 0 0 .11 6.824l.254 1.46a1.5 1.5 0 0 0 1.478 1.243h.263c.3.513.688.978 1.145 1.382l-.729 2.477a.5.5 0 0 0 .48.641h2a.5.5 0 0 0 .471-.332l.482-1.351c.635.173 1.31.267 2.011.267.707 0 1.388-.095 2.028-.272l.543 1.372a.5.5 0 0 0 .465.316h2a.5.5 0 0 0 .478-.645l-.761-2.506C13.81 9.895 14.5 8.559 14.5 7.069c0-.145-.007-.29-.02-.431.261-.11.508-.266.705-.444.315.306.815.306.815-.417 0 .223-.5.223-.461-.026a.95.95 0 0 0 .09-.255.7.7 0 0 0-.202-.645.58.58 0 0 0-.707-.098.735.735 0 0 0-.375.562c-.024.243.082.48.32.654a2.112 2.112 0 0 1-.259.153c-.534-2.664-3.284-4.595-6.442-4.595zM2.516 6.26c.455-2.066 2.667-3.733 5.448-3.733 3.146 0 5.536 2.114 5.536 4.542 0 1.254-.624 2.41-1.67 3.248a.5.5 0 0 0-.165.535l.66 2.175h-.985l-.59-1.487a.5.5 0 0 0-.629-.288c-.661.23-1.39.359-2.157.359a6.558 6.558 0 0 1-2.157-.359.5.5 0 0 0-.635.304l-.525 1.471h-.979l.633-2.15a.5.5 0 0 0-.17-.534 4.649 4.649 0 0 1-1.284-1.541.5.5 0 0 0-.446-.275h-.56a.5.5 0 0 1-.492-.414l-.254-1.46h.933a.5.5 0 0 0 .488-.393zm12.621-.857a.565.565 0 0 1-.098.21.704.704 0 0 1-.044-.025c-.146-.09-.157-.175-.152-.223a.236.236 0 0 1 .117-.173c.049-.027.08-.021.113.012a.202.202 0 0 1 .064.199z"/>
+</svg>
+  </div>
+
+  <div id = "ship" onclick = "showShip(event)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-rocket-takeoff" viewBox="0 0 16 16">
+  <path d="M9.752 6.193c.599.6 1.73.437 2.528-.362.798-.799.96-1.932.362-2.531-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532Z"/>
+  <path d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9.42 9.42 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a9.556 9.556 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.57.093.067.017.12.033.16.045.184.06.279.13.351.295l.029.073a3.475 3.475 0 0 1 .157.721c.055.485.051 1.178-.159 2.065Zm-4.828 7.475.04-.04-.107 1.081a1.536 1.536 0 0 1-.44.913l-1.298 1.3.054-.38c.072-.506-.034-.993-.172-1.418a8.548 8.548 0 0 0-.164-.45c.738-.065 1.462-.38 2.087-1.006ZM5.205 5c-.625.626-.94 1.351-1.004 2.09a8.497 8.497 0 0 0-.45-.164c-.424-.138-.91-.244-1.416-.172l-.38.054 1.3-1.3c.245-.246.566-.401.91-.44l1.08-.107-.04.039Zm9.406-3.961c-.38-.034-.967-.027-1.746.163-1.558.38-3.917 1.496-6.937 4.521-.62.62-.799 1.34-.687 2.051.107.676.483 1.362 1.048 1.928.564.565 1.25.941 1.924 1.049.71.112 1.429-.067 2.048-.688 3.079-3.083 4.192-5.444 4.556-6.987.183-.771.18-1.345.138-1.713a2.835 2.835 0 0 0-.045-.283 3.078 3.078 0 0 0-.3-.041Z"/>
+  <path d="M7.009 12.139a7.632 7.632 0 0 1-1.804-1.352A7.568 7.568 0 0 1 3.794 8.86c-1.102.992-1.965 5.054-1.839 5.18.125.126 3.936-.896 5.054-1.902Z"/>
+</svg>
+  </div>
+
+</div>
+
+
+<canvas id="canvas"></canvas>
+
+<% if @edit_button_clicked %>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var canvas2 = document.getElementById('canvas');
+      var context2 = canvas2.getContext('2d');
+
+      // Create a new image element
+      var image2 = new Image();
+
+      // Set the source of the image to the desired image URL
+      image2.src = "/user_drawings/<%= session[:user_id] %>/<%= File.basename(@drawing_name) %>";
+
+      // Wait for the image to load
+      image2.onload = function() {
+        // Draw the image onto the canvas with the correct dimensions
+        context2.clearRect(0, 0, canvas2.width, canvas2.height);
+        context2.drawImage(image2, 0, 0, canvas2.width, canvas2.height);
+        
+        // Set the background color of canvas2
+        var rgbValue = '<%= @rgb %>';
+        canvas2.style.backgroundColor = rgbValue;
+       
+      };
+    });
+  </script>
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class = "box"> 
+          <div id="color-box">
+        <div class="container">
+          <div class="col">
+            <div class="row">
+              <div id="picker"></div>
+            </div>
+            <div class="row">
+              <div id="preview"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class = "box-contents">
+        <div class="brush-size-container">
+          <label for="brush-size-slider" class="brush-size-label"></label>
+          <input type="range" id="brush-size-slider" min="1" max="50" value="10" class="brush-size-slider">
+        </div>
+        <div class = "my-container">
+        <div id = "eraser">
+          <svg id = "eraserSVG" xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="salmon" class="bi bi-eraser-fill" viewBox="0 0 16 16">
+            <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"/>
+          </svg>
+        </div>
+
+        <div id="color-picker-popup" style="display: none;">
+          <input type="color" id="color-picker" />
+        </div>
+
+        <div id = "bucket">
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill=#7F798F class="bi bi-paint-bucket" viewBox="0 0 16 16">
+            <path d="M6.192 2.78c-.458-.677-.927-1.248-1.35-1.643a2.972 2.972 0 0 0-.71-.515c-.217-.104-.56-.205-.882-.02-.367.213-.427.63-.43.896-.003.304.064.664.173 1.044.196.687.556 1.528 1.035 2.402L.752 8.22c-.277.277-.269.656-.218.918.055.283.187.593.36.903.348.627.92 1.361 1.626 2.068.707.707 1.441 1.278 2.068 1.626.31.173.62.305.903.36.262.05.64.059.918-.218l5.615-5.615c.118.257.092.512.05.939-.03.292-.068.665-.073 1.176v.123h.003a1 1 0 0 0 1.993 0H14v-.057a1.01 1.01 0 0 0-.004-.117c-.055-1.25-.7-2.738-1.86-3.494a4.322 4.322 0 0 0-.211-.434c-.349-.626-.92-1.36-1.627-2.067-.707-.707-1.441-1.279-2.068-1.627-.31-.172-.62-.304-.903-.36-.262-.05-.64-.058-.918.219l-.217.216zM4.16 1.867c.381.356.844.922 1.311 1.632l-.704.705c-.382-.727-.66-1.402-.813-1.938a3.283 3.283 0 0 1-.131-.673c.091.061.204.15.337.274zm.394 3.965c.54.852 1.107 1.567 1.607 2.033a.5.5 0 1 0 .682-.732c-.453-.422-1.017-1.136-1.564-2.027l1.088-1.088c.054.12.115.243.183.365.349.627.92 1.361 1.627 2.068.706.707 1.44 1.278 2.068 1.626.122.068.244.13.365.183l-4.861 4.862a.571.571 0 0 1-.068-.01c-.137-.027-.342-.104-.608-.252-.524-.292-1.186-.8-1.846-1.46-.66-.66-1.168-1.32-1.46-1.846-.147-.265-.225-.47-.251-.607a.573.573 0 0 1-.01-.068l3.048-3.047zm2.87-1.935a2.44 2.44 0 0 1-.241-.561c.135.033.324.11.562.241.524.292 1.186.8 1.846 1.46.45.45.83.901 1.118 1.31a3.497 3.497 0 0 0-1.066.091 11.27 11.27 0 0 1-.76-.694c-.66-.66-1.167-1.322-1.458-1.847z"/>
+          </svg>
+        </div>
+
+        <div id = "pen" onclick = "setPen()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#FFDDFF" class="bi bi-pen-fill" viewBox="0 0 16 16">
+  <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+</svg>
+</svg>
+        </div>
+      </div>
+<div class = "my-container">
+        <div id = "brush" onclick = "setBrush()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill=#6F742D class="bi bi-brush-fill" viewBox="0 0 16 16">
+  <path d="M15.825.12a.5.5 0 0 1 .132.584c-1.53 3.43-4.743 8.17-7.095 10.64a6.067 6.067 0 0 1-2.373 1.534c-.018.227-.06.538-.16.868-.201.659-.667 1.479-1.708 1.74a8.118 8.118 0 0 1-3.078.132 3.659 3.659 0 0 1-.562-.135 1.382 1.382 0 0 1-.466-.247.714.714 0 0 1-.204-.288.622.622 0 0 1 .004-.443c.095-.245.316-.38.461-.452.394-.197.625-.453.867-.826.095-.144.184-.297.287-.472l.117-.198c.151-.255.326-.54.546-.848.528-.739 1.201-.925 1.746-.896.126.007.243.025.348.048.062-.172.142-.38.238-.608.261-.619.658-1.419 1.187-2.069 2.176-2.67 6.18-6.206 9.117-8.104a.5.5 0 0 1 .596.04z"/>
+</svg>
+        </div>
+        <div class = "float_right">
+        <div id="clear" class = "clear" onclick="refresh()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill=#AFADFB class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+            <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+          </svg>
+        </div>
+</div>
+<div id = "toolbox" onclick = "showOptions()">
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill=#FFEFAC class="bi bi-tools" viewBox="0 0 16 16">
+  <path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0Zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708ZM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11Z"/>
+</svg>
+</div>
+</div>
+    </div>
+  </div>
+<div class = "right-div">
+    <div class = "my_buttons">
+    <button class="download">Download</button>
+    <button id = "saveButton" class = "save">Save</button>
+  </div>
+</div>
+    <div class = "dashboard" onclick="window.location.href='/'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-house" viewBox="0 0 16 16">
+      <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
+      </svg>
+    </div>
+
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <svg viewBox="0 0 24 24" fill="white" width="24px" height="24px">
+        <path d="M0 0h24v24H0z" fill="none"/>
+        <path d="M18 13H6v-2h12v2zm0 4H6v-2h12v2zm0-8H6V7h12v2z"/>
+      </svg>
+    </div>
+
+  </div>
+</div>   
+
+  </div>
+<script>
+
+   function closeLightbox(){
+        var img = document.getElementById("light_image");
+        img.src = "";
+        img.alt = "";
+        img.style.display = "none";
+        document.getElementById("dark_overlay").style.display = "none";
+    }
+
+const canvas = document.getElementById("canvas");
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+let selectedColor = "black";
+//const canvasBackgroundColor = "whitesmoke";
+canvas.style.backgroundColor = "whitesmoke";
+let lastX = 0;
+let lastY = 0;
+
+const ctx = canvas.getContext("2d");
+
+let draw = false;
+let pen = false;
+let brush = true;
+let eraserMode = false;
+
+
+  // Change background
+   document.getElementById("bucket").addEventListener("click", function() {
+    console.log("clicked");
+    document.getElementById("color-picker-popup").style.display = "block";
+  });
+
+  document.getElementById("color-picker").addEventListener("change", function() {
+    var canvas = document.getElementById("canvas");
+    canvas.style.backgroundColor = this.value;
+   // canvasBackgroundColor = this.value;
+    ctx.globalCompositeOperation = 'source-over';
+  });
+
+  // Eraser button
+let eraserButton = document.getElementById("eraser");
+eraserButton.addEventListener("click", () => {
+  setEraser();
+  draw = false;
+  eraserMode = true;
+});
+
+function setEraser() {
+  ctx.globalCompositeOperation = "destination-out";
+}
+
+
+let clearBtn = document.querySelector(".clear");
+clearBtn.addEventListener("click", () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+});
+
+// Saving drawing as image
+let downloadbtn = document.querySelector(".download");
+downloadbtn.addEventListener("click", () => {
+  let data = canvas.toDataURL("image/jpeg"); // Specify MIME type as "image/jpeg"
+  let a = document.createElement("a");
+  a.href = data;
+  a.download = "sketch.jpg"; // Change the file extension to .jpg
+  a.click();
+});
+
+
+
+canvas.addEventListener("mousedown", (e) => {
+  draw = true;
+  let {x, y} = getMousePos(canvas, e);
+  lastX = x;
+  lastY = y;
+  drawStroke(e);
+});
+
+canvas.addEventListener("mousemove", (e) => {
+  if (draw) {
+    drawStroke(e);
+  }
+});
+
+canvas.addEventListener("mouseup", () => {
+  draw = false;
+});
+
+canvas.addEventListener("mouseout", () => {
+  draw = false;
+});
+
+function getMousePos(canvas, evt) {
+    var rect = canvas.getBoundingClientRect(),
+      scaleX = canvas.width / rect.width,
+      scaleY = canvas.height / rect.height;
+  
+    return {
+      x: (evt.clientX - rect.left) * scaleX,
+      y: (evt.clientY - rect.top) * scaleY
+    }
+}
+
+
+
+  // Save drawings
+  document.addEventListener("DOMContentLoaded", function() {
+  const saveButton = document.getElementById("saveButton");
+  const canvas = document.getElementById("canvas");
+
+  saveButton.addEventListener("click", function() {
+    const image = new Image();
+    image.src = createMyImage();
+
+    // Extract the RGB value
+   // const backgroundColor = canvas.style.backgroundColor;
+    //const rgb = extractRGBValue(backgroundColor);
+
+    // Assign the RGB value to the hidden input field
+    //document.getElementById("rgb").value = rgb;
+
+document.getElementById("rgb").value = canvas.style.backgroundColor;
+console.log("Color: ", document.getElementById("rgb").value);
+    // Create a new FormData object
+    const formData = new FormData();
+    formData.append("drawing", image.src);
+
+    // Append the RGB value to the FormData object
+    formData.append("rgb", document.getElementById("rgb").value);
+
+
+    // Send the FormData object via fetch
+    fetch("/save", {
+      method: "POST",
+      body: formData
+    })
+      .then(function(response) {
+        if (response.ok) {
+          // Drawing saved successfully, redirect to the dashboard
+          window.location.href = "/dashboard";
+        } else {
+          // Handle error saving the drawing
+          console.error("Error saving drawing");
+        }
+      })
+      .catch(function(error) {
+        // Handle fetch error
+        console.error("Fetch error:", error);
+      });
+  });
+
+  // Function to extract RGB value from background color
+  function extractRGBValue(backgroundColor) {
+    // Extract the numeric values from the background color string
+    const rgbValues = backgroundColor.match(/\d+/g);
+
+    // Build the RGB value string in the format "rgb(x, y, z)"
+    const rgbString = rgbValues.length === 3 ? `rgb(${rgbValues.join(", ")})` : "";
+
+    return rgbString;
+  }
+});
+
+
+var ColorPicker;
+
+ (function() {
+
+   function extend(defaults, options) {
+     var extended = {};
+     var prop;
+     for (prop in defaults) {
+       if (Object.prototype.hasOwnProperty.call(defaults, prop)) {
+         extended[prop] = defaults[prop];
+       }
+     }
+     for (prop in options) {
+       if (Object.prototype.hasOwnProperty.call(options, prop)) {
+         extended[prop] = options[prop];
+       }
+     }
+     return extended;
+   };
+
+
+   ColorPicker = function(element, options) {
+
+     this.options = extend({
+       color: '#e7e7e7',
+       palettes: ['#646fff', '#fffa1d', '#ffa21f', '#ff391d'],
+       onUpdate: function() {}
+     }, options);
+
+     this.options.palettes.unshift(this.options.color);
+
+     this.hex = this.options.color;
+     this.rgb = this.HEXtoRGB(this.hex);
+     this.hsv = this.RGBtoHSV(this.rgb[0], this.rgb[1], this.rgb[2]);
+     this.dom = {};
+     this.dom.container = document.createElement('div');
+     this.dom.container.className = 'color-picker-container';
+
+     element.appendChild(this.dom.container);
+
+     this.initPicker();
+
+     this.initPalettes();
+   }
+
+   ColorPicker.prototype.initPicker = function() {
+
+     this.dom.picker = {};
+     this.dom.picker.container = document.createElement('div');
+     this.dom.picker.container.className = 'picker-container';
+
+     this.dom.container.appendChild(this.dom.picker.container);
+
+     this.dom.picker.canvas = {};
+
+     this.dom.picker.canvas.container = document.createElement('div');
+     this.dom.picker.canvas.container.className = 'canvas-container';
+     this.dom.picker.container.appendChild(this.dom.picker.canvas.container);
+
+     this.dom.picker.canvas.canvas = document.createElement('canvas');
+     this.dom.picker.canvas.canvas.className = 'canvas rectangle';
+     this.dom.picker.canvas.canvas.width = 700; // Add this line
+     this.dom.picker.canvas.canvas.height = 200; // Add this line
+
+
+
+     this.dom.picker.canvas.pointer = document.createElement('div');
+     this.dom.picker.canvas.pointer.className = 'pointer';
+
+     var ctx = this.dom.picker.canvas.canvas.getContext('2d'),
+       image = new Image,
+       $this = this,
+       dragging = false;
+
+
+     this.dom.picker.canvas.container.appendChild(this.dom.picker.canvas.canvas);
+     this.dom.picker.canvas.container.appendChild(this.dom.picker.canvas.pointer);
+
+      image.src = '/images/gradient.jpg';
+     
+
+     image.onload = function() {
+       $this.updateCanvasBounds();
+       ctx.drawImage(image, 0, 0, $this.dom.picker.canvas.canvas.width, $this.dom.picker.canvas.canvas.height);
+       $this.updateCoordinates($this.dom.picker.canvas.canvas.bounds.centerX, $this.dom.picker.canvas.canvas.bounds.centerY);
+       coordinates = $this.getPositionFromColor($this.hex);
+       if (coordinates != null) {
+         $this.x = coordinates.x;
+         $this.y = coordinates.y;
+         $this.updateColor($this.HEXtoRGB($this.hex));
+         $this.updateAll();
+       }
+       $this.options.onUpdate($this.rgb);
+     };
+
+  this.dom.picker.canvas.canvas.addEventListener('mousedown', function(e) { 
+    e.preventDefault();
+    dragging = true;
+    $this.updateCoordinates(e.clientX, e.clientY);
+    imageData = ctx.getImageData($this.x, $this.y, 1, 1);
+    $this.updateColor(imageData.data);
+    $this.hsv[2] = 1;
+    $this.updateAll();
+    console.log('Selected color:', $this.rgb);
+    document.getElementById('rgb').value = $this.hex;
+
+
+    // Update selectedColor with the new RGB values
+   selectedColor = `rgb(` +$this.rgb + ')';
+
+    console.log("Recorded: ", selectedColor);
+    // Update any other code that uses selectedColor as needed
+  });
+
+
+
+     this.initSlider();
+
+   }
+
+
+
+   ColorPicker.prototype.initSlider = function() {
+
+     this.dom.slider = {};
+     this.dom.slider.container = document.createElement('div');
+     this.dom.slider.container.className = 'slider-container';
+
+     this.dom.slider.slider = document.createElement('div');
+     this.dom.slider.slider.style.width = '100%'; // Add this line
+     this.dom.slider.slider.style.height = '100%'; // Add this line
+     
+
+     this.dom.slider.pointer = document.createElement('div');
+     this.dom.slider.pointer.className = 'pointer';
+
+     
+     
+     this.dom.picker.container.appendChild(this.dom.slider.container);
+
+     this.dom.slider.slider.bounds = this.dom.slider.slider.getBoundingClientRect();
+     this.dom.slider.pointer.bounds = this.dom.slider.pointer.getBoundingClientRect();
+   };
+
+   ColorPicker.prototype.updateColor = function(pixel) {
+     this.hex = hex = this.RGBtoHEX(pixel[0], pixel[1], pixel[2]);
+     this.hsv = this.RGBtoHSV(pixel[0], pixel[1], pixel[2]);
+     this.rgb = [
+       pixel[0],
+       pixel[1],
+       pixel[2]
+     ];
+   }
+
+   ColorPicker.prototype.updateCoordinates = function(x, y) {
+     var angle = Math.atan2((y - this.dom.picker.canvas.canvas.bounds.centerY), (x - this.dom.picker.canvas.canvas.bounds.centerX));
+     radius = Math.sqrt(Math.pow(x - this.dom.picker.canvas.canvas.bounds.centerX, 2) + Math.pow(y - this.dom.picker.canvas.canvas.bounds.centerY, 2));
+     if (radius > this.dom.picker.canvas.canvas.bounds.radius - (this.dom.picker.canvas.pointer.bounds.width / 2)) {
+       cos = Math.cos(angle);
+       sin = Math.sin(angle);
+       x = cos * (this.dom.picker.canvas.canvas.bounds.radius - (this.dom.picker.canvas.pointer.bounds.width / 2)) + this.dom.picker.canvas.canvas.bounds.centerX;
+       y = sin * (this.dom.picker.canvas.canvas.bounds.radius - (this.dom.picker.canvas.pointer.bounds.width / 2)) + this.dom.picker.canvas.canvas.bounds.centerY;
+     }
+     this.x = Math.floor(x - this.dom.picker.canvas.canvas.bounds.left);
+     this.y = Math.floor(y - this.dom.picker.canvas.canvas.bounds.top);
+   }
+
+
+   ColorPicker.prototype.updateAll = function() {
+     this.redrawSlider();
+     this.updatePointers();
+     this.options.onUpdate(this.rgb);
+     if (this.selectedPalette) {
+       this.selectedPalette.style.background = this.hex;
+     }
+   }
+   ColorPicker.prototype.getPositionFromColor = function(color) {
+     color = this.HEXtoRGB(color);
+     if (color == null) {
+       return null;
+     }
+     this.hsv = this.RGBtoHSV(color[0], color[1], color[2]);
+     return this.getSVGPositionFromHS(this.hsv[0], this.hsv[1]);
+   }
+
+
+
+   ColorPicker.prototype.redrawSlider = function() {
+     rgb = this.HSVtoRGB(this.hsv[0], this.hsv[1], 1);
+     hex = this.RGBtoHEX(rgb[0], rgb[1], rgb[2]);
+     gradient = this.makeGradient(hex, '#000');
+     this.dom.slider.slider.setAttribute('style', gradient);
+     this.updatePointers();
+   };
+
+   ColorPicker.prototype.updatePointers = function() {
+     if (this.dom.picker.canvas.pointer.bounds) {
+       this.dom.picker.canvas.pointer.style.left = this.x - (this.dom.picker.canvas.pointer.bounds.width / 2) + 'px';
+       this.dom.picker.canvas.pointer.style.top = this.y - (this.dom.picker.canvas.pointer.bounds.height / 2) + 'px';
+     }
+     if (this.dom.slider.slider.bounds) {
+       position = this.dom.slider.slider.bounds.height * (1 - this.hsv[2]) - (this.dom.slider.pointer.bounds.height / 2);
+       this.dom.slider.pointer.style.top = position + 'px';
+     }
+   }
+
+   ColorPicker.prototype.updateCanvasBounds = function() {
+       this.dom.picker.canvas.canvas.bounds = this.dom.picker.canvas.canvas.getBoundingClientRect();
+       this.dom.picker.canvas.pointer.bounds = this.dom.picker.canvas.pointer.getBoundingClientRect();
+       this.dom.picker.canvas.canvas.bounds.centerX = this.dom.picker.canvas.canvas.bounds.left + (this.dom.picker.canvas.canvas.bounds.width / 2);
+       this.dom.picker.canvas.canvas.bounds.centerY = this.dom.picker.canvas.canvas.bounds.top + (this.dom.picker.canvas.canvas.bounds.height / 2);
+       this.dom.picker.canvas.canvas.bounds.radius = this.dom.picker.canvas.canvas.bounds.width / 2;
+     }
+
+   ColorPicker.prototype.getSVGPositionFromHS = function(h, s) {
+     var hue = this.scientificToArtisticSmooth(h * 360);
+     var theta = hue * (Math.PI / 180);
+     var y = Math.sin(theta) * this.dom.picker.canvas.canvas.bounds.radius * s;
+     var x = Math.cos(theta) * this.dom.picker.canvas.canvas.bounds.radius * s;
+     return {
+       x: x + this.dom.picker.canvas.canvas.bounds.radius,
+       y: this.dom.picker.canvas.canvas.bounds.radius - y
+     }
+
+   };
+
+
+   ColorPicker.prototype.scientificToArtisticSmooth = function(hue) {
+     return (
+       hue < 35 ? hue * (60 / 35) :
+       hue < 60 ? this.mapRange(hue, 35, 60, 60, 122) :
+       hue < 120 ? this.mapRange(hue, 60, 120, 122, 165) :
+       hue < 180 ? this.mapRange(hue, 120, 180, 165, 218) :
+       hue < 240 ? this.mapRange(hue, 180, 240, 218, 275) :
+       hue < 300 ? this.mapRange(hue, 240, 300, 275, 330) :
+       this.mapRange(hue, 300, 360, 330, 360));
+   }
+
+
+   ColorPicker.prototype.mapRange = function(value, fromLower, fromUpper, toLower, toUpper) {
+     return (toLower + (value - fromLower) * ((toUpper - toLower) / (fromUpper - fromLower)));
+   }
+
+
+   ColorPicker.prototype.HEXtoRGB = function(hex) {
+     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+     return result ? [
+       parseInt(result[1], 16),
+       parseInt(result[2], 16),
+       parseInt(result[3], 16)
+     ] : null;
+   }
+
+
+   ColorPicker.prototype.RGBtoHSV = function(r, g, b) {
+     r = r / 255, g = g / 255, b = b / 255;
+     var max = Math.max(r, g, b),
+       min = Math.min(r, g, b);
+     var h, s, v = max;
+
+     var d = max - min;
+     s = max == 0 ? 0 : d / max;
+
+     if (max == min) {
+       h = 0; 
+     } else {
+       switch (max) {
+         case r:
+           h = (g - b) / d + (g < b ? 6 : 0);
+           break;
+         case g:
+           h = (b - r) / d + 2;
+           break;
+         case b:
+           h = (r - g) / d + 4;
+           break;
+       }
+       h /= 6;
+     }
+     return [h, s, v];
+   }
+
+
+   ColorPicker.prototype.HSVtoRGB = function(h, s, v) {
+     var r, g, b;
+     var i = Math.floor(h * 6);
+     var f = h * 6 - i;
+     var p = v * (1 - s);
+     var q = v * (1 - f * s);
+     var t = v * (1 - (1 - f) * s);
+     switch (i % 6) {
+       case 0:
+         r = v, g = t, b = p;
+         break;
+       case 1:
+         r = q, g = v, b = p;
+         break;
+       case 2:
+         r = p, g = v, b = t;
+         break;
+       case 3:
+         r = p, g = q, b = v;
+         break;
+       case 4:
+         r = t, g = p, b = v;
+         break;
+       case 5:
+         r = v, g = p, b = q;
+         break;
+     }
+     return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+   }
+
+
+   ColorPicker.prototype.RGBtoHEX = function(r, g, b) {
+     function componentToHex(c) {
+       var hex = c.toString(16);
+       return hex.length == 1 ? "0" + hex : hex;
+     }
+     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+   }
+
+   
+   ColorPicker.prototype.makeGradient = function(colour1, colour2) {
+     var gradientString = '\
+            /* Mozilla Firefox */ \
+            background-image: -moz-linear-gradient(top, {colour1} 0%, {colour2} 100%);\
+            /* Opera */ \
+            background-image: -o-linear-gradient(top, {colour1} 0%, {colour2} 100%);\
+            /* Webkit (Safari/Chrome 10) */ \
+            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, {colour1}), color-stop(1, {colour2}));\
+            /* Webkit (Chrome 11+) */ \
+            background-image: -webkit-linear-gradient(top, {colour1} 0%, {colour2} 100%);\
+            /* IE10+ */\
+            background: -ms-linear-gradient(top,  {colour1} 0%,{colour2} 100%);\
+            /* W3C */\
+            background: linear-gradient(top,  {colour1} 0%,{colour2} 100%);\
+        ';
+
+     return gradientString.replace(/\{colour1\}/g, colour1).replace(/\{colour2\}/g, colour2)
+   };
+ }());
+
+var colorPreview = document.getElementById('preview');
+
+ var picker = new ColorPicker(document.getElementById('picker'), {
+   onUpdate: function(rgb) {
+     colorPreview.style.background = "rgb(" + rgb[0] + ", " + rgb[1] + ", " + rgb[2] + ")";
+   }
+ });
+
+// show possible templates
+function showOptions(){
+        /* show light box*/
+       var small_img = document.getElementById("canvas");
+        var big_img = document.getElementById("light_image");
+        big_img.src = small_img.src;
+        big_img.alt = small_img.alt;
+        big_img.style.display = "block";
+        document.getElementById("dark_overlay").style.display = "block";
+}
+
+function showFlower(event){  
+ // Load and draw the image
+  const image = new Image();
+  image.src = '/images/flower.png';
+  image.onload = function () {
+    const scale = Math.min(canvas.width / image.width, canvas.height / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    const x = (canvas.width - width) / 2;
+    const y = (canvas.height - height) / 2;
+
+    ctx.drawImage(image, x, y, width, height);
+  };
+}
+  
+function showAirplane(event){
+   // Load and draw the image
+  const image = new Image();
+  image.src = '/images/airplane.png';
+  image.onload = function () {
+    const scale = Math.min(canvas.width / image.width, canvas.height / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    const x = (canvas.width - width) / 2;
+    const y = (canvas.height - height) / 2;
+
+    ctx.drawImage(image, x, y, width, height);
+  };
+}
+
+function showLightbulb(event){  
+ // Load and draw the image
+  const image = new Image();
+  image.src = '/images/lightbulb.png';
+  image.onload = function () {
+    const scale = Math.min(canvas.width / image.width, canvas.height / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    const x = (canvas.width - width) / 2;
+    const y = (canvas.height - height) / 2;
+
+    ctx.drawImage(image, x, y, width, height);
+  };
+}
+
+function showWeather(event){  
+ // Load and draw the image
+  const image = new Image();
+  image.src = '/images/weather.png';
+  image.onload = function () {
+    const scale = Math.min(canvas.width / image.width, canvas.height / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    const x = (canvas.width - width) / 2;
+    const y = (canvas.height - height) / 2;
+
+    ctx.drawImage(image, x, y, width, height);
+  };
+}
+
+function showDrink(event){  
+ // Load and draw the image
+  const image = new Image();
+  image.src = '/images/drink.png';
+  image.onload = function () {
+    const scale = Math.min(canvas.width / image.width, canvas.height / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    const x = (canvas.width - width) / 2;
+    const y = (canvas.height - height) / 2;
+
+    ctx.drawImage(image, x, y, width, height);
+  };
+}
+
+function showBus(event){  
+ // Load and draw the image
+  const image = new Image();
+  image.src = '/images/bus.png';
+  image.onload = function () {
+    const scale = Math.min(canvas.width / image.width, canvas.height / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    const x = (canvas.width - width) / 2;
+    const y = (canvas.height - height) / 2;
+
+    ctx.drawImage(image, x, y, width, height);
+  };
+}
+
+function showButterfly(event){  
+ // Load and draw the image
+  const image = new Image();
+  image.src = '/images/butterfly.png';
+  image.onload = function () {
+    const scale = Math.min(canvas.width / image.width, canvas.height / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    const x = (canvas.width - width) / 2;
+    const y = (canvas.height - height) / 2;
+
+    ctx.drawImage(image, x, y, width, height);
+  };
+}
+function showCamera(event){  
+ // Load and draw the image
+  const image = new Image();
+  image.src = '/images/camera.png';
+  image.onload = function () {
+    const scale = Math.min(canvas.width / image.width, canvas.height / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    const x = (canvas.width - width) / 2;
+    const y = (canvas.height - height) / 2;
+
+    ctx.drawImage(image, x, y, width, height);
+  };
+}
+
+function showCar(event){  
+ // Load and draw the image
+  const image = new Image();
+  image.src = '/images/car.png';
+  image.onload = function () {
+    const scale = Math.min(canvas.width / image.width, canvas.height / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    const x = (canvas.width - width) / 2;
+    const y = (canvas.height - height) / 2;
+
+    ctx.drawImage(image, x, y, width, height);
+  };
+}
+function showSun(event){  
+ // Load and draw the image
+  const image = new Image();
+  image.src = '/images/sun.png';
+  image.onload = function () {
+    const scale = Math.min(canvas.width / image.width, canvas.height / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    const x = (canvas.width - width) / 2;
+    const y = (canvas.height - height) / 2;
+
+    ctx.drawImage(image, x, y, width, height);
+  };
+}
+
+function showDesign(event){  
+ // Load and draw the image
+  const image = new Image();
+  image.src = '/images/design.png';
+  image.onload = function () {
+    const scale = Math.min(canvas.width / image.width, canvas.height / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    const x = (canvas.width - width) / 2;
+    const y = (canvas.height - height) / 2;
+
+    ctx.drawImage(image, x, y, width, height);
+  };
+}
+
+function showEarth(event){  
+ // Load and draw the image
+  const image = new Image();
+  image.src = '/images/earth.png';
+  image.onload = function () {
+    const scale = Math.min(canvas.width / image.width, canvas.height / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    const x = (canvas.width - width) / 2;
+    const y = (canvas.height - height) / 2;
+
+    ctx.drawImage(image, x, y, width, height);
+  };
+}
+
+function showPhone(event){  
+ // Load and draw the image
+  const image = new Image();
+  image.src = '/images/phone.png';
+  image.onload = function () {
+    const scale = Math.min(canvas.width / image.width, canvas.height / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    const x = (canvas.width - width) / 2;
+    const y = (canvas.height - height) / 2;
+
+    ctx.drawImage(image, x, y, width, height);
+  };
+}
+
+function showBells(event){  
+ // Load and draw the image
+  const image = new Image();
+  image.src = '/images/bells.png';
+  image.onload = function () {
+    const scale = Math.min(canvas.width / image.width, canvas.height / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    const x = (canvas.width - width) / 2;
+    const y = (canvas.height - height) / 2;
+
+    ctx.drawImage(image, x, y, width, height);
+  };
+}
+
+function showPig(event){  
+ // Load and draw the image
+  const image = new Image();
+  image.src = '/images/pig.png';
+  image.onload = function () {
+    const scale = Math.min(canvas.width / image.width, canvas.height / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    const x = (canvas.width - width) / 2;
+    const y = (canvas.height - height) / 2;
+
+    ctx.drawImage(image, x, y, width, height);
+  };
+}
+
+function showShip(event){  
+ // Load and draw the image
+  const image = new Image();
+  image.src = '/images/ship.png';
+  image.onload = function () {
+    const scale = Math.min(canvas.width / image.width, canvas.height / image.height);
+    const width = image.width * scale;
+    const height = image.height * scale;
+    const x = (canvas.width - width) / 2;
+    const y = (canvas.height - height) / 2;
+
+    ctx.drawImage(image, x, y, width, height);
+  };
+}
+
+
+
+//pen button
+function setPen(){
+  pen = true;
+  brush = false;
+  eraserMode = false;
+  ctx.globalCompositeOperation = 'source-over';
+}
+
+// brush button
+function setBrush(){
+  pen = false;
+  brush = true;
+  eraserMode = false;
+  ctx.globalCompositeOperation = 'source-over';
+}
+
+
+function drawStroke(e) {
+  let {x, y} = getMousePos(canvas, e);
+  ctx.lineWidth = getBrushSize();
+
+  if (ctx.globalCompositeOperation === "destination-out") {
+    ctx.lineCap = "round";
+  }
+  if (pen){
+      ctx.lineCap = "round";
+  }
+  if (brush){
+    ctx.lineCap = "butt";
+  }
+
+  if (draw) {
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(x, y);
+    ctx.strokeStyle = selectedColor;
+    ctx.stroke();
+    lastX = x;
+    lastY = y;
+  } else {
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    lastX = x;
+    lastY = y;
+  }
+}
+
+
+
+
+
+function getBrushSize() {
+  let brushSizeSlider = document.getElementById("brush-size-slider");
+  return brushSizeSlider.value;
+}
+
+
+
+
+
+function myFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("mySearch");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myMenu");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName("a")[0];
+      if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = "";
+      } else {
+        li[i].style.display = "none";
+      }
+    }
+  }
+
+  function toggleMenu() {
+    var leftColumn = document.querySelector(".left");
+    var menuToggle = document.querySelector(".menu-toggle");
+    leftColumn.classList.toggle("hiding");
+    menuToggle.classList.toggle("open");
+  }
+
+
+ function createImage() {
+  // Create a new canvas with the same dimensions as the original canvas
+  const imageCanvas = document.createElement("canvas");
+  imageCanvas.width = canvas.width;
+  imageCanvas.height = canvas.height;
+
+
+  // Get the 2D context of the new canvas
+  const imageCtx = imageCanvas.getContext("2d");
+
+  // Draw the original canvas onto the new canvas
+  imageCtx.drawImage(canvas, 0, 0);
+
+  // Set the background color
+  imageCtx.globalCompositeOperation = "destination-over";
+
+  const computedStyle = getComputedStyle(canvas);
+  const backgroundColor = computedStyle.backgroundColor;
+
+  imageCtx.fillStyle = backgroundColor;
+  imageCtx.fillRect(0, 0, imageCanvas.width, imageCanvas.height);
+
+  // Create a new image element with the data URL of the new canvas
+  const image = new Image();
+  image.src = imageCanvas.toDataURL();
+
+  return image.src;
+}
+
+function createMyImage() {
+  // Create a new canvas with the same dimensions as the original canvas
+  const imageCanvas = document.createElement("canvas");
+  imageCanvas.width = canvas.width;
+  imageCanvas.height = canvas.height;
+
+  // Get the 2D context of the new canvas
+  const imageCtx = imageCanvas.getContext("2d");
+
+  // Draw the original canvas onto the new canvas
+  imageCtx.drawImage(canvas, 0, 0);
+
+  // Create a new image element with the data URL of the new canvas
+  const image = new Image();
+  image.src = imageCanvas.toDataURL("image/png");
+
+  // Return the image source
+  return image.src;
+}
+
+
+
+
+
+
+
+</script>

@@ -1,0 +1,326 @@
+<!-- index.erb -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<style>
+
+
+
+  #my_image {
+    display: none; /* Hide the image, as it's used as the background for the .bg div */
+  }
+
+  .right {
+    position: relative;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+  }
+
+  #my_title {
+    position: relative; /* Add relative positioning to bring the title above the overlay */
+    z-index: 1; /* Set a higher z-index to bring the title above the overlay */
+    font-size: 3.5vw;
+    text-align: center; /* Center the text horizontally */
+    color: transparent; /* Set the text color to transparent */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a text shadow for better visibility */
+    /* Add any other styling you want for the title */
+  }
+
+
+
+  #my_title span {
+    position: relative; /* Add relative positioning to each letter */
+  }
+
+  /* Add pastel colors for each letter */
+  #my_title span:nth-child(1) { color: #f48fb1; }
+  #my_title span:nth-child(2) { color: #ce93d8; }
+  #my_title span:nth-child(3) { color: #b39ddb; }
+  #my_title span:nth-child(4) { color: #9fa8da; }
+  #my_title span:nth-child(5) { color: #90caf9; }
+  #my_title span:nth-child(6) { color: #81d4fa; }
+  #my_title span:nth-child(7) { color: #80deea; }
+  #my_title span:nth-child(8) { color: #80cbc4; } /* Include element 8 */
+  #my_title span:nth-child(9) { color: #81c784; }
+  #my_title span:nth-child(10) { color: #a5d6a7; } /* Include element 11 */
+  #my_title span:nth-child(11) { color: #c5e1a5; }
+  #my_title span:nth-child(12) { color: #e6ee9c; }
+  #my_title span:nth-child(13) { color: #fff59d; }
+  #my_title span:nth-child(14) { color: #ffe082; }
+  #my_title span:nth-child(15) { color: #ffcc80; }
+  #my_title span:nth-child(16) { color: #ffab91; }
+
+#container-1 {
+  z-index: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15%;
+  background-color: paleturquoise;
+  margin-top: 2%;
+
+
+  margin-left: 5%;
+  margin-right: 7%;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+    .left-container {
+        height: 95%;
+        width: 25%;
+        flex: 1;
+        padding: 20px;
+        background-color: whitesmoke;
+        border-radius: 25px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        margin-left: 5%;
+        margin-right: 1%;
+        overflow:hidden;
+        border: 2px solid #D8F3EC;
+
+    }
+
+ .left-container h2 {
+    font-size: 2vw;
+    color: #333333;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+    .left-container p {
+        font-size: 16px;
+        color: #555555;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+
+     .right-container {
+        height: 95%;
+        width: 25%;
+        flex: 1;
+        padding: 20px;
+        background-color: whitesmoke;
+        border-radius: 25px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        margin-left: 1%;
+        margin-right: 7%;
+        border: 2px solid #D8F3EC;
+    }
+
+
+    .right-container h2 {
+        font-size: 2vw;
+        color: #333333;
+        margin-bottom: 10px;
+    }
+
+    .right-container p {
+        font-size: 16px;
+        color: #555555;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+
+    .container {
+    display: flex;
+    justify-content: space-between; /* To create space between the two containers */
+}
+
+.left-container,
+.right-container {
+    height: 48vh;
+    width: 45%; /* Set the width for each container to adjust based on your layout */
+    margin-top: 2%;
+    flex: 1;
+    padding: 20px;
+    background-color: whitesmoke;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    border: 2px solid #D8F3EC;
+  border-radius: 25px;
+}
+
+.left-container h2,
+.right-container h2 {
+    font-size: 1.7vw;
+    color: #333333;
+    margin-bottom: 0.5vw;
+    display: inline-block;
+    position: relative;
+
+}
+
+.left-container p,
+.right-container p {
+    font-size: 16px;
+    color: #555555;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.container-2 {
+    z-index: 1;
+    position: relative;
+    display: flex;
+    
+    justify-content: flex-start;
+    height: 25%;
+    background-color: whitesmoke;
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-right: 7%;
+    border-radius: 25px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    border: 2px solid #D8F3EC;
+    overflow:hidden;
+}
+
+.container-2 p {
+    margin: 2%; 
+    text-align:left;
+    font-size:1.6vw;
+
+}
+
+.container-2 em{
+    color: green;
+}
+
+.left_part li{
+    font-size:1.2vw;
+    padding:2%;
+}
+
+.left_part {
+    flex: 1;
+    display: inline-block; /* Add inline-block to contain the content */
+}
+
+.right_part {
+    display: inline-block; /* Add inline-block to contain the image */
+    vertical-align: middle; /* Vertically align the image to middle */
+    margin-left: 10px; /* Add spacing between the text and image */
+}
+
+.right_part img {
+    max-width: 75%;
+    height: auto;
+    vertical-align: middle;
+    border: 2px solid #ccc; /* Add a border around the image */
+    border-radius: 5px; /* Add rounded corners to the border */
+    padding: 5px; /* Add some padding inside the border */
+    margin-top:5%;
+   margin-left:2.5vw;
+}
+
+#draw_img{
+    max-width: 85%;
+    height: auto;
+    vertical-align: middle;
+    border: 2px solid black; /* Add a border around the image */
+    border-radius: 5px; /* Add rounded corners to the border */
+    padding: 5px; /* Add some padding inside the border */
+    margin-top:5%;
+   margin-left:2.5vw;
+}
+#try_me{
+     max-width: 85%;
+     min-height:10%;
+    height: auto;
+    vertical-align: middle;
+    border: 2px solid #ccc; /* Add a border around the image */
+    border-radius: 5px; /* Add rounded corners to the border */
+    padding: 5px; /* Add some padding inside the border */
+    color: white;
+    background-color:darkgreen;
+   margin-left:2.5vw;
+}
+
+.my_container{
+    display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 5%;
+}
+
+
+</style>
+
+<div class="right">
+	
+
+	  <div id = "container-1">
+	  <h5 id="my_title">
+	    <span>C</span>
+	    <span>l</span>
+	    <span>a</span>
+	    <span>r</span>
+	    <span>i</span>
+	    <span>t</span>
+	    <span>y</span>
+	    &nbsp; <!-- Non-breaking space for the space between words -->
+	    <span>i</span>
+	    <span>n</span>
+	    &nbsp; <!-- Non-breaking space for the space between words -->
+	    <span>C</span>
+	    <span>o</span>
+	    <span>l</span>
+	    <span>o</span>
+	    <span>r</span>
+	  </h5>
+</div>
+	
+	<div class="container-2">
+    <p><b>Mission Statement: </b>Clarity in Color fosters a digital sanctuary to empower kids to explore their emotions and self-expression by cultivating a deeper connection within themselves. Through vibrant digital color books, free-form drawing tools, calming bubble art, and creative puzzle-making, children embark on a journey to self-discovery and emotional growth by <em>coloring outside of the lines</em>.</p>   
+</div>
+
+
+
+	<div class = "container">
+		<div class="left-container">
+           
+	        <h2>Did you know art mindfulness improves...?</h2>
+            
+            <div class = "my_container">
+             <div class = "left_part">
+	        <p>
+             <ul>
+             <li>Stress</li>
+             <li>Emotional Regulation</li>
+             <li>Concentration</li>
+             <li>Creativity</li>
+             <li>Sensory Awareness</li>
+             <li>Communication Skills</li>
+         </ul>   
+            </p>
+        </div>
+
+        <div class = "right_part">
+            <img src = "/program_images/collages.jpeg" alt = "Art Mindfulness Picture">
+        </div>
+    </div>
+	    </div>
+
+        <div class="right-container">
+	        <img id = "draw_img" src = "/program_images/draw.png" alt = "Draw">
+            <button id = "try_me" onclick = "window.location.href='/draw'">Try me</button>
+	    </div>
+	</div>
+
+	
+</div>
+
+<script>
+
+
+	const xArr = ["Italy", "France", "Spain", "USA", "Argentina"];
+const yArr = [55, 49, 44, 24, 15];
+
+const layout = {title:"Art Therapy Benefits for Kids"};
+
+const data = [{labels:xArr, values:yArr, type:"pie"}];
+
+Plotly.newPlot("plot", data, layout);
+</script>
