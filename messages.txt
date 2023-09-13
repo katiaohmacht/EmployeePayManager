@@ -1,0 +1,9 @@
+Sender: John Doe
+Message: My message sent
+--------------------
+Sender: Penelope Brody
+Message: I enjoyeokfwgjqeroifghvjijeqrdhvijldqhavjdh
+--------------------
+Sender: Susan J
+Message: Message 3
+--------------------

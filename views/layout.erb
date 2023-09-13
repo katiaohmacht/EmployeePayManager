@@ -120,21 +120,15 @@ h3{
     <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search..." title="Type in a category">
     <ul id="myMenu">
       <li><a href="/">Home</a></li>
-      <li>
-
-        <a href="/emotion_wheel">Emotion Wheel</a></li>
-      <li><a href="/draw">Draw</a></li>
-      <li><a href="/puzzle">Puzzle</a></li>
-      <li><a href = "/bubble">Bubble Art</a></li>
-      <% if @current_user != nil %>
-      <li><a href="/dashboard">Dashboard</a></li>
-       <% end %>
-      <li><a href="/contact">Contact me</a></li>
+      
       <% if @current_user != nil %>
         <li><a href="/logout">Logout</a></li>
       <% else %>
         <li><a href="/login">Login/Sign up</a></li>
       <% end %>
+      <% if @current_user != nil %>
+        <li><a href = "/sign_up">Administrator</a></li>
+      <%end%>
     </ul>
   </div>
 
