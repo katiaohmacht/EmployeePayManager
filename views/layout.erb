@@ -7,170 +7,24 @@
       <link rel="stylesheet" href="/style/stylesheet.css" media="screen">
 </head>
 <style>
-   .dashboard{
-          position: absolute;
-          top: 100px;
-          right: 20px;
-          width: 40px;
-          height: 40px;
-          background-color: #A0CEA9;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-        }
-        .dashboard:hover{
-          background-color: #458551;
-        }
-
-        .dashboard svg {
-          width: 24px;
-          height: 24px;
-        }
 
 
-  .menu-toggle {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    background-color: #A0CEA9;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-
-  .menu-toggle:hover{
-    background-color: #458551;
-  }
-
-  .menu-toggle svg {
-    width: 24px;
-    height: 24px;
-  }
-  #myMenu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#myMenu li {
-  list-style: none;
-}
-
-#myMenu li::before {
-  content: none;
-}
-
-.left h2 {
-    font-family: "Times New Roman", Times, serif;
-  color: #4F4F4F;
-  font-size: 30px;       /* Adjust the font size as needed */
-  font-weight: bold;     /* Make the text bold */
-  
-  text-transform: uppercase;  /* Convert the text to uppercase */
-  text-align: center;    /* Align the text to the center */
-  margin: 20px 0;        /* Add some margin around the heading */
-  padding: 10px;         /* Add padding inside the heading */
-}
-
-h3{
-  color: #808080;
-  font-family: "Times New Roman", Times, serif;
-  text-align: center;
-  margin: 20px 0;  
-  padding: 10px;
-}
-
-
-#myMenu li a {
-  text-decoration: none;    /* Remove underline */
-  font-family: "Times New Roman", Times, serif;
-  color: #4F4F4F;
-  display: block;           /* Display the links as block elements */
-  padding: 15px;            /* Add padding to create some spacing */
-  font-size: 20px;
-}
-
-#myMenu li a:hover {
-  background-color: #458551;
-}
-
-#myMenu li a.active {
-  background-color: #458551;  /* Set a background color for the active link */
-  color: #ffffff;             /* Set the text color for the active link */
-}
 
 </style>
 <body>
 <div class="row">
-  <div class="left" style="background: linear-gradient(90deg, #cfecd0, #a0cea7, #9ec0db);">
-    
-    <% if @current_user != nil %>
-          <h2> Clarity in Color </h2>
-          <h3> <%="#{@current_user.first_name.titleize} #{@current_user.last_name.titleize} "%></h3>
-      <% else %>
-          <h2> Clarity in Color </h2>
-      <% end %>
+  <div class="left">
 
-    <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search..." title="Type in a category">
-    <ul id="myMenu">
-      <li><a href="/">Home</a></li>
-      
-      <% if @current_user != nil %>
-        <li><a href="/logout">Logout</a></li>
-      <% else %>
-        <li><a href="/login">Login/Sign up</a></li>
-      <% end %>
-      <% if @current_user != nil %>
-        <li><a href = "/sign_up">Administrator</a></li>
-      <%end%>
-    </ul>
   </div>
 
    <%=yield%>
-    <div class = "dashboard" onclick="window.location.href='/'">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-house" viewBox="0 0 16 16">
-  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
-</svg>
-    </div>
-    <div class="menu-toggle" onclick="toggleMenu()">
-      <svg viewBox="0 0 24 24" fill="white" width="24px" height="24px">
-        <path d="M0 0h24v24H0z" fill="none"/>
-        <path d="M18 13H6v-2h12v2zm0 4H6v-2h12v2zm0-8H6V7h12v2z"/>
-      </svg>
-    </div>
+
 
   </div>
 </div>  
 </div> 
 </body>
 <script>
-  function myFunction() {
-        var input, filter, ul, li, a, i;
-        input = document.getElementById("mySearch");
-        filter = input.value.toUpperCase();
-        ul = document.getElementById("myMenu");
-        li = ul.getElementsByTagName("li");
-        for (i = 0; i < li.length; i++) {
-            a = li[i].getElementsByTagName("a")[0];
-            if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                li[i].style.display = "";
-            } else {
-                li[i].style.display = "none";
-            }
-        }
-    }
-
-    function toggleMenu() {
-      var leftColumn = document.querySelector(".left");
-      var menuToggle = document.querySelector(".menu-toggle");
-      leftColumn.classList.toggle("hiding");
-      menuToggle.classList.toggle("open");
-    }
+ 
 </script>
 </html>
