@@ -265,12 +265,11 @@ end
 
 post '/sign_up_process' do
   # Check if user exists with the given email
-  if User.find_by(email: params[:email].downcase)
+  if User.find_by(id: params[:id].downcase)
     redirect '/sign_up'
   else
     # Save the sign-up information to the database
     @user = User.create(
-      email: params[:email].downcase,
       first_name: params[:first_name].downcase,
       last_name: params[:last_name].downcase,
       password: params[:psw]

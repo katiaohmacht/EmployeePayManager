@@ -10,8 +10,7 @@ class User < ActiveRecord::Base
     self.password_hash = @password
   end
 
-  validates :email, presence: true, on: :create
-  validates :email, uniqueness: true, on: :create
+ 
   has_many :reflections
   has_many :drawings
 end
