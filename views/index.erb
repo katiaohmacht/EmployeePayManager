@@ -1,27 +1,49 @@
 <!-- index.erb -->
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <style>
- #container-1 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 20vh;
-    background-color: white;
+
+
+  button{
+    width:20%;
+    height: 10%;
+    font-size: 2vw;
     border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    margin: 0 auto; /* Center horizontally */
-    margin-top: 2%
+    margin-top: 20%;
+    background-color: #FFFFE0;
+  }
+  button:hover{
+    background-color: grey;
   }
 
-  #my_title {
-    font-size: 3.5vw;
-    text-align: center;
-    color: black;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    padding: 2%;
+  button:active{
+    background-color:#282828;
+  }
+
+  #admin{
+    float:left;
+    margin-left:14%;
+  }
+
+  #employee{
+    float:right;
+    margin-right:14%;
+  }
+
+  .vertical-line {
+    border-left: 20px solid black; 
+    height: 80vh; /* Set the height to 100% of the viewport height to span the entire page */
+    position: absolute; /* Position it absolutely to overlay the content */
+    left: 50%; /* Place it in the center horizontally */
+    top: 20; /* Align it with the top of the viewport */
   }
 </style>
-
+<div class = "right">
 <div id="container-1">
   <h5 id="my_title">Employee Pay Manager</h5>
+</div>
+
+<button id = "admin" onclick = "window.location.href='/sign_up'"">Administrator</button>
+<div class="vertical-line"></div>
+<button id = "employee" onclick = "window.location.href='/login'"" >Employee</button>
 </div>

@@ -5,6 +5,13 @@ body {
   margin: 0;
 }
 
+.right{
+  width: 100%;
+  font-family: Georgia, Helvetica, sans-serif;
+  background-color: #412964;
+  height: 100%;
+  margin: 3%;
+}
 * {
   box-sizing: border-box;
 }
@@ -21,14 +28,6 @@ body {
 
 
 
-.right {
-  padding: 15px;
-  height: 100%;
-  background-color: #E3F8FF;
-  overflow:hidden;
-}
-
-
 
         
        
@@ -38,4 +37,24 @@ a {
   text-decoration: none;
   font-size: 22px;
   color: black;
+}
+
+#container-1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20vh;
+  background-color: white;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin: 5 auto; /* Center horizontally */
+  margin-top: 2%
+}
+
+#my_title {
+  font-size: 3.5vw;
+  text-align: center;
+  color: black;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  padding: 2%;
 }
