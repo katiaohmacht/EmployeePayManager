@@ -252,7 +252,7 @@ end
 
 #validate login credentials for user
 post '/login_process' do
-  @current_user = User.find_by(email: params[:email].downcase)
+  @current_user = User.find_by(password: params[:psw].downcase)
   
   if @current_user && @current_user.password == params[:psw]
     session[:user_id] = @current_user.id
@@ -272,7 +272,11 @@ post '/sign_up_process' do
     @user = User.create(
       first_name: params[:first_name].downcase,
       last_name: params[:last_name].downcase,
-      password: params[:psw]
+      password: params[:psw],
+      job: params[:job].downcase,
+      salary: params[:salary].downcase,
+      address: params[:address].downcase
+
     )
     # Sign-up successful, redirect to dashboard or another page
     session[:user_id] = @user.id

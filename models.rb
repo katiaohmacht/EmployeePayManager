@@ -9,16 +9,8 @@ class User < ActiveRecord::Base
     @password = Password.create(new_password)
     self.password_hash = @password
   end
+  validates :password, presence: true, on: :create
+  validates :password, uniqueness: true, on: :create
 
- 
-  has_many :reflections
-  has_many :drawings
 end
 
-class Reflection < ActiveRecord::Base
-  belongs_to :user
-end
-
-class Drawing < ActiveRecord::Base
-  belongs_to :user
-end
