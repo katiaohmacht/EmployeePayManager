@@ -16,6 +16,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_142651) do
     t.boolean "admin"
     t.string "job"
     t.integer "salary"
+    t.string "employee_id"
     t.string "address"
     t.string "first_name"
     t.string "last_name"

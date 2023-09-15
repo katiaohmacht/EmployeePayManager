@@ -275,7 +275,8 @@ post '/sign_up_process' do
       password: params[:psw],
       job: params[:job].downcase,
       salary: params[:salary].downcase,
-      address: params[:address].downcase
+      address: params[:address].downcase,
+      employee_id: params[:employee_id].downcase
 
     )
     # Sign-up successful, redirect to dashboard or another page

@@ -5,6 +5,7 @@ class CreateUsersTable < ActiveRecord::Migration[7.0]
       entry.boolean :admin
       entry.string :job
       entry.integer :salary
+      entry.string :employee_id
       entry.string :address
       entry.string :first_name
       entry.string :last_name

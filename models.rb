@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
     @password = Password.create(new_password)
     self.password_hash = @password
   end
-  validates :password, presence: true, on: :create
-  validates :password, uniqueness: true, on: :create
+  validates :employee_id, presence: true, on: :create
+  validates :employee_id, uniqueness: true, on: :create
 
 end
 
