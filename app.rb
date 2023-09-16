@@ -56,7 +56,7 @@ end
 
 #validate login credentials for user
 post '/login_process' do
-  @current_user = User.find_by(password: params[:psw].downcase)
+  @current_user = User.find_by(employee_id: params[:employee_id].downcase)
   
   if @current_user && @current_user.password == params[:psw]
     session[:user_id] = @current_user.id
@@ -66,10 +66,11 @@ post '/login_process' do
   end
 end
 
-
 post '/sign_up_process' do
   # Check if user exists with the given ID
-  if User.find_by(employee_id: params[:employee_id].downcase)
+  existing_user = User.find_by(employee_id: params[:employee_id].downcase)
+  
+  if existing_user
     redirect '/sign_up'
   else
     # Save the sign-up information to the database
@@ -78,13 +79,14 @@ post '/sign_up_process' do
       last_name: params[:last_name].downcase,
       password: params[:psw],
       job: params[:job].downcase,
-      salary: params[:salary].downcase,
+      salary: params[:salary],
       address: params[:address].downcase,
-      employee_id: params[:employee_id].downcase
-
+      employee_id: params[:employee_id]
     )
-    # Sign-up successful, redirect to index 
+    # Sign-up successful, redirect to index
     session[:user_id] = @user.id
     redirect '/'
   end
 end
+
+
