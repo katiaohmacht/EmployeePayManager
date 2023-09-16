@@ -69,7 +69,7 @@ end
 
 post '/sign_up_process' do
   # Check if user exists with the given ID
-  if User.find_by(id: params[:id].downcase)
+  if User.find_by(employee_id: params[:employee_id].downcase)
     redirect '/sign_up'
   else
     # Save the sign-up information to the database
