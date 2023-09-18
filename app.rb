@@ -19,7 +19,8 @@ require './models'
 #Function to check if a current user is logged in, if not redirects to login page.
 def current_user
   if session[:user_id]
-    if User.find(session[:user_id]).blank? then @current_user = nil else @current_user = User.find(session[:user_id]) end
+    if User.find(session[:user_id]).blank? then @current_user = nil else @current_user = User.find(session[:user_id]) 
+    end
   else
     session.clear
     @current_user = nil
@@ -32,16 +33,22 @@ get '/' do
   erb :index
 end
 
-
-
-
-get '/sign_up' do
-  @page_title = "Sign Up"
+get '/add_employee' do
+  @page_title = "Add Employee"
   current_user
-  if @current_user != nil
+  if @current_user == nil || !@current_user.admin
     redirect '/'
   end
-  erb :sign_up
+  erb :add_employee
+end
+
+get '/employee' do
+  @page_title = "Employee"
+  current_user
+  if @current_user == nil
+    redirect '/'
+  end
+  erb :employee
 end
 
 get '/login' do
@@ -52,26 +59,39 @@ get '/login' do
   erb :login
 end
 
+get '/confirmation_out' do
+  @page_title = "Confirmation Out"
+  erb :confirmation_out
+end
+
+get '/confirmation_in' do
+  @page_title = "Confirmation In"
+  erb :confirmation_in
+end
 
 
 #validate login credentials for user
 post '/login_process' do
-  @current_user = User.find_by(employee_id: params[:employee_id].downcase)
-  
+  @current_user = User.find_by(employee_id: params[:id])
   if @current_user && @current_user.password == params[:psw]
     session[:user_id] = @current_user.id
-    redirect '/'
+    if @current_user.admin 
+      redirect '/add_employee'
+    else
+      redirect '/employee'
+    end
   else
-    redirect '/login'  # Redirect to the login-failed route if login fails
+    redirect '/'  # Redirect to the login-failed route if login fails
+    session.clear
   end
 end
 
 post '/sign_up_process' do
   # Check if user exists with the given ID
-  existing_user = User.find_by(employee_id: params[:employee_id].downcase)
+  existing_user = User.find_by(employee_id: params[:employee_id])
   
   if existing_user
-    redirect '/sign_up'
+    redirect '/add_employee'
   else
     # Save the sign-up information to the database
     @user = User.create(
@@ -81,7 +101,8 @@ post '/sign_up_process' do
       job: params[:job].downcase,
       salary: params[:salary],
       address: params[:address].downcase,
-      employee_id: params[:employee_id]
+      employee_id: params[:employee_id],
+      admin: params[:admin]
     )
     # Sign-up successful, redirect to index
     session[:user_id] = @user.id
@@ -89,4 +110,25 @@ post '/sign_up_process' do
   end
 end
 
+post '/clockin' do
+  Checktime.create(
+    employee_id: session[:user_id],
+    time: Time.now,
+    out: false
+  )
+  redirect '/confirmation_in'
+end
 
+post '/clockout' do
+  Checktime.create(
+    employee_id: session[:user_id],
+    time: Time.now,
+    out: true
+  )
+  redirect '/confirmation_out'
+end
+
+post '/signout' do
+  session.clear
+  redirect '/'
+end

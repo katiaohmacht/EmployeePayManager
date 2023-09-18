@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_07_142651) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_17_235424) do
+  create_table "checktimes", force: :cascade do |t|
+    t.integer "employee_id"
+    t.integer "time"
+    t.boolean "out"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "password_hash"
     t.boolean "admin"

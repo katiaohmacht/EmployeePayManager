@@ -42,8 +42,12 @@
 <div id="container-1">
   <h5 id="my_title">Employee Pay Manager</h5>
 </div>
-<%# 
-<button id = "admin" onclick = "window.location.href='/sign_up'"">Administrator</button> %>
+
+<form action="/login_process" method = "post">
+<button id = "admin" type = "submit" formaction = "/clockin" method = "post">Clock In</button>
 <%# <div class="vertical-line"></div> %>
-<button id = "employee" onclick = "window.location.href='/login'"" >LOG IN</button>
+<button id = "employee" type = "submit" formaction = "/clockout" method = "post"> Clock Out</button>
 </div>
+</form>
+ 
+ 

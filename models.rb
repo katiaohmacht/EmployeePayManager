@@ -14,3 +14,5 @@ class User < ActiveRecord::Base
 
 end
 
+class Checktime < ActiveRecord::Base
+end
