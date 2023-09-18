@@ -59,6 +59,7 @@ get '/login' do
   erb :login
 end
 
+# Redirect page for confirmations
 get '/confirmation_out' do
   @page_title = "Confirmation Out"
   erb :confirmation_out
@@ -73,11 +74,13 @@ end
 #validate login credentials for user
 post '/login_process' do
   @current_user = User.find_by(employee_id: params[:id])
+  # if the current user is a valid user, create a session
   if @current_user && @current_user.password == params[:psw]
     session[:user_id] = @current_user.id
+    # if the boolean admin is true in the table, redirect to the add employee page
     if @current_user.admin 
       redirect '/add_employee'
-    else
+    else #if not, then redirect to employee page
       redirect '/employee'
     end
   else
@@ -110,24 +113,31 @@ post '/sign_up_process' do
   end
 end
 
+# when clock in is clicked
 post '/clockin' do
+  # adds a log into the checktime table
   Checktime.create(
     employee_id: session[:user_id],
     time: Time.now,
     out: false
   )
+  # brings user to confirmation page
   redirect '/confirmation_in'
 end
 
+# when clock out is clicked
 post '/clockout' do
+  # adds a log into the checktime table
   Checktime.create(
     employee_id: session[:user_id],
     time: Time.now,
     out: true
   )
+  # brigns user to confirmation page
   redirect '/confirmation_out'
 end
 
+# when sign out button pressed, clears user and redirects to home
 post '/signout' do
   session.clear
   redirect '/'
