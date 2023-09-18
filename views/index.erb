@@ -20,30 +20,21 @@
     background-color:#282828;
   }
 
-  #admin{
-    float:left;
-    margin-left:14%;
-  }
 
   #employee{
-    float:right;
-    margin-right:14%;
+    position:relative;
+    margin: 0 auto;
+    margin-top: 20%;
+    display:block;
   }
 
-  .vertical-line {
-    border-left: 20px solid black; 
-    height: 80vh; /* Set the height to 100% of the viewport height to span the entire page */
-    position: absolute; /* Position it absolutely to overlay the content */
-    left: 50%; /* Place it in the center horizontally */
-    top: 20; /* Align it with the top of the viewport */
-  }
+
 </style>
 <div class = "right">
 <div id="container-1">
   <h5 id="my_title">Employee Pay Manager</h5>
 </div>
 <%# 
-<button id = "admin" onclick = "window.location.href='/sign_up'"">Administrator</button> %>
-<%# <div class="vertical-line"></div> %>
+
 <button id = "employee" onclick = "window.location.href='/login'"" >LOG IN</button>
 </div>
