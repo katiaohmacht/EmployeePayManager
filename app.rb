@@ -42,6 +42,15 @@ get '/add_employee' do
   erb :add_employee
 end
 
+get '/admin_main' do
+  @page_title = "Admin Main"
+  current_user
+  if @current_user == nil || !@current_user.admin
+    redirect '/'
+  end
+  erb :admin_main
+end
+
 get '/employee' do
   @page_title = "Employee"
   current_user
@@ -79,7 +88,7 @@ post '/login_process' do
     session[:user_id] = @current_user.id
     # if the boolean admin is true in the table, redirect to the add employee page
     if @current_user.admin 
-      redirect '/add_employee'
+      redirect '/admin_main'
     else #if not, then redirect to employee page
       redirect '/employee'
     end
@@ -141,4 +150,8 @@ end
 post '/signout' do
   session.clear
   redirect '/'
+end
+
+post '/new_user' do
+  redirect '/add_employee'
 end
