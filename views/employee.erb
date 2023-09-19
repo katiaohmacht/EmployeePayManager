@@ -40,7 +40,11 @@
 </style>
 <div class = "right">
 <div id="container-1">
-  <h5 id="my_title">Employee</h5>
+<% if @current_user != nil %>
+  <h5 id="my_title">Welcome, <%="#{@current_user.first_name.titleize} #{@current_user.last_name.titleize} "%>!</h5>
+<% else %>
+<h5 id = "my_title">Employee</h5>
+<% end %>
 </div>
 
 <form action="/login_process" method = "post">
