@@ -42,6 +42,15 @@ get '/add_employee' do
   erb :add_employee
 end
 
+get '/remove_user' do
+  @page_title = "Remove User"
+  current_user
+  if @current_user == nil || !@current_user.admin
+    redirect '/'
+  end
+  erb :remove_user
+end
+
 get '/admin_main' do
   @page_title = "Admin Main"
   current_user
@@ -154,4 +163,8 @@ end
 
 post '/new_user' do
   redirect '/add_employee'
+end
+
+post '/remove_user' do
+  redirect '/remove_user'
 end
