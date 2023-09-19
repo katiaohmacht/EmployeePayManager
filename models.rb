@@ -16,3 +16,4 @@ end
 
 class Checktime < ActiveRecord::Base
 end
+#changes
