@@ -2,6 +2,7 @@ class CreateUsersTable < ActiveRecord::Migration[7.0]
   def change
     create_table :users do |entry|
       entry.string :password_hash
+      entry.string :password
       entry.boolean :admin
       entry.string :job
       entry.integer :salary

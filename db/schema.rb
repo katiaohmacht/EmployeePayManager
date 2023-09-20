@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_17_235424) do
 
   create_table "users", force: :cascade do |t|
     t.string "password_hash"
+    t.string "password"
     t.boolean "admin"
     t.string "job"
     t.integer "salary"

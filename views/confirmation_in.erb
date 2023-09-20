@@ -1,6 +1,33 @@
-YAY in
+<style>
+button{
+    width:20%;
+    height: 10%;
+    font-size: 2vw;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    margin-top: 20%;
+    background-color: #FFFFE0;
+  }
+  button:hover{
+    background-color: grey;
+  }
 
-<form action="/login_process" method = "post">
-<button type = "submit" formaction = "/signout" method = "post">Sign Out</button>
+  button:active{
+    background-color:#282828;
+  }
 
-</form>
+    #sign_out{
+        position:relative;
+        margin: 0 auto;
+        margin-top: 20%;
+        display:block;
+      }
+</style>
+<div class = "right">
+<div id ="container-1">
+<h5 id="my_title">Successfully Clocked In!</h5>
+</div>
+    <form action="/login_process" method = "post">
+        <button id = "sign_out" type = "submit" formaction = "/signout" method = "post"><b>Sign Out</b></button>
+    </form>
+</div>
