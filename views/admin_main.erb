@@ -1,13 +1,47 @@
-Admin Main
+<style>
+button{
+    width:20%;
+    height: 10%;
+    font-size: 2vw;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    margin-top: 20%;
+    background-color: #FFFFE0;
+  }
 
-<div>
+
+
+
+      button:hover{
+        background-color: grey;
+      }
+    
+      button:active{
+        background-color:#282828;
+      }
+
+    #left_button{
+    float:left;
+    margin-left:14%;
+  }
+
+  #right_button{
+    float:right;
+    margin-right:14%;
+  }
+</style>
+
+<div class = "right">
+    <div id ="container-1">
+        <h5 id="my_title">Administrator - <%="#{@current_user.first_name.titleize} #{@current_user.last_name.titleize} "%></h5>
+    </div>
 
 <form action="/new_user" method = "post">
-<button type = "submit" formaction = "/new_user" method = "post">Add New User</button>
+<button id = "left_button" type = "submit" formaction = "/new_user" method = "post">Add New User</button>
 </form>
 
 <form action = "/remove_user" method = "post">
-<button type = "submit" formaction = "/remove_user" method = "post"> Remove User</button>
+<button id = "right_button" type = "submit" formaction = "/remove_user" method = "post"> Remove User</button>
 </form>
 
 </div>
