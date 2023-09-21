@@ -1,1 +1,165 @@
-remove user menu here 
+<style>
+
+/* Add padding to container elements */
+.container {
+  padding: 16px;
+}
+
+
+/* Modal Content/Box */
+.remove {
+  background-color: whitesmoke;
+  
+  border: 2px solid #D8F3EC;
+  height: 92%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border-radius: 25px;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+/* Style the horizontal ruler */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+ 
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+
+
+
+h1 {
+  font-size: 2vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  display: inline-block;
+  position: relative;
+  padding-bottom: 1%;
+  color: black;
+}
+
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110%;
+    height: 2px;
+    background-color: #000;
+  }
+
+  .my_container {
+    display: flex;
+    align-items: center; /* Center contents vertically within the container */
+}
+
+.my_container p {
+    font-size: 25px;
+    margin: 0 2%; 
+    color: black;
+    flex: 1; /* Take up remaining horizontal space */
+}#user-table {
+    margin: 20px;
+    border-collapse: collapse;
+    width: 80%;
+  }
+  #user-table th, #user-table td {
+    border: 1px solid #4CAF50; /* Green border */
+    padding: 10px;
+    text-align: left;
+  }
+  #user-table th {
+    background-color: #4CAF50; /* Green background for headers */
+    color: white; /* White text for headers */
+  }
+  #user-table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray background for even rows */
+  }
+  #user-table tr:hover {
+    background-color: #D0F0C0; /* Light green background for hover effect */
+  }
+
+  .delete-button {
+      background-color: #ff6347;
+      color: white; /* White text for the delete button */
+      border: none;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+</style>
+
+<div class = "right">
+<div id="id01" class="remove">
+<span onclick="window.location.href='/'" class="close" title="Close Modal">&times;</span>
+<form action="/delete_process" method = "post">
+  <div class="container">
+  <div id = "user-table">
+    <h1>Remove Employee</h1>
+    <hr>
+    <table>
+    <thead>
+      <tr>
+        <th>Employee ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.employee_id %></td>
+          <td><%= user.first_name %></td>
+          <td><%= user.last_name %></td>
+          <td><button class="delete-button" data-id="<%= user.id %>">X</button></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+  <input type="hidden" id="user_id_input" name="user_id">
+    </div>
+    </form>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  // Fetch user data and update the table
+  $(document).ready(function() {
+    $.get('/users', function(data) {
+      $('#user-table').html(data);
+    });
+  });// JavaScript to handle user deletion
+  $(document).ready(function() {
+    $('.delete-button').click(function() {
+      const userId = $(this).data('id');
+  
+      // Populate the hidden input field in the form with the user ID
+      $('#user_id_input').val(userId);
+  
+      // Submit the form
+      $('form').submit();
+    });
+  });
+  
+</script>

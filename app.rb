@@ -48,6 +48,7 @@ get '/remove_user' do
   if @current_user == nil || !@current_user.admin
     redirect '/'
   end
+  @users = User.all
   erb :remove_user
 end
 
@@ -167,4 +168,23 @@ end
 
 post '/remove_user' do
   redirect '/remove_user'
+end
+
+# Add a new route to handle the deletion of a user
+delete '/delete_user/:id' do
+  current_user
+  if @current_user == nil || !@current_user.admin
+    return { success: false, message: "Unauthorized" }.to_json
+  end
+
+  user_id = params[:id]
+
+  # Find the user by ID and attempt to delete it
+  user = User.find_by(id: user_id)
+  if user
+    user.destroy
+    { success: true, message: "User deleted successfully" }.to_json
+  else
+    { success: false, message: "User not found" }.to_json
+  end
 end
