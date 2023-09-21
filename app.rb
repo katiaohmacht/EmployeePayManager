@@ -27,6 +27,7 @@ def current_user
   end
 end
 
+
 get '/' do
   @page_title = "Home"
   current_user
@@ -36,9 +37,9 @@ end
 get '/add_employee' do
   @page_title = "Add Employee"
   current_user
- # if @current_user == nil || !@current_user.admin
- #   redirect '/'
- # end
+ if @current_user == nil || !@current_user.admin
+    redirect '/'
+  end
   erb :add_employee
 end
 
@@ -50,6 +51,26 @@ get '/remove_user' do
   end
   @users = User.all
   erb :remove_user
+end
+
+
+# Add a new route to handle the delete request
+post '/delete_process' do
+  current_user
+  if @current_user == nil || !@current_user.admin
+    redirect '/'
+  end
+  
+
+  user_id = params[:user_id] # Assuming the name of the input field is 'user_id'
+  
+  # Find the user by ID and attempt to delete it
+  user = User.find_by(id: user_id)
+  if user
+    user.destroy
+  end
+
+  redirect '/remove_user' # Redirect back to the user list
 end
 
 get '/admin_main' do
@@ -168,23 +189,4 @@ end
 
 post '/remove_user' do
   redirect '/remove_user'
-end
-
-# Add a new route to handle the deletion of a user
-delete '/delete_user/:id' do
-  current_user
-  if @current_user == nil || !@current_user.admin
-    return { success: false, message: "Unauthorized" }.to_json
-  end
-
-  user_id = params[:id]
-
-  # Find the user by ID and attempt to delete it
-  user = User.find_by(id: user_id)
-  if user
-    user.destroy
-    { success: true, message: "User deleted successfully" }.to_json
-  else
-    { success: false, message: "User not found" }.to_json
-  end
 end

@@ -9,7 +9,6 @@
 /* Modal Content/Box */
 .remove {
   background-color: whitesmoke;
-  
   border: 2px solid #D8F3EC;
   height: 92%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
@@ -74,14 +73,20 @@ h1::after {
     margin: 0 2%; 
     color: black;
     flex: 1; /* Take up remaining horizontal space */
-}#user-table {
-    margin: 20px;
-    border-collapse: collapse;
-    width: 80%;
-  }
+}
+#user-table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  width: 95%; /* Adjust the width to your desired size */
+ 
+}
+
   #user-table th, #user-table td {
     border: 1px solid #4CAF50; /* Green border */
-    padding: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 4vw;
+    padding-right: 4vw;
     text-align: left;
   }
   #user-table th {
@@ -103,6 +108,10 @@ h1::after {
       height: 100%;
       cursor: pointer;
     }
+
+    .table-container {
+  margin: 20px auto; /* Center horizontally */
+}
 </style>
 
 <div class = "right">
@@ -113,12 +122,15 @@ h1::after {
   <div id = "user-table">
     <h1>Remove Employee</h1>
     <hr>
+    <div class = "table-container">
     <table>
     <thead>
       <tr>
         <th>Employee ID</th>
         <th>First Name</th>
         <th>Last Name</th>
+        <th>Occupation</th>
+        <th>Salary</th>
         <th>Delete</th>
       </tr>
     </thead>
@@ -128,11 +140,14 @@ h1::after {
           <td><%= user.employee_id %></td>
           <td><%= user.first_name %></td>
           <td><%= user.last_name %></td>
+          <td><%= user.job %></td>
+          <td><%= user.salary %></td>
           <td><button class="delete-button" data-id="<%= user.id %>">X</button></td>
         </tr>
       <% end %>
     </tbody>
   </table>
+  </div>
   </div>
   <input type="hidden" id="user_id_input" name="user_id">
     </div>
