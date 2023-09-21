@@ -37,9 +37,9 @@ end
 get '/add_employee' do
   @page_title = "Add Employee"
   current_user
- if @current_user == nil || !@current_user.admin
-    redirect '/'
-  end
+#if @current_user == nil || !@current_user.admin
+ #   redirect '/'
+  #end
   erb :add_employee
 end
 
@@ -138,12 +138,12 @@ post '/sign_up_process' do
   else
     # Save the sign-up information to the database
     @user = User.create(
-      first_name: params[:first_name].downcase,
-      last_name: params[:last_name].downcase,
+      first_name: params[:first_name],
+      last_name: params[:last_name],
       password: params[:psw],
-      job: params[:job].downcase,
+      job: params[:job],
       salary: params[:salary],
-      address: params[:address].downcase,
+      address: params[:address],
       employee_id: params[:employee_id],
       admin: params[:admin]
     )
