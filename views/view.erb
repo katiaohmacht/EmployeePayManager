@@ -1,0 +1,51 @@
+<style>
+/* Modal Content/Box */
+.work_history {
+  background-color: whitesmoke;
+  border: 2px solid #D8F3EC;
+  height: 92%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border-radius: 25px;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+/* Add padding to container elements */
+.container {
+  padding: 16px;
+}
+
+
+h1 {
+  font-size: 2vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  display: inline-block;
+  position: relative;
+  padding-bottom: 1%;
+  color: black;
+}
+
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110%;
+    height: 2px;
+    background-color: #000;
+  }
+</style>
+<div class = "right">
+    <div id="id01" class="work_history">
+        <span onclick="window.location.href='/admin_main'" class="close" title="Close Modal">&times;</span>
+            <form action="/workhistory_process" method = "post">
+            <div class="container">
+                <h1>Work History</h1>
+                <hr>
+            </div>
+            </form>
+    </div>
+</div>

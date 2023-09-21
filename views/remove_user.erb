@@ -3,6 +3,7 @@
 /* Add padding to container elements */
 .container {
   padding: 16px;
+  margin: 0 auto;
 }
 
 
@@ -13,8 +14,9 @@
   height: 92%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   border-radius: 25px;
-  margin-left: 5%;
-  margin-right: 5%;
+  padding-left: 5%;
+  padding-right: 5%;
+  margin: 0 auto;
 }
 
 /* Style the horizontal ruler */
@@ -77,8 +79,8 @@ h1::after {
 #user-table {
   margin-top: 20px;
   border-collapse: collapse;
-  width: 95%; /* Adjust the width to your desired size */
- 
+  width: 95%;
+  margin: 0 auto;
 }
 
   #user-table th, #user-table td {
@@ -119,7 +121,7 @@ h1::after {
 
 <div class = "right">
 <div id="id01" class="remove">
-<span onclick="window.location.href='/'" class="close" title="Close Modal">&times;</span>
+<span onclick="window.location.href='/admin_main'" class="close" title="Close Modal">&times;</span>
 <form action="/delete_process" method = "post">
   <div class="container">
   <div id = "user-table">

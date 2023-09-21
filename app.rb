@@ -37,9 +37,9 @@ end
 get '/add_employee' do
   @page_title = "Add Employee"
   current_user
-#if @current_user == nil || !@current_user.admin
- #   redirect '/'
-  #end
+  if @current_user == nil || !@current_user.admin
+    redirect '/'
+  end
   erb :add_employee
 end
 
@@ -51,6 +51,16 @@ get '/remove_user' do
   end
   @users = User.all
   erb :remove_user
+end
+
+get '/view' do
+  @page_title = "Work History"
+  current_user
+  #if @current_user == nil || !@current_user.admin
+  #  redirect '/'
+ # end
+  @users = User.all
+  erb :view
 end
 
 
