@@ -8,7 +8,7 @@
 
 
 /* Modal Content/Box */
-.remove {
+.edit {
   background-color: whitesmoke;
   border: 2px solid #D8F3EC;
   height: 92%;
@@ -87,8 +87,8 @@ h1::after {
     border: 1px solid #4CAF50; /* Green border */
     padding-top: 15px;
     padding-bottom: 15px;
-    padding-left: 4vw;
-    padding-right: 4vw;
+    padding-left: 3vw;
+    padding-right: 3vw;
     text-align: left;
   }
   #user-table th {
@@ -120,12 +120,12 @@ h1::after {
 </style>
 
 <div class = "right">
-<div id="id01" class="remove">
+<div id="id01" class="edit">
 <span onclick="window.location.href='/admin_main'" class="close" title="Close Modal">&times;</span>
 <form action="/delete_process" method = "post">
   <div class="container">
   <div id = "user-table">
-    <h1>Remove Employee</h1>
+    <h1>Edit Employeess</h1>
     <hr>
     <div class = "table-container">
     <table>
@@ -137,6 +137,7 @@ h1::after {
         <th>Occupation</th>
         <th>Salary</th>
         <th>Delete</th>
+        <th>Work History</th>
       </tr>
     </thead>
     <tbody>
@@ -148,6 +149,7 @@ h1::after {
           <td><%= user.job %></td>
           <td><%= user.salary %></td>
           <td><button class="delete-button" data-id="<%= user.id %>">X</button></td>
+          <td><form action = "/work_history_process" method = "post"> <button class = "work_history" data-id="<%=user.id %>">Work History</button></form></td>
         </tr>
       <% end %>
     </tbody>

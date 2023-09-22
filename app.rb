@@ -43,14 +43,14 @@ get '/add_employee' do
   erb :add_employee
 end
 
-get '/remove_user' do
-  @page_title = "Remove User"
+get '/edit_employees' do
+  @page_title = "Edit Employees"
   current_user
   if @current_user == nil || !@current_user.admin
     redirect '/'
   end
   @users = User.all
-  erb :remove_user
+  erb :edit_employees
 end
 
 get '/view' do
@@ -80,7 +80,19 @@ post '/delete_process' do
     user.destroy
   end
 
-  redirect '/remove_user' # Redirect back to the user list
+  redirect '/edit_employees' # Redirect back to the user list
+end
+
+post '/work_history_process' do
+  current_user
+  if @current_user == nil || !@current_user.admin
+    redirect '/'
+  end
+
+  #Find user by ID
+  user_id = params[:user_id]
+  user = User.find_by(id: user_id)
+  redirect '/view'
 end
 
 get '/admin_main' do
@@ -197,6 +209,6 @@ post '/new_user' do
   redirect '/add_employee'
 end
 
-post '/remove_user' do
-  redirect '/remove_user'
+post '/edit_employees' do
+  redirect '/edit_employees'
 end
