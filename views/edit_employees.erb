@@ -149,7 +149,7 @@ h1::after {
           <td><%= user.job %></td>
           <td><%= user.salary %></td>
           <td><button class="delete-button" data-id="<%= user.id %>">X</button></td>
-          <td><form action = "/work_history_process" method = "post"> <button class = "work_history" data-id="<%=user.id %>">Work History</button></form></td>
+          <td><form action = "/work_history_process" method = "post"> <button class = "work_history" data-id="<%=user.id %>">Download</button></form></td>
         </tr>
       <% end %>
     </tbody>

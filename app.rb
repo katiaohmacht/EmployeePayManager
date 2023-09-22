@@ -5,6 +5,8 @@ require 'bcrypt'
 require 'sqlite3'
 require 'rake'
 require 'pony'
+require 'prawn'
+require 'pdfkit'
 gem 'pony'
 
 #set your database
@@ -83,6 +85,7 @@ post '/delete_process' do
   redirect '/edit_employees' # Redirect back to the user list
 end
 
+# Add a new route to handle generating and downloading the PDF
 post '/work_history_process' do
   current_user
   if @current_user == nil || !@current_user.admin
@@ -92,8 +95,38 @@ post '/work_history_process' do
   #Find user by ID
   user_id = params[:user_id]
   user = User.find_by(id: user_id)
-  redirect '/view'
+
+  begin
+    # Create a PDF document
+    pdf = Prawn::Document.new
+
+    # Add user information to the PDF
+    if user
+      pdf.text "User Information Report", size: 18, style: :bold, align: :center
+      pdf.move_down 20
+
+      pdf.text "Employee ID: #{user.employee_id}", size: 14
+      pdf.text "First Name: #{user.first_name}", size: 14
+      pdf.text "Last Name: #{user.last_name}", size: 14
+      pdf.text "Occupation: #{user.job}", size: 14
+      pdf.text "Salary: #{user.salary}", size: 14
+    end
+
+    # Generate a unique filename for the PDF
+    pdf_filename = "user_information_report_#{Time.now.strftime('%Y%m%d%H%M%S')}.pdf"
+
+    # Save the PDF to a temporary file
+    pdf.render_file(pdf_filename)
+
+    # Send the PDF as an attachment for download
+    send_file(pdf_filename, disposition: 'attachment', filename: pdf_filename)
+  rescue StandardError => e
+    # Log any errors to the console or a log file
+    puts "Error generating PDF: #{e.message}"
+    # Optionally, you can render an error page or handle the error in another way
+  end
 end
+
 
 get '/admin_main' do
   @page_title = "Admin Main"
@@ -212,3 +245,4 @@ end
 post '/edit_employees' do
   redirect '/edit_employees'
 end
+
