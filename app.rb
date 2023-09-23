@@ -85,6 +85,7 @@ post '/delete_process' do
   redirect '/edit_employees' # Redirect back to the user list
 end
 
+
 # Add a new route to handle generating and downloading the PDF
 post '/work_history_process' do
   current_user
@@ -92,21 +93,24 @@ post '/work_history_process' do
     redirect '/'
   end
 
-  #Find user by ID
+  # Find user by ID
   user_id = params[:user_id]
   user = User.find_by(id: user_id)
+
+  # Retrieve the first name from the parameters
+  first_name = params[:first_name]
 
   begin
     # Create a PDF document
     pdf = Prawn::Document.new
 
-    # Add user information to the PDF
+    # Add user information to the PDF, including the first name
+    pdf.text "Work History Report", size: 18, style: :bold, align: :center
+    pdf.text "Penel: #{first_name}", size:14
     if user
-      pdf.text "User Information Report", size: 18, style: :bold, align: :center
       pdf.move_down 20
-
       pdf.text "Employee ID: #{user.employee_id}", size: 14
-      pdf.text "First Name: #{user.first_name}", size: 14
+      pdf.text "First Name: #{first_name}", size: 14 # Use the first name from params
       pdf.text "Last Name: #{user.last_name}", size: 14
       pdf.text "Occupation: #{user.job}", size: 14
       pdf.text "Salary: #{user.salary}", size: 14
@@ -126,6 +130,8 @@ post '/work_history_process' do
     # Optionally, you can render an error page or handle the error in another way
   end
 end
+
+
 
 
 get '/admin_main' do

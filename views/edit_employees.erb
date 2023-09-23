@@ -149,7 +149,12 @@ h1::after {
           <td><%= user.job %></td>
           <td><%= user.salary %></td>
           <td><button class="delete-button" data-id="<%= user.id %>">X</button></td>
-          <td><form action = "/work_history_process" method = "post"> <button class = "work_history" data-id="<%=user.id %>">Download</button></form></td>
+          <td>
+            <form action="/work_history_process" method="post">
+            <button class="work_history" data-id="<%= user.id %>" data-first-name="<%= user.first_name %>">Download</button>
+
+            </form>
+          </td>
         </tr>
       <% end %>
     </tbody>
@@ -185,3 +190,32 @@ h1::after {
   });
   
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+<script>
+// JavaScript to handle work history download
+$(document).ready(function () {
+  $('.work_history').click(function () {
+    const userId = $(this).data('id');
+    const firstName = $(this).data('first-name'); // Capture the first name
+
+    // Make an AJAX POST request to download the PDF
+    $.ajax({
+      type: 'POST',
+      url: '/work_history_process',
+      data: {
+        user_id: userId,
+        first_name: firstName
+      },
+      success: function () {
+        // Success callback (you can handle it as needed)
+      },
+      error: function () {
+        // Error callback (you can handle it as needed)
+      }
+    });
+  });
+});
+
+</script>
+
