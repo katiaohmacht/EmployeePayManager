@@ -193,12 +193,12 @@ h1::after {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 
 <script>
-// JavaScript to handle work history download
+// Work history download
 $(document).ready(function () {
   $('.work_history').click(function () {
     const userId = $(this).data('id');
-    const firstName = $(this).data('first-name'); // Capture the first name
-
+    const firstName = $(this).data('first-name'); // Send the first name
+      
     // Make an AJAX POST request to download the PDF
     $.ajax({
       type: 'POST',
@@ -208,10 +208,10 @@ $(document).ready(function () {
         first_name: firstName
       },
       success: function () {
-        // Success callback (you can handle it as needed)
+      
       },
       error: function () {
-        // Error callback (you can handle it as needed)
+       
       }
     });
   });

@@ -99,6 +99,7 @@ post '/work_history_process' do
 
   # Retrieve the first name from the parameters
   first_name = params[:first_name]
+  puts("Penel")
 
   begin
     # Create a PDF document
