@@ -106,7 +106,7 @@ post '/work_history_process' do
 
     # Add user information to the PDF, including the first name
     pdf.text "Work History Report", size: 18, style: :bold, align: :center
-    pdf.text "Penel: #{first_name}", size:14
+    pdf.text "First name: #{first_name}", size:14
     if user
       pdf.move_down 20
       pdf.text "Employee ID: #{user.employee_id}", size: 14
