@@ -208,6 +208,7 @@ post '/sign_up_process' do
       address: params[:address],
       employee_id: params[:employee_id],
       admin: params[:admin]
+      hourly: params[:hourly]
     )
     # Sign-up successful, redirect to index
     session[:user_id] = @user.id

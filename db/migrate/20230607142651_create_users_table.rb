@@ -10,6 +10,8 @@ class CreateUsersTable < ActiveRecord::Migration[7.0]
       entry.string :address
       entry.string :first_name
       entry.string :last_name
+      # one for hourly, 0 for salary
+      entry.integer :hourly 
       entry.datetime :created_at
       entry.datetime :updated_at
     end
