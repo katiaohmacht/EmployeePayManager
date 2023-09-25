@@ -7,6 +7,7 @@ require 'rake'
 require 'pony'
 require 'prawn'
 require 'pdfkit'
+require 'pp'
 gem 'pony'
 
 #set your database
@@ -29,6 +30,18 @@ def current_user
   end
 end
 
+def isCheckedIn (user)
+  pp user
+  time = Checktime.where(employee_id: user).last
+  pp time
+  if time == nil 
+    return 0
+  elsif time.out
+    return 0
+  else
+    return 1
+  end
+end
 
 get '/' do
   @page_title = "Home"
@@ -39,7 +52,7 @@ end
 get '/add_employee' do
   @page_title = "Add Employee"
   current_user
-  if @current_user == nil || !@current_user.admin
+  if @current_user == nil || @current_user.admin == 0
     redirect '/'
   end
   erb :add_employee
@@ -48,10 +61,14 @@ end
 get '/edit_employees' do
   @page_title = "Edit Employees"
   current_user
-  if @current_user == nil || !@current_user.admin
+  if @current_user == nil || @current_user.admin == 0
     redirect '/'
   end
-  @users = User.all
+  if @current_user.admin ==1
+    @users = User.where(admin: 0)
+  else
+    @users = User.all
+  end
   erb :edit_employees
 end
 
@@ -65,11 +82,22 @@ get '/view' do
   erb :view
 end
 
+post '/edit' do
+  @page_title = "Edit Employee"
+  current_user
+  if @current_user == nil || @current_user.admin == 0
+    redirect '/'
+  end
+  @employee = User.find(params[:user_id]) 
+  erb :edit_employee_form
+end
+
+
 
 # Add a new route to handle the delete request
 post '/delete_process' do
   current_user
-  if @current_user == nil || !@current_user.admin
+  if @current_user == nil || @current_user.admin == 0
     redirect '/'
   end
   
@@ -79,7 +107,8 @@ post '/delete_process' do
   # Find the user by ID and attempt to delete it
   user = User.find_by(id: user_id)
   if user
-    user.destroy
+    user.active = 0
+    user.save
   end
 
   redirect '/edit_employees' # Redirect back to the user list
@@ -89,7 +118,7 @@ end
 # Add a new route to handle generating and downloading the PDF
 post '/work_history_process' do
   current_user
-  if @current_user == nil || !@current_user.admin
+  if @current_user == nil || @current_user.admin == 0
     redirect '/'
   end
 
@@ -138,7 +167,7 @@ end
 get '/admin_main' do
   @page_title = "Admin Main"
   current_user
-  if @current_user == nil || !@current_user.admin
+  if @current_user == nil || @current_user.admin == 0
     redirect '/'
   end
   erb :admin_main
@@ -172,15 +201,14 @@ get '/confirmation_in' do
   erb :confirmation_in
 end
 
-
 #validate login credentials for user
 post '/login_process' do
   @current_user = User.find_by(employee_id: params[:id])
   # if the current user is a valid user, create a session
-  if @current_user && @current_user.password == params[:psw]
+  if @current_user && @current_user.password == params[:psw] && @current_user.active != 0
     session[:user_id] = @current_user.id
-    # if the boolean admin is true in the table, redirect to the add employee page
-    if @current_user.admin 
+    # if the boolean admin is true in the table, redirect to the admin main page
+    if @current_user.admin != 0
       redirect '/admin_main'
     else #if not, then redirect to employee page
       redirect '/employee'
@@ -198,6 +226,10 @@ post '/sign_up_process' do
   if existing_user
     redirect '/add_employee'
   else
+    admin1 = params[:admin]
+    if User.find(session[:user_id]).admin == 1
+      admin1 = 0
+    end
     # Save the sign-up information to the database
     @user = User.create(
       first_name: params[:first_name],
@@ -207,17 +239,23 @@ post '/sign_up_process' do
       salary: params[:salary],
       address: params[:address],
       employee_id: params[:employee_id],
-      admin: params[:admin]
-      hourly: params[:hourly]
+      admin: admin1,
+      hourly: params[:hourly],
+      active: 1 
     )
-    # Sign-up successful, redirect to index
-    session[:user_id] = @user.id
-    redirect '/'
+    # Sign-up successful, redirect to main
+    # session[:user_id] = @user.id
+    redirect '/admin_main'
   end
 end
 
 # when clock in is clicked
 post '/clockin' do
+  current_user
+  if isCheckedIn(@current_user.id) != 0
+    redirect '/employee'
+  else 
+    
   # adds a log into the checktime table
   Checktime.create(
     employee_id: session[:user_id],
@@ -226,11 +264,16 @@ post '/clockin' do
   )
   # brings user to confirmation page
   redirect '/confirmation_in'
+  end
 end
 
 # when clock out is clicked
 post '/clockout' do
+  current_user
   # adds a log into the checktime table
+  if isCheckedIn(@current_user.id) == 0
+    redirect '/employee'
+  else 
   Checktime.create(
     employee_id: session[:user_id],
     time: Time.now,
@@ -238,6 +281,7 @@ post '/clockout' do
   )
   # brigns user to confirmation page
   redirect '/confirmation_out'
+  end
 end
 
 # when sign out button pressed, clears user and redirects to home
@@ -254,3 +298,38 @@ post '/edit_employees' do
   redirect '/edit_employees'
 end
 
+post '/update_employee' do
+  user_id = params[:user_id] # Assuming the name of the input field is 'user_id'
+  
+  # Find the user by ID and attempt to delete it
+  user = User.find(user_id)
+  if user
+    user.first_name = params[:first_name]
+    user.last_name = params[:last_name]
+    # user.password = params[:psw]
+    user.job =params[:job]
+    user.salary = params[:salary]
+    user.address = params[:address]
+    user.active = params[:active]
+    # user.employee_id = params[:employee_id]
+    user.admin = params[:admin]
+    user.hourly = params[:hourly]
+    user.save
+  end
+  
+  redirect '/admin_main'
+
+end
+
+post '/auto_clock' do
+  User.find_each do |entry|
+    if isCheckedIn(entry.id) != 0
+      Checktime.create(
+        employee_id: entry.id,
+        time: Time.now,
+        out: true
+      )
+    end
+  end
+  redirect '/admin_main'
+end

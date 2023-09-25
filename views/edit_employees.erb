@@ -134,9 +134,9 @@ h1::after {
         <th>Employee ID</th>
         <th>First Name</th>
         <th>Last Name</th>
-        <th>Occupation</th>
-        <th>Salary</th>
-        <th>Delete</th>
+        <th>Active Status</th>
+        <th> Edit </th>
+        <th>Deactivate</th>
         <th>Work History</th>
       </tr>
     </thead>
@@ -146,8 +146,8 @@ h1::after {
           <td><%= user.employee_id %></td>
           <td><%= user.first_name %></td>
           <td><%= user.last_name %></td>
-          <td><%= user.job %></td>
-          <td><%= user.salary %></td>
+          <td><%= user.active %></td>
+          <td> <button class = "edit-button" formaction = "/edit" data-id = "<%= user.id %>" >Edit</button> </td>
           <td><button class="delete-button" data-id="<%= user.id %>">X</button></td>
           <td>
             <form action="/work_history_process" method="post">
@@ -179,6 +179,18 @@ h1::after {
   });// JavaScript to handle user deletion
   $(document).ready(function() {
     $('.delete-button').click(function() {
+      const userId = $(this).data('id');
+  
+      // Populate the hidden input field in the form with the user ID
+      $('#user_id_input').val(userId);
+  
+      // Submit the form
+      $('form').submit();
+    });
+  });
+
+  $(document).ready(function() {
+    $('.edit-button').click(function() {
       const userId = $(this).data('id');
   
       // Populate the hidden input field in the form with the user ID
