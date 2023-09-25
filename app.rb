@@ -333,3 +333,12 @@ post '/auto_clock' do
   end
   redirect '/admin_main'
 end
+
+post '/home' do
+  current_user
+  if @current_user.admin != 0
+    redirect '/admin_main'
+  else
+    redirect '/employee'
+  end
+end
