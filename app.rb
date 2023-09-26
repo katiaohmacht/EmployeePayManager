@@ -7,7 +7,7 @@ require 'rake'
 require 'pony'
 require 'prawn'
 require 'pdfkit'
-require 'pp'
+require 'pp' #for debugging purposes
 require 'time'
 
 gem 'pony'
@@ -31,6 +31,7 @@ def current_user
   end
 end
 
+# Function that returns 0 if the user's last time check was out, 1 if in
 def isCheckedIn (user)
   time = Checktime.where(employee_id: user).last
   if time == nil 
@@ -42,12 +43,14 @@ def isCheckedIn (user)
   end
 end
 
+# Index erb
 get '/' do
   @page_title = "Home"
   current_user
   erb :index
 end
 
+# Add employee erb with admin check
 get '/add_employee' do
   @page_title = "Add Employee"
   current_user
@@ -57,6 +60,7 @@ get '/add_employee' do
   erb :add_employee
 end
 
+# Pay error erb with admin check
 get '/pay_error' do
   @page_title = "Add Employee"
   current_user
@@ -66,6 +70,7 @@ get '/pay_error' do
   erb :pay_error
 end
 
+# Pay success erb
 get '/pay_success' do
   @page_title = "Add Employee"
   current_user
@@ -75,6 +80,7 @@ get '/pay_success' do
   erb :pay_success
 end
 
+# Edit employees page with admin level check
 get '/edit_employees' do
   @page_title = "Edit Employees"
   current_user
@@ -156,9 +162,9 @@ post '/work_history_process' do
     pdf.text "Work History Report", size: 18, style: :bold, align: :center
     if user
       if user.hourly == 0
-        salary = "/hr"
-      else
         salary = "/yr"
+      else
+        salary = "/hr"
       end
       pdf.move_down 20
       pdf.text "#{user.first_name} #{user.last_name}", size: 20, style: :italic, color: '0000FF', background_color: 'FFFF00'
@@ -190,6 +196,7 @@ post '/work_history_process' do
   end
 end
 
+# Retreives and displays the times and days of each check in and out
 def retrieve(pdf, id, start_date, end_date)
   times = Checktime.where(employee_id: id).where(time: start_date..end_date)
   current = start_date
@@ -240,6 +247,7 @@ def retrieve(pdf, id, start_date, end_date)
     regular = 40*3600
     overtime = elapsed_time-40*3600
   end
+  pdf.move_down 15
   pdf.text current.strftime("%A, %B, %d")
   pdf.move_down 5
   pdf.text str
@@ -248,14 +256,38 @@ def retrieve(pdf, id, start_date, end_date)
   pdf.move_down 5
   
   pdf.text "Total hours worked: #{(total/3600).truncate(2)} hrs"
+  pay(pdf, id, total, regular, overtime)
 end
 
+# Displays the total pay for the employee on the pdf depending on salary or hourly
 def pay(pdf, id, total, regular, overtime)
+  user = User.find_by(id: id)
+  salary = user.salary 
+  bool_hourly = false 
+  if user.hourly != 0
+    bool_hourly = true
+  end
+  if bool_hourly 
+    end_pay = regular/3600.0*salary+overtime/3600.0*salary*1.5
+    pdf.text "Net pay: $#{end_pay}"
+  else #salary calculation
+    last_two = Payperiod.last(2)
+    # Days in the pay period
+    days = (last_two[1].time - last_two[0].time)/(3600.0*24) 
+    factor = 1.0
+    weekly_salary = salary/52.0
+    if (total/3600.0)<(40.0*days/7.0)
+      factor = (total/3600.0)/(40.0*days/7.0)
+    end
+    # pdf.text " weekly salary: #{weekly_salary} days: #{days} factor: #{factor} total: #{total} " TESTING
+    end_pay = (days/7.0)*weekly_salary*factor
+    pdf.text "Net pay: $#{end_pay.truncate(2)}"
+  end
 end
 
 # -------------------------------------------------------------------------------------------
 
-
+# Admin main erb page 
 get '/admin_main' do
   @page_title = "Admin Main"
   current_user
@@ -311,6 +343,7 @@ post '/login_process' do
   end
 end
 
+# Adding an employee process
 post '/sign_up_process' do
   # Check if user exists with the given ID
   existing_user = User.find_by(employee_id: params[:employee_id])
@@ -390,10 +423,11 @@ post '/edit_employees' do
   redirect '/edit_employees'
 end
 
+# Updates employees 
 post '/update_employee' do
   user_id = params[:user_id] # Assuming the name of the input field is 'user_id'
   
-  # Find the user by ID and attempt to delete it
+  # Find the user by ID and update its fields
   user = User.find(user_id)
   if user
     user.first_name = params[:first_name]
@@ -413,6 +447,7 @@ post '/update_employee' do
 
 end
 
+# Auto clocks out all the employees who are not clocked out
 post '/auto_clock' do
   User.find_each do |entry|
     if isCheckedIn(entry.id) != 0
@@ -426,6 +461,7 @@ post '/auto_clock' do
   redirect '/admin_main'
 end
 
+# brings the user to the home page of their respective level
 post '/home' do
   current_user
   if @current_user.admin != 0
@@ -435,18 +471,19 @@ post '/home' do
   end
 end
 
+# runs the pay period, adding a new entry to the table
 post '/run_pay_period' do
   period1 = Payperiod.last
   if period1 != nil
-    # If the pay period is run before 7 days after last, go away
-    if period1.time + 7*3600*24 > Time.now.to_i
-      redirect '/pay_error'
-    else
+    # If the pay period is run before 7 days after last, go away 
+    # if period1.time + 7*3600*24 > Time.now.to_i
+    #   redirect '/pay_error'
+    # else
       Payperiod.create(
         time: Time.now
       )
       redirect '/pay_success'
-    end
+    # end
   else 
     redirect '/pay_error'
   end
