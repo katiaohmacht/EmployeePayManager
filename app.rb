@@ -187,7 +187,7 @@ post '/work_history_process' do
       pdf.text "Salary: #{user.salary} #{salary}", size: 20, style: :bold, color: 'FF0000'
       pdf.move_down 5
       pdf.text "Address: #{user.address}", size: 20
-      pdf.move_down 5
+      pdf.move_down 20
       a = Payperiod.last(2) 
       retrieve(pdf, user_id, Time.at(a[0].time), Time.at(a[1].time))
     end
