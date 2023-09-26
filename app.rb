@@ -161,13 +161,16 @@ post '/work_history_process' do
         salary = "/yr"
       end
       pdf.move_down 20
-      pdf.text "Employee ID: #{user.employee_id}", size: 14
-      pdf.text "First Name: #{user.first_name}", size: 14 # Use the first name from params
-      pdf.text "Last Name: #{user.last_name}", size: 14
-      pdf.text "Occupation: #{user.job}", size: 14
-      pdf.text "Salary: #{user.salary} #{salary}", size: 14
-      pdf.text "Address: #{user.address}", size: 14
-
+      pdf.text "#{user.first_name} #{user.last_name}", size: 20, style: :italic, color: '0000FF', background_color: 'FFFF00'
+      pdf.move_down 5
+      pdf.text "Employee ID: #{user.employee_id}", size: 20, style: [:bold, :italic], color: '007700'
+      pdf.move_down 5
+      pdf.text "Occupation: #{user.job}", size: 20, style: :bold
+      pdf.move_down 5
+      pdf.text "Salary: #{user.salary} #{salary}", size: 20, style: :bold, color: 'FF0000'
+      pdf.move_down 5
+      pdf.text "Address: #{user.address}", size: 20
+      pdf.move_down 5
       a = Payperiod.last(2) 
       retrieve(pdf, user_id, Time.at(a[0].time), Time.at(a[1].time))
     end
@@ -202,11 +205,11 @@ def retrieve(pdf, id, start_date, end_date)
         elapsed_time += current.to_i+86400 - clock_in
         str += Time.at(clock_in).strftime("%l:%M %p") + "-" + Time.at(current.to_i+86400).strftime("%l:%M %p") + ", "
       end
-        pdf.move_down 15
+        pdf.move_down 5
         pdf.text current.strftime("%A, %B, %d")
         pdf.text str
         pdf.text "#{(elapsed_time/3600).truncate(2)} hrs"
-        pdf.move_down 15
+        pdf.move_down 5
         if elapsed_time > 9*3600 
           overtime += elapsed_time-9*3600
           regular += 9*3600
@@ -238,9 +241,11 @@ def retrieve(pdf, id, start_date, end_date)
     overtime = elapsed_time-40*3600
   end
   pdf.text current.strftime("%A, %B, %d")
+  pdf.move_down 5
   pdf.text str
+  pdf.move_down 5
   pdf.text "#{(elapsed_time/3600).truncate(2)} hrs"
-  pdf.move_down 15
+  pdf.move_down 5
   
   pdf.text "Total hours worked: #{(total/3600).truncate(2)} hrs"
 end
