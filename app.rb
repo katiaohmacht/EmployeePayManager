@@ -322,17 +322,17 @@ get '/login' do
   if @current_user != nil
     redirect '/'
   end
-  @employee = User.find(params[:user_id]) 
+  
   erb :login
 end
 
 get '/reset' do
   @page_title = "Reset Password"
-  if @current_user != nil
+  current_user
+  if @current_user == nil
     redirect '/'
   end
-  @users = User.all
-  @employee = User.find(params[:user_id]) 
+
   erb :reset
 end
 
@@ -454,7 +454,7 @@ post '/update_employee' do
   if user
     user.first_name = params[:first_name]
     user.last_name = params[:last_name]
-    # user.password = params[:psw]
+    user.password = params[:psw]
     user.job =params[:job]
     user.salary = params[:salary]
     user.address = params[:address]
@@ -519,6 +519,18 @@ post '/switch_work' do
   redirect '/view'
 end
 
+post '/reset_button' do
+  current_user
+
+  if current_user != nil
+    current_user.password = params[:psw]
+    
+  end
+
+  redirect '/employee'
+end
+
+
 post '/resetpsw' do
-  redirect '/login'
+  redirect '/reset'
 end
