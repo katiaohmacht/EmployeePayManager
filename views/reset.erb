@@ -194,8 +194,9 @@ a{
       <hr>
       <label for="id" class = "my_labels"><b>Employee ID</b></label>
       <input type="text" placeholder="Enter Employee ID" name="id" id="id" class = "my_inputs" required>
-        <label for="psw" class = "my_labels"><b>New Password</b></label>
-      <input type="password" value = <%= @employee.psw%> placeholder="Enter New Password" name="psw" id="psw" class = "my_inputs" required>
+        
+      <label for="psw" class = "my_labels"><b>New Password</b></label>
+        <input type="password" value = <%= @employee.password_hash%> placeholder="Enter New Password" name="psw" id="psw" class = "my_inputs" required>
 
 
       <div class="clearfix">
@@ -217,4 +218,6 @@ window.onclick = function(event) {
     window.location.href = '/'; // Redirect to index on modal close
   }
 }
+
+
 </script>

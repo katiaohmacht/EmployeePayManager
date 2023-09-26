@@ -98,9 +98,9 @@ end
 get '/view' do
   @page_title = "Work History"
   current_user
-  #if @current_user == nil || !@current_user.admin
-  #  redirect '/'
- # end
+  if @current_user == nil || !@current_user.admin
+    redirect '/'
+  end
   @users = User.all
   erb :view
 end
@@ -114,6 +114,17 @@ post '/edit' do
   @employee = User.find(params[:user_id]) 
   erb :edit_employee_form
 end
+
+get '/edit_employee_form' do
+  @page_title = "Edit Employee"
+  current_user
+  if @current_user == nil || !@current_user.admin
+    redirect '/admin_main'
+  end
+  @users = User.all
+  erb :admin_main
+end
+
 
 
 
@@ -311,6 +322,7 @@ get '/login' do
   if @current_user != nil
     redirect '/'
   end
+  @employee = User.find(params[:user_id]) 
   erb :login
 end
 
@@ -319,6 +331,8 @@ get '/reset' do
   if @current_user != nil
     redirect '/'
   end
+  @users = User.all
+  @employee = User.find(params[:user_id]) 
   erb :reset
 end
 
