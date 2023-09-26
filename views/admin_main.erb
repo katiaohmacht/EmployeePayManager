@@ -1,62 +1,89 @@
 <style>
-button{
-    width:20%;
-    height: 10%;
-    font-size: 2vw;
-    border-radius: 25px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    margin-top: 20%;
-    background-color: #FFFFE0;
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        height: 60%; 
+    }
+
+    .my_buttons{
+        width: 20vw; 
+        height: 100%;
+        font-size: 2vw;
+        border-radius: 25px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        background-color: #FFFFE0;
+    }
+    button {
+      width: 20%;
+      height: 10%;
+      font-size: 2vw;
+      border-radius: 25px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      margin-top: 20px;
+      background-color: #FFFFE0;
   }
 
-
-
-
-      button:hover{
+    button:hover {
         background-color: grey;
-      }
-    
-      button:active{
-        background-color:#282828;
-      }
+    }
 
-    #left_button{
-    float:left;
-    margin-left:14%;
-  }
+    button:active {
+        background-color: #282828;
+    }
 
-  #right_button{
-    float:right;
-    margin-right:14%;
-  }
+    #sign_out:hover{
+      background-color: grey;
+    }
+
+    #sign_out:active{
+      background-color: #282828;
+    }
+
+    #container-1 {
+        margin-top: 0%;
+    }
+
+    #sign_out{
+      width: 94%;
+      margin-right: 4%;
+      margin-top: 36%
+      font-size: 2vw;
+      border-radius: 25px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      background-color: #FFFFE0;
+    }
 </style>
 
-<div class = "right">
-    <div id ="container-1">
-        <h5 id="my_title">Administrator - <%="#{@current_user.first_name.titleize} #{@current_user.last_name.titleize} "%></h5>
+<div class="right">
+    <div id="container-1">
+        <h5 id="my_title">Administrator - <%= "#{@current_user.first_name.titleize} #{@current_user.last_name.titleize}" %></h5>
     </div>
 
-<form action="/new_user" method = "post">
-<button id = "left_button" type = "submit" formaction = "/new_user" method = "post">Add New User</button>
-</form>
+    <div class="button-container">
+        <form action="/new_user" method="post">
+            <button class = "my_buttons" type="submit" formaction="/new_user"><b>Add New User</b></button>
+        </form>
 
-<form action = "/remove_user" method = "post">
-<button id = "right_button" type = "submit" formaction = "/edit_employees" method = "post"> Edit User</button>
-<button id = "right_button" type = "submit" formaction = "/auto_clock" method = "post"> Auto Clock Out</button>
-<button id = "right_button" type = "submit" formaction = "/run_pay_period" method = "post"> Run Pay Period</button>
+        <form action="/remove_user" method="post">
+            <button class = "my_buttons" type="submit" formaction="/edit_employees"><b>Edit User</b></button>
+        </form>
+        
+        <form action="/remove_user" method="post">
+            <button class = "my_buttons" type="submit" formaction="/auto_clock"><b>Auto Clock Out</b></button>
+        </form>
+        
+        <form action="/remove_user" method="post">
+            <button class = "my_buttons" type="submit" formaction="/run_pay_period"><b>Run Pay Period</b></button>
+        </form>
 
-</form>
-
-<form>
-    <button type="button" onclick= "window.location.href = '/employee'"> <b>Clock In/Out</b></button>
-</form>
-
-
+        <form>
+            <button class = "my_buttons" type="submit" onclick="window.location.href = '/employee'"><b>Clock In/Out</b></button>
+        </form>
+    </div>
 </div>
-    <form action="/login_process" method = "post">
-        <button id = "sign_out" type = "submit" formaction = "/signout" method = "post"><b>Sign Out</b></button>
-    </form>
 
-
-
-
+<form action="/login_process" method="post">
+    <button id="sign_out" type="submit" formaction="/signout"><b>Sign Out</b></button>
+</form>
