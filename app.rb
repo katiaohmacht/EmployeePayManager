@@ -8,6 +8,8 @@ require 'pony'
 require 'prawn'
 require 'pdfkit'
 require 'pp'
+require 'time'
+
 gem 'pony'
 
 #set your database
@@ -15,7 +17,6 @@ set :database, {adapter: "sqlite3", database: "cooldb.sqlite3"}
 
 set :sessions, true
 set :logging, true
-
 
 require './models'
 
@@ -31,9 +32,7 @@ def current_user
 end
 
 def isCheckedIn (user)
-  pp user
   time = Checktime.where(employee_id: user).last
-  pp time
   if time == nil 
     return 0
   elsif time.out
@@ -114,6 +113,8 @@ post '/delete_process' do
   redirect '/edit_employees' # Redirect back to the user list
 end
 
+# WORK HISTORY AND PAY PERIODS 
+# -------------------------------------------------------------------------------------------
 
 # Add a new route to handle generating and downloading the PDF
 post '/work_history_process' do
@@ -128,7 +129,6 @@ post '/work_history_process' do
 
   # Retrieve the first name from the parameters
   first_name = params[:first_name]
-  puts("Penel")
 
   begin
     # Create a PDF document
@@ -136,14 +136,21 @@ post '/work_history_process' do
 
     # Add user information to the PDF, including the first name
     pdf.text "Work History Report", size: 18, style: :bold, align: :center
-    pdf.text "First name: #{first_name}", size:14
     if user
+      if user.hourly == 0
+        salary = "/hr"
+      else
+        salary = "/yr"
+      end
       pdf.move_down 20
       pdf.text "Employee ID: #{user.employee_id}", size: 14
-      pdf.text "First Name: #{first_name}", size: 14 # Use the first name from params
+      pdf.text "First Name: #{user.first_name}", size: 14 # Use the first name from params
       pdf.text "Last Name: #{user.last_name}", size: 14
       pdf.text "Occupation: #{user.job}", size: 14
-      pdf.text "Salary: #{user.salary}", size: 14
+      pdf.text "Salary: #{user.salary} #{salary}", size: 14
+      pdf.text "Address: #{user.address}", size: 14
+
+      retrieve(pdf, user_id, Time.parse("2023-9-24"), Time.parse("2023-9-26"))
     end
 
     # Generate a unique filename for the PDF
@@ -153,15 +160,76 @@ post '/work_history_process' do
     pdf.render_file(pdf_filename)
 
     # Send the PDF as an attachment for download
-    send_file(pdf_filename, disposition: 'attachment', filename: pdf_filename)
+    send_file(pdf_filename, disposition: 'attachment', filename: pdf_filename, type: 'Application/pdf')
   rescue StandardError => e
     # Log any errors to the console or a log file
-    puts "Error generating PDF: #{e.message}"
+    pp "Error generating PDF: #{e.message}"
     # Optionally, you can render an error page or handle the error in another way
   end
 end
 
+def retrieve(pdf, id, start_date, end_date)
+  times = Checktime.where(employee_id: id).where(time: start_date..end_date)
+  current = start_date
+  clock_in = current.to_i
+  elapsed_time = 0.0
+  str = ""
+  total = 0.0
+  regular = 0
+  overtime = 0
+  times.each do |time_entry|
+    if time_entry.time < current.to_i || time_entry.time >= current.to_i+86400
+      if time_entry.out
+        elapsed_time += current.to_i+86400 - clock_in
+        str += Time.at(clock_in).strftime("%l:%M %p") + "-" + Time.at(current.to_i+86400).strftime("%l:%M %p") + ", "
+      end
+        pdf.move_down 15
+        pdf.text current.strftime("%A, %B, %d")
+        pdf.text str
+        pdf.text "#{(elapsed_time/3600).truncate(2)} hrs"
+        pdf.move_down 15
+        if elapsed_time > 9*3600 
+          overtime += elapsed_time-9*3600
+          regular += 9*3600
+        else
+          regular += elapsed_time
+        end
+        str = ""
+        total += elapsed_time
+        elapsed_time = 0.0
+        current+=86400
+        clock_in = current.to_i
+    end
+    if time_entry.out 
+      elapsed_time += time_entry.time-clock_in
+      str += Time.at(clock_in).strftime("%l:%M %p") + "-" + Time.at(time_entry.time).strftime("%l:%M %p") + ", "
+    else 
+      clock_in = time_entry.time
+    end
+  end
+  if elapsed_time > 9*3600 
+    overtime += elapsed_time-9*3600
+    regular += 9*3600
+  else
+    regular += elapsed_time
+  end
+  total+= elapsed_time
+  if total > 40*3600
+    regular = 40*3600
+    overtime = elapsed_time-40*3600
+  end
+  pdf.text current.strftime("%A, %B, %d")
+  pdf.text str
+  pdf.text "#{(elapsed_time/3600).truncate(2)} hrs"
+  pdf.move_down 15
+  
+  pdf.text "Total hours worked: #{(total/3600).truncate(2)} hrs"
+end
 
+def pay(pdf, id, total, regular, overtime)
+end
+
+# -------------------------------------------------------------------------------------------
 
 
 get '/admin_main' do

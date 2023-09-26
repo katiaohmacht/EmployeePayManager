@@ -9,3 +9,6 @@ gem 'bcrypt'
 gem 'pony'
 gem 'prawn'
 gem 'pdfkit'
+gem 'time'
+
+gem 'pp' #for debugging (allows printing to terminal)
