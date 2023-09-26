@@ -10,11 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_17_235424) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_26_025735) do
   create_table "checktimes", force: :cascade do |t|
     t.integer "employee_id"
     t.integer "time"
     t.boolean "out"
+  end
+
+  create_table "payperiods", force: :cascade do |t|
+    t.integer "time"
   end
 
   create_table "users", force: :cascade do |t|

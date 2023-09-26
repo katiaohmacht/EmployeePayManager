@@ -16,4 +16,6 @@ end
 
 class Checktime < ActiveRecord::Base
 end
-#changes
+
+class Payperiod < ActiveRecord::Base 
+end

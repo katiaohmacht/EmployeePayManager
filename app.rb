@@ -57,6 +57,24 @@ get '/add_employee' do
   erb :add_employee
 end
 
+get '/pay_error' do
+  @page_title = "Add Employee"
+  current_user
+  if @current_user == nil || @current_user.admin == 0
+    redirect '/'
+  end
+  erb :pay_error
+end
+
+get '/pay_success' do
+  @page_title = "Add Employee"
+  current_user
+  if @current_user == nil || @current_user.admin == 0
+    redirect '/'
+  end
+  erb :pay_success
+end
+
 get '/edit_employees' do
   @page_title = "Edit Employees"
   current_user
@@ -150,7 +168,8 @@ post '/work_history_process' do
       pdf.text "Salary: #{user.salary} #{salary}", size: 14
       pdf.text "Address: #{user.address}", size: 14
 
-      retrieve(pdf, user_id, Time.parse("2023-9-24"), Time.parse("2023-9-26"))
+      a = Payperiod.last(2) 
+      retrieve(pdf, user_id, Time.at(a[0].time), Time.at(a[1].time))
     end
 
     # Generate a unique filename for the PDF
@@ -408,5 +427,22 @@ post '/home' do
     redirect '/admin_main'
   else
     redirect '/employee'
+  end
+end
+
+post '/run_pay_period' do
+  period1 = Payperiod.last
+  if period1 != nil
+    # If the pay period is run before 7 days after last, go away
+    if period1.time + 7*3600*24 > Time.now.to_i
+      redirect '/pay_error'
+    else
+      Payperiod.create(
+        time: Time.now
+      )
+      redirect '/pay_success'
+    end
+  else 
+    redirect '/pay_error'
   end
 end
