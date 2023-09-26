@@ -483,3 +483,7 @@ post '/run_pay_period' do
     redirect '/pay_error'
   end
 end
+
+post '/navigate_clock' do
+  redirect '/employee'
+end
