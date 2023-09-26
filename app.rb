@@ -156,9 +156,9 @@ post '/work_history_process' do
     pdf.text "Work History Report", size: 18, style: :bold, align: :center
     if user
       if user.hourly == 0
-        salary = "/hr"
-      else
         salary = "/yr"
+      else
+        salary = "/hr"
       end
       pdf.move_down 20
       pdf.text "Employee ID: #{user.employee_id}", size: 14
@@ -237,15 +237,40 @@ def retrieve(pdf, id, start_date, end_date)
     regular = 40*3600
     overtime = elapsed_time-40*3600
   end
+  pdf.move_down 15
   pdf.text current.strftime("%A, %B, %d")
   pdf.text str
   pdf.text "#{(elapsed_time/3600).truncate(2)} hrs"
   pdf.move_down 15
   
   pdf.text "Total hours worked: #{(total/3600).truncate(2)} hrs"
+  pay(pdf, id, total, regular, overtime)
 end
 
 def pay(pdf, id, total, regular, overtime)
+  user = User.find_by(id: id)
+  salary = user.salary 
+  bool_hourly = false 
+  if user.hourly != 0
+    bool_hourly = true
+  end
+  if bool_hourly 
+    end_pay = regular/3600.0*salary+overtime/3600.0*salary*1.5
+    pdf.text "Net pay: $#{end_pay}"
+  else
+    last_two = Payperiod.last(2)
+    # Days in the pay period
+    days = (last_two[1].time - last_two[0].time)/(3600.0*24) 
+
+    factor = 1.0
+    weekly_salary = salary/52.0
+    if (total/3600.0)<(40.0*days/7.0)
+      factor = (total/3600.0)/(40.0*days/7.0)
+    end
+    # pdf.text " weekly salary: #{weekly_salary} days: #{days} factor: #{factor} total: #{total} "
+    end_pay = (days/7.0)*weekly_salary*factor
+    pdf.text "Net pay: $#{end_pay.truncate(2)}"
+  end
 end
 
 # -------------------------------------------------------------------------------------------
@@ -434,14 +459,14 @@ post '/run_pay_period' do
   period1 = Payperiod.last
   if period1 != nil
     # If the pay period is run before 7 days after last, go away
-    if period1.time + 7*3600*24 > Time.now.to_i
-      redirect '/pay_error'
-    else
+    # if period1.time + 7*3600*24 > Time.now.to_i
+    #   redirect '/pay_error'
+    # else
       Payperiod.create(
         time: Time.now
       )
       redirect '/pay_success'
-    end
+    # end
   else 
     redirect '/pay_error'
   end
