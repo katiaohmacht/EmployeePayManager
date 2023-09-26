@@ -1,4 +1,4 @@
- <style>
+<style>
 
 
 
@@ -188,18 +188,19 @@ a{
 
 <div id="id01" class="signup">
   <span onclick="window.location.href='/'" class="close" title="Close Modal">&times;</span>
-  <form action="/login_process" method = "post">
+  <form action="/resetpsw" method = "post">
     <div class="container" style = "background-color: whitesmoke;">
-      <h1>Log In</h1>
+      <h1>Reset Password</h1>
       <hr>
       <label for="id" class = "my_labels"><b>Employee ID</b></label>
       <input type="text" placeholder="Enter Employee ID" name="id" id="id" class = "my_inputs" required>
         <label for="psw" class = "my_labels"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" id="psw" class = "my_inputs" required>
-      <span class="psw"><a href="/reset">Forgot your password?</a></span>
+      <input type="password" placeholder="Enter New Password" name="psw" id="psw" class = "my_inputs" required>
   <div class="clearfix">
     <button type="button" onclick="window.location.href='/'" class="cancelbtn"><b>Cancel</b></button>
-    <button type="submit" class="signupbtn"><b>Log in</b></button>
+   
+        <button onclick = "window.locatation.href = '/login" type="submit" class="signupbtn"><b>Confirm New Password</b></button>
+
  </form>
 </div>
 </div>

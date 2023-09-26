@@ -314,6 +314,14 @@ get '/login' do
   erb :login
 end
 
+get '/reset' do
+  @page_title = "Reset Password"
+  if @current_user != nil
+    redirect '/'
+  end
+  erb :reset
+end
+
 # Redirect page for confirmations
 get '/confirmation_out' do
   @page_title = "Confirmation Out"
@@ -491,4 +499,12 @@ end
 
 post '/navigate_clock' do
   redirect '/employee'
+end
+
+post '/switch_work' do
+  redirect '/view'
+end
+
+post '/resetpsw' do
+  redirect '/login'
 end
