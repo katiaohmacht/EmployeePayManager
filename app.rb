@@ -589,6 +589,5 @@ get '/view_pay_reports' do
   else
     @users = User.all
   end
-  # tester
   erb :pay_reports
 end
