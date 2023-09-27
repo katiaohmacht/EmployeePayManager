@@ -23,6 +23,7 @@ require './models'
 #Function to check if a current user is logged in, if not redirects to login page.
 def current_user
   if session[:user_id]
+    #if the user is not logged in 
     if User.find(session[:user_id]).blank? then @current_user = nil else @current_user = User.find(session[:user_id]) 
     end
   else
