@@ -396,6 +396,16 @@ get '/reset' do
   erb :reset
 end
 
+post '/resetpsw' do
+  current_user
+  @current_user = User.find_by(employee_id: params[:id])
+  
+  if @current_user
+    user.password = params[:psw]
+    user.save
+  end
+  redirect '/reset'
+end
 # Redirect page for confirmations
 get '/confirmation_out' do
   @page_title = "Confirmation Out"
