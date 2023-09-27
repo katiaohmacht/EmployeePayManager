@@ -100,7 +100,7 @@ get '/edit_employees' do
   else
     @users = User.all
   end
-  tester
+  # tester
   erb :edit_employees
 end
 
@@ -585,16 +585,6 @@ get '/edit_employee_form' do
   erb :admin_main
 end
 
-get '/reset' do
-  @page_title = "Reset Password"
-  current_user
-  if @current_user == nil
-    redirect '/'
-  end
-
-  erb :reset
-end
-
 post '/navigate_clock' do
   redirect '/employee'
 end
@@ -606,9 +596,10 @@ end
 post '/reset_button' do
   current_user
 
-  if current_user != nil
-    current_user.password = params[:psw]
-    
+  user = User.find(@current_user.id)
+  if user
+    user.password = params[:psw]
+    user.save
   end
 
   redirect '/employee'
