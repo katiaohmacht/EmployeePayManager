@@ -489,3 +489,7 @@ post '/run_pay_period' do
     redirect '/pay_error'
   end
 end
+
+post '/view_pay_reports' do
+  "Hello World"
+end
