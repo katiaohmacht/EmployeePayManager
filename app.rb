@@ -100,9 +100,9 @@ end
 get '/view' do
   @page_title = "Work History"
   current_user
-  #if @current_user == nil || !@current_user.admin
-  #  redirect '/'
- # end
+  if @current_user == nil || !@current_user.admin
+    redirect '/'
+  end
   @users = User.all
   erb :view
 end
@@ -476,6 +476,10 @@ post '/edit_employees' do
   redirect '/edit_employees'
 end
 
+post '/take_to_login' do
+  redirect '/login'
+end
+
 # Updates employees 
 post '/update_employee' do
   user_id = params[:user_id] # Assuming the name of the input field is 'user_id'
@@ -485,7 +489,7 @@ post '/update_employee' do
   if user
     user.first_name = params[:first_name]
     user.last_name = params[:last_name]
-    # user.password = params[:psw]
+    user.password = params[:psw]
     user.job =params[:job]
     user.salary = params[:salary]
     user.address = params[:address]
@@ -540,4 +544,48 @@ post '/run_pay_period' do
   else 
     redirect '/pay_error'
   end
+end
+
+get '/edit_employee_form' do
+  @page_title = "Edit Employee"
+  current_user
+  if @current_user == nil || !@current_user.admin
+    redirect '/admin_main'
+  end
+  @users = User.all
+  erb :admin_main
+end
+
+get '/reset' do
+  @page_title = "Reset Password"
+  current_user
+  if @current_user == nil
+    redirect '/'
+  end
+
+  erb :reset
+end
+
+post '/navigate_clock' do
+  redirect '/employee'
+end
+
+post '/switch_work' do
+  redirect '/view'
+end
+
+post '/reset_button' do
+  current_user
+
+  if current_user != nil
+    current_user.password = params[:psw]
+    
+  end
+
+  redirect '/employee'
+end
+
+
+post '/resetpsw' do
+  redirect '/reset'
 end

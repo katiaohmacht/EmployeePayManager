@@ -1,10 +1,8 @@
 <!-- index.erb -->
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <style>
-
-
-  button{
-    width:20%;
+  button {
+    width: 20%;
     height: 10%;
     font-size: 2vw;
     border-radius: 25px;
@@ -12,29 +10,22 @@
     margin-top: 20%;
     background-color: #FFFFE0;
   }
-  button:hover{
+  button:hover {
     background-color: grey;
   }
-
-  button:active{
-    background-color:#282828;
+  button:active {
+    background-color: #282828;
   }
-
-
-  #employee{
-    position:relative;
+  #employee {
+    position: relative;
     margin: 0 auto;
     margin-top: 20%;
-    display:block;
+    display: block;
   }
-
-
 </style>
-<div class = "right">
-<div id="container-1">
-  <h5 id="my_title">Employee Pay Manager</h5>
-</div>
-<%# 
-
-<button id = "employee" onclick = "window.location.href='/login'"" ><b>LOG IN</b></button>
+<div class="right">
+  <div id="container-1">
+    <h5 id="my_title">Employee Pay Manager</h5>
+  </div>
+  <button id="employee" type="button" onclick="window.location.href = '/login'" method="post"><b>LOG IN</b></button>
 </div>
