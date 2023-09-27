@@ -611,8 +611,16 @@ post '/switch_work' do
 end
 
 post '/resetpsw' do
-  redirect '/reset'
+  @page_title = "Reset Password"
+  current_user
+  if @current_user == nil 
+    redirect '/'
+  end
+  user_id = params[:user_id] 
+  @employee = User.find(params[:user_id]) 
+  erb :reset
 end
+
 
 post '/view_pay_reports' do
   redirect 'view_pay_reports'
