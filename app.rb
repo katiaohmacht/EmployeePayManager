@@ -574,68 +574,21 @@ post '/run_pay_period' do
   end
 end
 
-get '/edit_employee_form' do
-  @page_title = "Edit Employee"
+post '/view_pay_reports' do
+  redirect 'view_pay_reports'
+end
+
+get '/view_pay_reports' do
+  @page_title = "Pay Reports History"
   current_user
-  if @current_user == nil || !@current_user.admin
-    redirect '/admin_main'
+  if @current_user == nil || @current_user.admin == 0
+    redirect '/'
   end
-  @users = User.all
-  erb :admin_main
-end
-
-post '/navigate_clock' do
-  redirect '/employee'
-end
-
-post '/switch_work' do
-  redirect '/view'
-end
-
-post '/reset_button' do
-  current_user
-
-  user = User.find(@current_user.id)
-  if user
-    user.password = params[:psw]
-    user.save
+  if @current_user.admin ==1
+    @users = User.where(admin: 0)
+  else
+    @users = User.all
   end
-
-  redirect '/employee'
-end
-
-
-post '/resetpsw' do
-  redirect '/reset'
-end
-
-def tester
-  Payperiod.create(
-    time: Time.parse("2022-12-30") 
-  )
-  Payperiod.create(
-    time: Time.parse("2023-1-7")
-  )
-  Checktime.create(
-    employee_id: 1,
-    time: Time.parse("2023-1-1 9:00 am"),
-    out: false
-  )
-  Checktime.create(
-    employee_id: 1,
-    time: Time.parse("2023-1-1 5:00 pm"),
-    out: true
-  )
-
-  Checktime.create(
-    employee_id: 1,
-    time: Time.parse("2023-1-2 9:00 am"),
-    out: false
-  )
-  Checktime.create(
-    employee_id: 1,
-    time: Time.parse("2023-1-2 5:00 pm"),
-    out: true
-  )
- 
+  # tester
+  erb :pay_reports
 end

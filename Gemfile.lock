@@ -14,8 +14,7 @@ GEM
     bcrypt (3.1.18)
     concurrent-ruby (1.2.2)
     date (3.3.3)
-    holiday (0.0.1)
-      activesupport
+    holidays (8.6.0)
     i18n (1.14.0)
       concurrent-ruby (~> 1.0)
     mail (2.8.1)
@@ -76,7 +75,8 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   bcrypt
-  holiday
+  date
+  holidays
   pdfkit
   pony
   pp
