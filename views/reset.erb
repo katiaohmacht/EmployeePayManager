@@ -185,38 +185,37 @@ a{
 </style> 
 
 <div class = "right">
-
 <div id="id01" class="signup">
-<span onclick="window.location.href='/login'" class="close" title="Close Modal">&times;</span>
-  <form action="/sign_up_process" method = "post">
-    <div class="container" style = "background-color: whitesmoke;">
+  <span onclick="window.location.href='/login'" class="close" title="Close Modal">&times;</span>
+  <form action="/reset_button" method="post"> <!-- Updated action attribute -->
+    <div class="container" style="background-color: whitesmoke;">
       <h1>Reset Password</h1>
       <hr>
-      
         
-      <label for="psw" class = "my_labels"><b>New Password</b></label>
-      <input type="password" placeholder="Enter New Password" name="psw" id="psw" class = "my_inputs" required>
+    
 
+      <label for="confirm_new_psw" class="my_labels"><b>Confirm New Password</b></label>
+      <input type="password" placeholder="Confirm New Password" name="confirm_new_psw" id="confirm_new_psw" class="my_inputs" required>
 
       <div class="clearfix">
         <button type="button" onclick="window.location.href='/'" class="cancelbtn"><b>Cancel</b></button>
-        <button type="submit" formaction = "/reset_button" class="signupbtn"><b>Confirm New Password</b></button>
-
- </form>
-</div>
+        <button type="submit" class="signupbtn"><b>Confirm New Password</b></button>
+      </div>
+    </div>
+  </form>
 </div>
 
 <script>
-// Get the modal
-var modal = document.getElementById('id01');
+  // Get the modal
+  var modal = document.getElementById('id01');
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-    window.location.href = '/'; // Redirect to index on modal close
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+      window.location.href = '/'; // Redirect to index on modal close
+    }
   }
-}
-
-
 </script>
+
+</div>

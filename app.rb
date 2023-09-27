@@ -396,16 +396,34 @@ get '/reset' do
   erb :reset
 end
 
-post '/resetpsw' do
+post '/reset_button' do
   current_user
   @current_user = User.find_by(employee_id: params[:id])
-  
+
   if @current_user
-    user.password = params[:psw]
-    user.save
+    # Hash the new password
+    hashed_password = BCrypt::Password.create(params[:psw])
+
+    # Update the user's password in the database
+    @current_user.update(password_hash: hashed_password)
+
+    # Redirect to the appropriate page (e.g., employee or admin_main)
+    if @current_user.admin != 0
+      redirect '/admin_main'
+    else
+      redirect '/employee'
+    end
+  else
+    # Handle the case where the user is not found (you can customize this)
+    # For example, you can display an error message and redirect to a specific page
+    redirect '/' # Redirect back to the reset password page
   end
-  redirect '/reset'
 end
+
+
+
+
+
 # Redirect page for confirmations
 get '/confirmation_out' do
   @page_title = "Confirmation Out"
@@ -430,7 +448,7 @@ post '/login_process' do
       redirect '/employee'
     end
   else
-    redirect '/'  # Redirect to the login-failed route if login fails
+    redirect '/login'  # Redirect to the login-failed route if login fails
     session.clear
   end
 end
@@ -590,6 +608,10 @@ post '/switch_work' do
     user = User.find_by(id: user_id)
     @employee = User.find(params[:user_id]) 
   redirect '/view'
+end
+
+post '/resetpsw' do
+  redirect '/reset'
 end
 
 post '/view_pay_reports' do
