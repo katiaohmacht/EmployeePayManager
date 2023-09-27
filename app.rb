@@ -615,6 +615,8 @@ end
 
 post '/resetpsw' do
   redirect '/reset'
+end
+
 def tester
   Payperiod.create(
     time: Time.parse("2022-12-30") 
