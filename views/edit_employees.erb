@@ -138,7 +138,8 @@ h1::after {
         <th> Edit </th>
         <th>Deactivate</th>
         <th>Pay Period</th>
-        <th>View Work History</th>
+        <th>Edit Work History</th>
+        <th>View Past Pay Periods</th>
       </tr>
     </thead>
     <tbody>
@@ -155,9 +156,13 @@ h1::after {
           </td>
           <td>
 
-              <button formaction = "/switch_work" method = "post" type="submit" class = "work_history">View</button>
+              <button formaction = "/switch_work" method = "post" type="submit" class = "work_history">Edit</button>
 
             </td>
+          <td>
+            <button formaction = "/view_pay_reports" method = "post" type="submit" class = "work_history">View</button>
+            <td>
+            
         </tr>
       <% end %>
     </tbody>
