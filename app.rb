@@ -575,6 +575,10 @@ post '/run_pay_period' do
 end
 
 post '/switch_work' do
+    # Find user by ID
+    user_id = params[:user_id]
+    user = User.find_by(id: user_id)
+    @employee = User.find(params[:user_id]) 
   redirect '/view'
 end
 
@@ -594,4 +598,8 @@ get '/view_pay_reports' do
     @users = User.all
   end
   erb :pay_reports
+end
+
+post '/navigate_clock' do
+  redirect '/employee'
 end

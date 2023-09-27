@@ -125,7 +125,7 @@ h1::after {
 <form action="/delete_process" method = "post">
   <div class="container">
   <div id = "user-table">
-    <h1>View Work History</h1>
+    <h1>Work History for <%=@employee.first_name%></h1>
     <hr>
     <div class = "table-container">
     <table>
@@ -138,14 +138,14 @@ h1::after {
       </tr>
     </thead>
     <tbody>
-      <% @users.each do |user| %>
+      
         <tr>
-          <td><%= user.employee_id %></td>
-          <td><%= user.first_name %></td>
-          <td><%= user.last_name %></td>
-          <td><%= user.active %></td>
+          <td><%= @employee.employee_id %></td>
+          <td><%= @employee.first_name %></td>
+          <td><%= @employee.last_name %></td>
+          <td><%= @employee.active %></td>
         </tr>
-      <% end %>
+     
     </tbody>
   </table>
   </div>
