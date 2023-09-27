@@ -491,5 +491,19 @@ post '/run_pay_period' do
 end
 
 post '/view_pay_reports' do
-  "Hello World"
+  redirect 'view_pay_reports'
+end
+
+get '/view_pay_reports' do
+  @page_title = "Pay Reports"
+  current_user
+  if @current_user == nil || @current_user.admin == 0
+    redirect '/'
+  end
+  if @current_user.admin ==1
+    @users = User.where(admin: 0)
+  else
+    @users = User.all
+  end
+  erb :pay_reports
 end
