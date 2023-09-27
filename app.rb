@@ -9,7 +9,13 @@ require 'prawn'
 require 'pdfkit'
 require 'pp' #for debugging purposes
 require 'time'
-require 'holiday'
+require 'holidays'
+require 'date'
+require 'holidays/core_extensions/date'
+
+class Date
+  include Holidays::CoreExtensions::Date
+end
 
 gem 'pony'
 
@@ -94,7 +100,7 @@ get '/edit_employees' do
   else
     @users = User.all
   end
-  # tester
+  tester
   erb :edit_employees
 end
 
@@ -214,7 +220,7 @@ end
 def retrieve(pdf, id, start_date, end_date)
   times = Checktime.where(employee_id: id).where(time: start_date..end_date)
   # 40h * number of weeks
-  threshold = 40.0*(end_date - start_date)/86400.0/7.0
+  threshold = 40.0*(end_date - start_date)*3600.0/86400.0/7.0
   current = start_date
   clock_in = current.to_i
   elapsed_time = 0.0
@@ -242,15 +248,11 @@ def retrieve(pdf, id, start_date, end_date)
           reg = 9*3600
         end
         if total + elapsed_time > threshold
-          #we are above threshold
           reg = threshold - (regular + regular_holiday)
-          # if reg < 0
-          #   reg = 0
-          # end
         end
         
         over = elapsed_time-reg
-        pdf.text "#{over} #{reg}"
+       # pdf.text "#{over} #{reg}"
         holiday = isHoliday(current)
         if holiday 
           overtime_holiday+= over
@@ -286,7 +288,7 @@ def retrieve(pdf, id, start_date, end_date)
   end
   
   over = elapsed_time-reg
-  pdf.text "#{over} #{reg}"
+  #pdf.text "#{over} #{reg}"
   holiday = isHoliday(current)
   if holiday 
     overtime_holiday+= over
@@ -310,19 +312,19 @@ def retrieve(pdf, id, start_date, end_date)
 end
 
 def isHoliday(time)
-  return true
   holidayList = ["Christmas", "Easter", "Juneteenth", "New Year\'s Day", "Thanksgiving"]
   day = time.day
   month = time.month
   year = time.year
-  holiday = Date.civil("#{year}-#{month}-#{day}").holidays(:us)
+  holiday = Date.civil(year, month, day).holidays(:us)
   if holiday == nil
     return false
   end
-  # options[:font_size]  # => 10
   holidayList.each do |entry| 
-    if holiday [entry] != nil
-      return true
+    holiday.each do |entry2|
+      if entry == entry2[:name]
+        return true
+      end
     end
   end
   return false
@@ -632,6 +634,17 @@ def tester
   Checktime.create(
     employee_id: 1,
     time: Time.parse("2023-1-1 5:00 pm"),
+    out: true
+  )
+
+  Checktime.create(
+    employee_id: 1,
+    time: Time.parse("2023-1-2 9:00 am"),
+    out: false
+  )
+  Checktime.create(
+    employee_id: 1,
+    time: Time.parse("2023-1-2 5:00 pm"),
     out: true
   )
  
