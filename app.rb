@@ -94,6 +94,7 @@ get '/edit_employees' do
   else
     @users = User.all
   end
+  # tester
   erb :edit_employees
 end
 
@@ -224,7 +225,8 @@ def retrieve(pdf, id, start_date, end_date)
   regular_holiday = 0
   overtime_holiday = 0
   times.each do |time_entry|
-    if time_entry.time < current.to_i || time_entry.time >= current.to_i+86400
+    # pdf.text Time.at(time_entry.time).strftime("%Y-%m-%d %H:%M:%S %z") 
+    while time_entry.time >= current.to_i+86400
       if time_entry.out
         elapsed_time += current.to_i+86400 - clock_in
         str += Time.at(clock_in).strftime("%l:%M %p") + "-" + Time.at(current.to_i+86400).strftime("%l:%M %p") + ", "
@@ -248,6 +250,7 @@ def retrieve(pdf, id, start_date, end_date)
         end
         
         over = elapsed_time-reg
+        pdf.text "#{over} #{reg}"
         holiday = isHoliday(current)
         if holiday 
           overtime_holiday+= over
@@ -283,6 +286,7 @@ def retrieve(pdf, id, start_date, end_date)
   end
   
   over = elapsed_time-reg
+  pdf.text "#{over} #{reg}"
   holiday = isHoliday(current)
   if holiday 
     overtime_holiday+= over
@@ -302,10 +306,11 @@ def retrieve(pdf, id, start_date, end_date)
   pdf.move_down 5
   
   pdf.text "Total hours worked: #{(total/3600).truncate(2)} hrs"
-  pay(pdf, id, total, regular, overtim, regular_holiday, overtime_holiday)
+  pay(pdf, id, total, regular, overtime, regular_holiday, overtime_holiday)
 end
 
 def isHoliday(time)
+  return true
   holidayList = ["Christmas", "Easter", "Juneteenth", "New Year\'s Day", "Thanksgiving"]
   day = time.day
   month = time.month
@@ -610,4 +615,22 @@ end
 
 post '/resetpsw' do
   redirect '/reset'
+def tester
+  Payperiod.create(
+    time: Time.parse("2022-12-30") 
+  )
+  Payperiod.create(
+    time: Time.parse("2023-1-7")
+  )
+  Checktime.create(
+    employee_id: 1,
+    time: Time.parse("2023-1-1 9:00 am"),
+    out: false
+  )
+  Checktime.create(
+    employee_id: 1,
+    time: Time.parse("2023-1-1 5:00 pm"),
+    out: true
+  )
+ 
 end
