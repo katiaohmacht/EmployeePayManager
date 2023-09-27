@@ -574,6 +574,10 @@ post '/run_pay_period' do
   end
 end
 
+post '/switch_work' do
+  redirect '/view'
+end
+
 post '/view_pay_reports' do
   redirect 'view_pay_reports'
 end
