@@ -99,9 +99,9 @@ end
 get '/view' do
   @page_title = "Work History"
   current_user
-  #if @current_user == nil || !@current_user.admin
-  #  redirect '/'
- # end
+  if @current_user == nil || !@current_user.admin
+    redirect '/'
+  end
   @users = User.all
   erb :view
 end
@@ -115,6 +115,17 @@ post '/edit' do
   @employee = User.find(params[:user_id]) 
   erb :edit_employee_form
 end
+
+get '/edit_employee_form' do
+  @page_title = "Edit Employee"
+  current_user
+  if @current_user == nil || !@current_user.admin
+    redirect '/admin_main'
+  end
+  @users = User.all
+  erb :admin_main
+end
+
 
 
 
@@ -177,7 +188,7 @@ post '/work_history_process' do
       pdf.text "Salary: #{user.salary} #{salary}", size: 20, style: :bold, color: 'FF0000'
       pdf.move_down 5
       pdf.text "Address: #{user.address}", size: 20
-      pdf.move_down 5
+      pdf.move_down 20
       a = Payperiod.last(2) 
       retrieve(pdf, user_id, Time.at(a[0].time), Time.at(a[1].time))
     end
@@ -312,7 +323,18 @@ get '/login' do
   if @current_user != nil
     redirect '/'
   end
+  
   erb :login
+end
+
+get '/reset' do
+  @page_title = "Reset Password"
+  current_user
+  if @current_user == nil
+    redirect '/'
+  end
+
+  erb :reset
 end
 
 # Redirect page for confirmations
@@ -433,7 +455,7 @@ post '/update_employee' do
   if user
     user.first_name = params[:first_name]
     user.last_name = params[:last_name]
-    # user.password = params[:psw]
+    user.password = params[:psw]
     user.job =params[:job]
     user.salary = params[:salary]
     user.address = params[:address]
@@ -488,4 +510,28 @@ post '/run_pay_period' do
   else 
     redirect '/pay_error'
   end
+end
+
+post '/navigate_clock' do
+  redirect '/employee'
+end
+
+post '/switch_work' do
+  redirect '/view'
+end
+
+post '/reset_button' do
+  current_user
+
+  if current_user != nil
+    current_user.password = params[:psw]
+    
+  end
+
+  redirect '/employee'
+end
+
+
+post '/resetpsw' do
+  redirect '/reset'
 end

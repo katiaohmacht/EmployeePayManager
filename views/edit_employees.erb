@@ -87,8 +87,8 @@ h1::after {
     border: 1px solid #4CAF50; /* Green border */
     padding-top: 15px;
     padding-bottom: 15px;
-    padding-left: 3vw;
-    padding-right: 3vw;
+    padding-left: 2vw;
+    padding-right: 2vw;
     text-align: left;
   }
   #user-table th {
@@ -137,7 +137,8 @@ h1::after {
         <th>Active Status</th>
         <th> Edit </th>
         <th>Deactivate</th>
-        <th>Work History</th>
+        <th>Pay Period</th>
+        <th>View Work History</th>
       </tr>
     </thead>
     <tbody>
@@ -152,6 +153,11 @@ h1::after {
           <td>
             <button class="work_history" formaction = "/work_history_process" data-id="<%= user.id %>">Download</button>
           </td>
+          <td>
+            <form action = "/switch_work" method = "post">
+              <button type="submit" class = "work_history">View</button>
+            </form>
+            </td>
         </tr>
       <% end %>
     </tbody>
