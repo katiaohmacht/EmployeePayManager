@@ -523,7 +523,6 @@ post '/update_employee' do
     user.salary = params[:salary]
     user.address = params[:address]
     user.active = params[:active]
-    # user.employee_id = params[:employee_id]
     user.admin = params[:admin]
     user.hourly = params[:hourly]
     user.save

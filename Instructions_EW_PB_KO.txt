@@ -1,1 +1,29 @@
 Employee ID is an integer and is unique per person. 
+
+INSTRUCTIONS
+how to run locally: ruby app.rb 
+localhost:4567 on browser
+
+15 erb files, 3 dbs, gemfiles, app.rb, config & models 
+
+Menu #1: Logging in
+Click the login button to navigate to the log in page. Here, enter the Employee ID (a unique integer) and the password. 
+
+Menu #2: Employee Main
+When logging in with an employee id, you are taken to the employee home page. Here, there is functionality to clock in, out, reset password, and sign out. You can only clock in if the last time you clocked, you clocked out (and vice versa). Clocking in and out will take you to a confirmation page where you have the option to go home or sign out. The reset password asks for a new password which it will set to your password in the database. The sign out button ends the session and redirects the user to the index page. 
+
+Menu #3: Admin Main
+When logging in with an admin id, you are taken to the admin main page. The admin has a variety of functions and a sign out button to end the session and back to the index. 
+
+The admin can add a new user, which will redirect to a sign up form where the admin can enter the new employee's name, id, temporary password, whether they are an administrator*, job, salary, and whether they are hourly or salary. 
+
+The admin also has an edit user button which redirects them to a page that lists the employees and shows functions to edit information, deactivate, download most recent pay period, and view work history for each. When editing a user, they can change their name, if they are admin*, their job, salary, address, whether they are hourly or salary, or active or not. 
+
+The admin also has an option to auto-clock out, which will clock all users that are currently clocked in. 
+
+The admin also has the option to run a pay period, which will end the current period when you click the button. 
+
+The admin also has a clock in/out function, which takes them to the employee's main page and provides them the basic functionality that the employee has to record their hours. 
+
+
+*The administrator will only be able to add a new employee that is an administrator if they are the top level admin. Otherwise, this field will not give the employee any special privileges regardless of what they put into the form. 
