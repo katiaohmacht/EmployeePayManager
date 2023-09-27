@@ -10,5 +10,6 @@ gem 'pony'
 gem 'prawn'
 gem 'pdfkit'
 gem 'time'
+gem 'holiday'
 
 gem 'pp' #for debugging (allows printing to terminal)

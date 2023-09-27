@@ -9,6 +9,7 @@ require 'prawn'
 require 'pdfkit'
 require 'pp' #for debugging purposes
 require 'time'
+require 'holiday'
 
 gem 'pony'
 
@@ -200,6 +201,8 @@ end
 # Retreives and displays the times and days of each check in and out
 def retrieve(pdf, id, start_date, end_date)
   times = Checktime.where(employee_id: id).where(time: start_date..end_date)
+  # 40h * number of weeks
+  threshold = 40.0*(end_date - start_date)/86400.0/7.0
   current = start_date
   clock_in = current.to_i
   elapsed_time = 0.0
@@ -207,6 +210,8 @@ def retrieve(pdf, id, start_date, end_date)
   total = 0.0
   regular = 0
   overtime = 0
+  regular_holiday = 0
+  overtime_holiday = 0
   times.each do |time_entry|
     if time_entry.time < current.to_i || time_entry.time >= current.to_i+86400
       if time_entry.out
@@ -218,15 +223,32 @@ def retrieve(pdf, id, start_date, end_date)
         pdf.text str
         pdf.text "#{(elapsed_time/3600).truncate(2)} hrs"
         pdf.move_down 5
-        if elapsed_time > 9*3600 
-          overtime += elapsed_time-9*3600
-          regular += 9*3600
-        else
-          regular += elapsed_time
+
+        reg = elapsed_time
+        if elapsed_time > 9*3600
+          reg = 9*3600
         end
-        str = ""
+        if total + elapsed_time > threshold
+          #we are above threshold
+          reg = threshold - (regular + regular_holiday)
+          # if reg < 0
+          #   reg = 0
+          # end
+        end
+        
+        over = elapsed_time-reg
+        holiday = isHoliday(current)
+        if holiday 
+          overtime_holiday+= over
+          regular_holiday += reg
+        else
+          overtime += over
+          regular += reg
+        end
+        
         total += elapsed_time
         elapsed_time = 0.0
+        str = ""
         current+=86400
         clock_in = current.to_i
     end
@@ -237,17 +259,29 @@ def retrieve(pdf, id, start_date, end_date)
       clock_in = time_entry.time
     end
   end
-  if elapsed_time > 9*3600 
-    overtime += elapsed_time-9*3600
-    regular += 9*3600
+  reg = elapsed_time
+  if elapsed_time > 9*3600
+    reg = 9*3600
+  end
+  if total + elapsed_time > threshold
+    #we are above threshold
+    reg = threshold - (regular + regular_holiday)
+    # if reg < 0
+    #   reg = 0
+    # end
+  end
+  
+  over = elapsed_time-reg
+  holiday = isHoliday(current)
+  if holiday 
+    overtime_holiday+= over
+    regular_holiday += reg
   else
-    regular += elapsed_time
+    overtime += over
+    regular += reg
   end
   total+= elapsed_time
-  if total > 40*3600
-    regular = 40*3600
-    overtime = elapsed_time-40*3600
-  end
+
   pdf.move_down 15
   pdf.text current.strftime("%A, %B, %d")
   pdf.move_down 5
@@ -257,11 +291,29 @@ def retrieve(pdf, id, start_date, end_date)
   pdf.move_down 5
   
   pdf.text "Total hours worked: #{(total/3600).truncate(2)} hrs"
-  pay(pdf, id, total, regular, overtime)
+  pay(pdf, id, total, regular, overtim, regular_holiday, overtime_holiday)
+end
+
+def isHoliday(time)
+  holidayList = ["Christmas", "Easter", "Juneteenth", "New Year\'s Day", "Thanksgiving"]
+  day = time.day
+  month = time.month
+  year = time.year
+  holiday = Date.civil("#{year}-#{month}-#{day}").holidays(:us)
+  if holiday == nil
+    return false
+  end
+  # options[:font_size]  # => 10
+  holidayList.each do |entry| 
+    if holiday [entry] != nil
+      return true
+    end
+  end
+  return false
 end
 
 # Displays the total pay for the employee on the pdf depending on salary or hourly
-def pay(pdf, id, total, regular, overtime)
+def pay(pdf, id, total, regular, overtime, regular_holiday, overtime_holiday)
   user = User.find_by(id: id)
   salary = user.salary 
   bool_hourly = false 
@@ -269,7 +321,7 @@ def pay(pdf, id, total, regular, overtime)
     bool_hourly = true
   end
   if bool_hourly 
-    end_pay = regular/3600.0*salary+overtime/3600.0*salary*1.5
+    end_pay = (regular+overtime*1.5 + regular_holiday*2 + overtime_holiday*3.0)/3600.0*salary
     pdf.text "Net pay: $#{end_pay}"
   else #salary calculation
     last_two = Payperiod.last(2)
