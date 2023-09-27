@@ -24,7 +24,7 @@ require './models'
 #Function to check if a current user is logged in, if not redirects to login page.
 def current_user
   if session[:user_id]
-    #if the session is not blank, then login the user
+    #if the user is not logged in 
     if User.find(session[:user_id]).blank? then @current_user = nil else @current_user = User.find(session[:user_id]) 
     end
   else
@@ -117,6 +117,17 @@ post '/edit' do
   erb :edit_employee_form
 end
 
+get '/edit_employee_form' do
+  @page_title = "Edit Employee"
+  current_user
+  if @current_user == nil || !@current_user.admin
+    redirect '/admin_main'
+  end
+  @users = User.all
+  erb :admin_main
+end
+
+
 
 
 # Add a new route to handle the delete request
@@ -178,7 +189,7 @@ post '/work_history_process' do
       pdf.text "Salary: #{user.salary} #{salary}", size: 20, style: :bold, color: 'FF0000'
       pdf.move_down 5
       pdf.text "Address: #{user.address}", size: 20
-      pdf.move_down 5
+      pdf.move_down 20
       a = Payperiod.last(2) 
       retrieve(pdf, user_id, Time.at(a[0].time), Time.at(a[1].time))
     end
@@ -364,7 +375,18 @@ get '/login' do
   if @current_user != nil
     redirect '/'
   end
+  
   erb :login
+end
+
+get '/reset' do
+  @page_title = "Reset Password"
+  current_user
+  if @current_user == nil
+    redirect '/'
+  end
+
+  erb :reset
 end
 
 # Redirect page for confirmations
