@@ -245,17 +245,19 @@ a {
             <input type="text" value="<%= @time.time_out %>" name="out_time" class="my_inputs" id="out_time" required>
           </div>
         </div>
-        <!-- Empty div for future content -->
-        <div class="float-container side-by-side">
-          <div class="float-child">
-          </div>
-        </div>
-        <div class="clearfix">
-          <!-- Cancel button with a link -->
-          <button type="button" onclick="window.location.href='/admin_main'" class="cancelbtn"><b>Cancel</b></button>
-          <!-- Update button with a form action -->
-          <button type="submit" formaction="/update_time" class="update-button"><b>Update Time</b></button>
-        </div>
+       
+        
+          <div class="float-container side-by-side">
+            <div class="float-child">
+              <!-- Cancel button with a link -->
+              <button type="button" onclick="window.location.href='/admin_main'" class="cancelbtn"><b>Cancel</b></button>
+            </div>
+              <div class = "float-child">
+                <!-- Update button with a form action -->
+                <button type="submit" formaction="/update_time" class="update-button"><b>Update Time</b></button>
+              </div>          
+            </div>
+          
         <!-- Hidden input fields -->
         <input type="hidden" value=<%= @time.id_in %> id="in_id" name="in_id">
         <input type="hidden" value=<%= @time.id_out %> id="out_id" name="out_id">
