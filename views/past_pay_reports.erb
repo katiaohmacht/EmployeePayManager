@@ -1,60 +1,66 @@
+<!--
+Creator: Penelope Brody, Katia Omacht, Ewan Ward
+Teacher: Mr. Crute
+Description: Create past pay reports page
+Date Created: September 15th, 2023
+Date Last Modified: September 27th, 2023
+-->
+
 <style>
+  /* CSS styles for the page */
 
-/* Add padding to container elements */
-.container {
-  padding: 5px;
-  margin: 6 auto;
-}
+  /* Add padding to container elements */
+  .container {
+    padding: 5px;
+    margin: 6 auto;
+  }
 
+  /* Styling for the modal box */
+  .edit {
+    background-color: whitesmoke;
+    border: 2px solid #D8F3EC;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    border-radius: 25px;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin: 0 auto;
+  }
 
-/* Modal Content/Box */
-.edit {
-  background-color: whitesmoke;
-  border: 2px solid #D8F3EC;
+  /* Styling for horizontal ruler */
+  hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+  }
   
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  border-radius: 25px;
-  padding-left: 5%;
-  padding-right: 5%;
-  margin: 0 auto;
-}
+  /* Styling for the close button (x) */
+  .close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+  }
 
-/* Style the horizontal ruler */
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
-}
- 
-/* The Close Button (x) */
-.close {
-  position: absolute;
-  right: 35px;
-  top: 15px;
-  font-size: 40px;
-  font-weight: bold;
-  color: #f1f1f1;
-}
+  .close:hover,
+  .close:focus {
+    color: #f44336;
+    cursor: pointer;
+  }
 
-.close:hover,
-.close:focus {
-  color: #f44336;
-  cursor: pointer;
-}
+  /* Styling for the page header */
+  h1 {
+    font-size: 2vw;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+    position: relative;
+    padding-bottom: 1%;
+    color: black;
+  }
 
-
-
-h1 {
-  font-size: 2vw;
-  margin-left: 50%;
-  transform: translateX(-50%);
-  display: inline-block;
-  position: relative;
-  padding-bottom: 1%;
-  color: black;
-}
-
-
-h1::after {
+  /* Create line under h1 */
+  h1::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -65,23 +71,27 @@ h1::after {
     background-color: #000;
   }
 
+  /* Styling for a container with flex layout */
   .my_container {
     display: flex;
     align-items: center; /* Center contents vertically within the container */
-}
+  }
 
-.my_container p {
+  /*Style container text and center it*/
+  .my_container p {
     font-size: 25px;
     margin: 0 2%; 
     color: black;
     flex: 1; /* Take up remaining horizontal space */
-}
-#user-table {
-  margin-top: 20px;
-  border-collapse: collapse;
-  width: 95%;
-  margin: 0 auto;
-}
+  }
+
+  /* Styling for the user table */
+  #user-table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 95%;
+    margin: 0 auto;
+  }
 
   #user-table th, #user-table td {
     border: 1px solid #4CAF50; /* Green border */
@@ -91,90 +101,99 @@ h1::after {
     padding-right: 3vw;
     text-align: left;
   }
+
   #user-table th {
     background-color: #4CAF50; /* Green background for headers */
     color: white; /* White text for headers */
   }
+
   #user-table tr:nth-child(even) {
     background-color: #f2f2f2; /* Light gray background for even rows */
   }
+
   #user-table tr:hover {
     background-color: #D0F0C0; /* Light green background for hover effect */
   }
+
   #user-table td:hover{
     background-color: #A2E182;
   }
 
+  /* Styling for the delete button */
   .delete-button {
-      background-color: #ff6347;
-      color: white; /* White text for the delete button */
-      border: none;
-      width: 100%;
-      height: 100%;
-      cursor: pointer;
-    }
+    background-color: #ff6347;
+    color: white; /* White text for the delete button */
+    border: none;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
 
+  /* Table container spacing */
+  /* Styling for the table container */
   .table-container {
     margin-left: 25%;
   }
 </style>
 
-<div class = "right">
-<div id="id01" class="edit">
-<span onclick="window.location.href='/admin_main'" class="close" title="Close Modal">&times;</span>
-<form action="/view" method = "post">
-  <div class="container">
-  <div id = "user-table">
-    <h1>View Work History</h1>
-    <hr>
-    <div class = "table-container">
-    <table>
-    <thead>
-      <tr>
-        <th>Pay Period Start Date</th>
-        <th>Pay Period End Date</th>
-        <th>Download Report</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @payp.each do |entry| %>
-        <tr>
-          <td><%= entry.start_string %></td>
-          <td><%= entry.end_string %></td>
-          <td> 
-            <button class = "edit-button" data-id="<%= entry.start_time %>"data-id2="<%= entry.end_time %>" formaction = "/download_report" >Download</button> 
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  </div>
-  </div>
-  <input type="hidden" value=<%= @user_id %> id="user_id_input" name="user_id">
-   <input type="hidden" id="start_time_input" name="start_time">
-   <input type="hidden" id="end_time_input" name="end_time">
-    </div>
+<div class="right">
+  <div id="id01" class="edit">
+    <span onclick="window.location.href='/admin_main'" class="close" title="Close Modal">&times;</span>
+    <form action="/view" method="post">
+      <div class="container">
+        <div id="user-table">
+        <!-- View history -->
+          <h1>View Work History</h1>
+          <hr>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Pay Period Start Date</th>
+                  <th>Pay Period End Date</th>
+                  <th>Download Report</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Loop through pay report entries -->
+                <% @payp.each do |entry| %>
+                  <tr>
+                    <td><%= entry.start_string %></td>
+                    <td><%= entry.end_string %></td>
+                    <td> 
+                      <button class="edit-button" data-id="<%= entry.start_time %>" data-id2="<%= entry.end_time %>" formaction="/download_report">Download</button> 
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <input type="hidden" value=<%= @user_id %> id="user_id_input" name="user_id">
+        <input type="hidden" id="start_time_input" name="start_time">
+        <input type="hidden" id="end_time_input" name="end_time">
+      </div>
     </form>
-    </div>
+  </div>
 </div>
-
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-  // Fetch user data and update the table
+  // JavaScript to fetch user data and update the table
   $(document).ready(function() {
     $.get('/times', function(data) {
       $('#user-table').html(data);
     });
-  });// JavaScript to handle user deletion
+  });
 
+  // JavaScript to handle user deletion
   $(document).ready(function() {
     $('.edit-button').click(function() {
       const start_time = $(this).data('id');
       const end_time = $(this).data('id2');
   
-      // Populate the hidden input field in the form with the user ID
+      // Populate the hidden input fields in the form with the start and end times
       $('#start_time_input').val(start_time);
       $('#end_time_input').val(end_time);
   
@@ -182,6 +201,4 @@ h1::after {
       $('form').submit();
     });
   });
-
 </script>
-
