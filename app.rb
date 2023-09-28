@@ -581,7 +581,7 @@ post '/run_pay_period' do
         time: Time.now
       )
       redirect '/pay_success'
-    # end
+    end
   else 
     redirect '/pay_error'
   end
