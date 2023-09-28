@@ -74,7 +74,7 @@ get '/add_employee' do
   if @current_user == nil || @current_user.admin == 0
     redirect '/'
   end
-  # inputEmployees
+  inputEmployees
   erb :add_employee
 end
 
@@ -733,64 +733,84 @@ post '/download_report' do
 end
 
 #Create tester
-
-def tester
-  Payperiod.create(
-    time: Time.parse("2022-12-30") 
-  )
-  Payperiod.create(
-    time: Time.parse("2023-1-7")
-  )
-  Checktime.create(
-    employee_id: 1,
-    time: Time.parse("2023-1-1 9:00 am"),
-    out: false
-  )
-  Checktime.create(
-    employee_id: 1,
-    time: Time.parse("2023-1-1 5:00 pm"),
-    out: true
-  )
-
-  Checktime.create(
-    employee_id: 1,
-    time: Time.parse("2023-1-2 9:00 am"),
-    out: false
-  )
-  Checktime.create(
-    employee_id: 1,
-    time: Time.parse("2023-1-2 5:00 pm"),
-    out: true
-  )
-end
-
 def inputEmployees 
   Payperiod.create(
     time: Time.parse("2023-9-21")
   )
+  addweektimes(17)
+  addweektimes(19)
+end
 
+def addweektimes(id){
   Checktime.create(
-    employee_id: 9876,
+    employee_id: id,
     time: Time.parse("2023-9-21 9:00 am"),
     out: false
   )
 
   Checktime.create(
-    employee_id: 9876,
+    employee_id: id,
     time: Time.parse("2023-9-21 5:00 pm"),
     out: true
   )
 
   Checktime.create(
-    employee_id: 9876,
+    employee_id: id,
     time: Time.parse("2023-9-22 9:00 am"),
     out: false
   )
 
   Checktime.create(
-    employee_id: 9876,
+    employee_id: id,
     time: Time.parse("2023-9-22 5:00 pm"),
     out: true
   )
-  
-end
+
+  Checktime.create(
+    employee_id: id,
+    time: Time.parse("2023-9-23 9:00 am"),
+    out: false
+  )
+
+  Checktime.create(
+    employee_id: id,
+    time: Time.parse("2023-9-23 5:00 pm"),
+    out: true
+  )
+
+  Checktime.create(
+    employee_id: id,
+    time: Time.parse("2023-9-24 9:00 am"),
+    out: false
+  )
+
+  Checktime.create(
+    employee_id: id,
+    time: Time.parse("2023-9-24 5:00 pm"),
+    out: true
+  )
+
+  Checktime.create(
+    employee_id: id,
+    time: Time.parse("2023-9-25 9:00 am"),
+    out: false
+  )
+
+  Checktime.create(
+    employee_id: id,
+    time: Time.parse("2023-9-25 5:00 pm"),
+    out: true
+  )
+
+  Checktime.create(
+    employee_id: id,
+    time: Time.parse("2023-9-26 9:00 am"),
+    out: false
+  )
+
+  Checktime.create(
+    employee_id: id,
+    time: Time.parse("2023-9-26 5:00 pm"),
+    out: true
+  )
+}
