@@ -461,7 +461,7 @@ post '/sign_up_process' do
       active: 1 
     )
     # Sign-up successful, redirect to main
-    session[:user_id] = @user.id
+    # session[:user_id] = @user.id
     redirect '/admin_main'
   end
 end
