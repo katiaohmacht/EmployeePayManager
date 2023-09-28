@@ -350,7 +350,7 @@ def pay(pdf, id, total, regular, overtime, regular_holiday, overtime_holiday)
   end
   if bool_hourly 
     end_pay = (regular+overtime*1.5 + regular_holiday*2 + overtime_holiday*3.0)/3600.0*salary
-    pdf.text "Net pay: $#{end_pay}"
+    pdf.text "Net pay: $#{end_pay.truncate(2)}"
   else #salary calculation
     last_two = Payperiod.last(2)
     # Days in the pay period
@@ -738,6 +738,9 @@ end
 
 #Create tester
 def inputEmployees 
+  Payperiod.create(
+    time: Time.parse("2023-9-14")
+  )
   Payperiod.create(
     time: Time.parse("2023-9-21")
   )
