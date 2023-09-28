@@ -763,3 +763,10 @@ def tester
     out: true
   )
 end
+
+def inputEmployees 
+  Payperiod.create(
+    time: Time.parse("2023-9-21")
+  )
+  
+end
