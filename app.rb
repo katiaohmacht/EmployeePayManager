@@ -74,7 +74,7 @@ get '/add_employee' do
   if @current_user == nil || @current_user.admin == 0
     redirect '/'
   end
-  inputEmployees
+  # inputEmployees
   erb :add_employee
 end
 
@@ -739,78 +739,79 @@ def inputEmployees
   )
   addweektimes(17)
   addweektimes(19)
+  addweektimes(20)
 end
 
-def addweektimes(id){
+def addweektimes(id1)
   Checktime.create(
-    employee_id: id,
+    employee_id: id1,
     time: Time.parse("2023-9-21 9:00 am"),
     out: false
   )
 
   Checktime.create(
-    employee_id: id,
+    employee_id: id1,
     time: Time.parse("2023-9-21 5:00 pm"),
     out: true
   )
 
   Checktime.create(
-    employee_id: id,
+    employee_id: id1,
     time: Time.parse("2023-9-22 9:00 am"),
     out: false
   )
 
   Checktime.create(
-    employee_id: id,
+    employee_id: id1,
     time: Time.parse("2023-9-22 5:00 pm"),
     out: true
   )
 
   Checktime.create(
-    employee_id: id,
+    employee_id: id1,
     time: Time.parse("2023-9-23 9:00 am"),
     out: false
   )
 
   Checktime.create(
-    employee_id: id,
+    employee_id: id1,
     time: Time.parse("2023-9-23 5:00 pm"),
     out: true
   )
 
   Checktime.create(
-    employee_id: id,
+    employee_id: id1,
     time: Time.parse("2023-9-24 9:00 am"),
     out: false
   )
 
   Checktime.create(
-    employee_id: id,
+    employee_id: id1,
     time: Time.parse("2023-9-24 5:00 pm"),
     out: true
   )
 
   Checktime.create(
-    employee_id: id,
+    employee_id: id1,
     time: Time.parse("2023-9-25 9:00 am"),
     out: false
   )
 
   Checktime.create(
-    employee_id: id,
+    employee_id: id1,
     time: Time.parse("2023-9-25 5:00 pm"),
     out: true
   )
 
   Checktime.create(
-    employee_id: id,
+    employee_id: id1,
     time: Time.parse("2023-9-26 9:00 am"),
     out: false
   )
 
   Checktime.create(
-    employee_id: id,
+    employee_id: id1,
     time: Time.parse("2023-9-26 5:00 pm"),
     out: true
   )
-}
+end
