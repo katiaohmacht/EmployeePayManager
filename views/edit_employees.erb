@@ -191,7 +191,7 @@ h1::after {
                   </td>
                   <td>
                     <!-- View Past Pay Periods button -->
-                    <button formaction="/view_pay_reports" method="post" type="submit" class="work_history">View</button>
+                    <button formaction="/view_pay_reports" method="post" type="submit" class="work_history" data-id = "<%= user.id %>">View</button>
                   </td>
                 </tr>
                 <% end %>

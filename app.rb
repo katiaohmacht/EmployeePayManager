@@ -177,12 +177,14 @@ post '/work_history_process' do
 
   # Find user by ID
   user_id = params[:user_id]
-  user = User.find_by(id: user_id)
 
-  # Retrieve the first name from the parameters
-  first_name = params[:first_name]
+  a = Payperiod.last(2) 
+  download_pdf(user_id,Time.at(a[0].time), Time.at(a[1].time))
+end
 
+def download_pdf(user_id, start_date, end_date)
   begin
+    user = User.find(user_id)
     # Create a PDF document
     pdf = Prawn::Document.new
 
@@ -205,8 +207,7 @@ post '/work_history_process' do
       pdf.move_down 5
       pdf.text "Address: #{user.address}", size: 20
       pdf.move_down 20
-      a = Payperiod.last(2) 
-      retrieve(pdf, user_id, Time.at(a[0].time), Time.at(a[1].time))
+      retrieve(pdf, user_id, start_date, end_date)
     end
 
     # Generate a unique filename for the PDF
@@ -706,7 +707,33 @@ post '/add_time' do
   redirect '/edit_employees'
 end
 
+post '/view_pay_reports' do
+  # parameters: user_id
+  isFirst = true
+  time = 0
+  Row = Struct.new(:start_time, :end_time, :start_string, :end_string)
+  @payp = []
+  Payperiod.find_each do |entry|
+    if isFirst
+      time = entry.time
+      isFirst = false
+    else
+      s = Time.at(time).strftime('%Y-%m-%d %H:%M:%S')
+      e = Time.at(entry.time).strftime('%Y-%m-%d %H:%M:%S')
+      @payp.push(Row.new(time, entry.time, s, e))
+      time = entry.time
+    end
+  end
+  @user_id = params[:user_id]
+  erb :past_pay_reports
+end
+
+post '/download_report' do
+  download_pdf(params[:user_id], Time.at(params[:start_time].to_i), Time.at(params[:end_time].to_i))
+end
+
 #Create tester
+
 def tester
   Payperiod.create(
     time: Time.parse("2022-12-30") 
