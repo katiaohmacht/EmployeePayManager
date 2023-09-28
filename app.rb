@@ -762,5 +762,4 @@ def tester
     time: Time.parse("2023-1-2 5:00 pm"),
     out: true
   )
- 
 end
