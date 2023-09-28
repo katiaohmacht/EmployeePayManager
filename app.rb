@@ -189,7 +189,7 @@ def download_pdf(user_id, start_date, end_date)
     pdf = Prawn::Document.new
 
     # Add user information to the PDF, including the first name
-    pdf.text "Work History Report", size: 18, style: :bold, align: :center
+    pdf.text "Pay Period Report", size: 18, style: :bold, align: :center
     if user
       if user.hourly == 0
         salary = "/yr"
@@ -197,18 +197,22 @@ def download_pdf(user_id, start_date, end_date)
         salary = "/hr"
       end
       pdf.move_down 20
-      pdf.text "#{user.first_name} #{user.last_name}", size: 20, style: :italic, color: '0000FF', background_color: 'FFFF00'
+      pdf.text "#{user.first_name} #{user.last_name}", size: 20, style: :bold
       pdf.move_down 5
-      pdf.text "Employee ID: #{user.employee_id}", size: 20, style: [:bold, :italic], color: '007700'
+      pdf.text "Employee ID: #{user.employee_id}", size: 20, style: :bold
       pdf.move_down 5
-      pdf.text "Occupation: #{user.job}", size: 20, style: :bold
+      pdf.text "Occupation: #{user.job}", size: 20
       pdf.move_down 5
-      pdf.text "Salary: #{user.salary} #{salary}", size: 20, style: :bold, color: 'FF0000'
+      pdf.text "Salary: #{user.salary} #{salary}", size: 20
       pdf.move_down 5
       pdf.text "Address: #{user.address}", size: 20
       pdf.move_down 20
       retrieve(pdf, user_id, start_date, end_date)
     end
+    pdf.text "********************************************************************"
+    pdf.move_down 10
+    pdf.text "Hours worked in pay period: "
+    pdf.move_down 5
 
     # Generate a unique filename for the PDF
     pdf_filename = "user_information_report_#{Time.now.strftime('%Y%m%d%H%M%S')}.pdf"
