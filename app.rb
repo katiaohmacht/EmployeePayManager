@@ -74,6 +74,7 @@ get '/add_employee' do
   if @current_user == nil || @current_user.admin == 0
     redirect '/'
   end
+  # inputEmployees
   erb :add_employee
 end
 
@@ -109,7 +110,6 @@ get '/edit_employees' do
   else
     @users = User.all
   end
-  # tester
   erb :edit_employees
 end
 
@@ -767,6 +767,30 @@ end
 def inputEmployees 
   Payperiod.create(
     time: Time.parse("2023-9-21")
+  )
+
+  Checktime.create(
+    employee_id: 9876,
+    time: Time.parse("2023-9-21 9:00 am"),
+    out: false
+  )
+
+  Checktime.create(
+    employee_id: 9876,
+    time: Time.parse("2023-9-21 5:00 pm"),
+    out: true
+  )
+
+  Checktime.create(
+    employee_id: 9876,
+    time: Time.parse("2023-9-22 9:00 am"),
+    out: false
+  )
+
+  Checktime.create(
+    employee_id: 9876,
+    time: Time.parse("2023-9-22 5:00 pm"),
+    out: true
   )
   
 end
