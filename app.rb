@@ -110,8 +110,6 @@ get '/view' do
   if @current_user == nil || !@current_user.admin
     redirect '/'
   end
-  @users = User.all
-  erb :view
 end
 
 post '/edit' do
@@ -589,7 +587,25 @@ post '/navigate_clock' do
 end
 
 post '/switch_work' do
-  redirect '/view'
+  startperiod = Payperiod.last.time
+  inout = Checktime.where(employee_id: params[:user_id]).where(time: startperiod..Time.now.to_i)
+  is_out=false
+  in_time = 0
+  in_id = 0
+  @times = []
+  Row = Struct.new(:time_in, :time_out, :id_in, :id_out)
+  inout.each do |time|
+    if is_out
+      out_time = Time.at(time.time).strftime('%Y-%m-%d %H:%M:%S')
+      @times.push(Row.new(in_time, out_time, in_id, time.id))
+    else
+      in_id=time.id
+      in_time=Time.at(time.time).strftime('%Y-%m-%d %H:%M:%S')
+    end
+    is_out = ! is_out
+  end
+  @user_id = params[:user_id]
+  erb :view
 end
 
 post '/reset_button' do
@@ -607,6 +623,65 @@ end
 
 post '/resetpsw' do
   redirect '/reset'
+end
+
+post '/time_edit' do
+  # id_in and id_out
+  @page_title = "Edit Time"
+  current_user
+  if @current_user == nil || @current_user.admin == 0
+    redirect '/'
+  end
+  db_in = Checktime.find(params[:id_in])
+  db_out = Checktime.find(params[:id_out])
+  Form = Struct.new(:id_in,:id_out,:time_in,:time_out)
+  in_time = Time.at(db_in.time).strftime('%Y-%m-%d %H:%M:%S')
+  out_time = Time.at(db_out.time).strftime('%Y-%m-%d %H:%M:%S')
+  @time= Form.new(db_in.id, db_out.id, in_time, out_time)
+  # @employee = User.find(params[:user_id]) 
+  erb :view_edit
+end
+
+post '/update_time' do
+  # in_time, in_id	, out_time, out_id
+  
+  time = Checktime.find(params[:in_id])
+  if time
+    time.time = Time.parse(params[:in_time])
+    time.save
+  end
+  time = Checktime.find(params[:out_id])
+  if time
+    time.time = Time.parse(params[:out_time])
+    time.save
+  end
+  redirect '/edit_employees'
+end
+
+post '/time_delete' do
+  # id_in and id_out
+  @page_title = "Delete Time"
+  current_user
+  if @current_user == nil || @current_user.admin == 0
+    redirect '/'
+  end
+  Checktime.destroy(params[:id_in])
+  Checktime.destroy(params[:id_out])
+  redirect '/edit_employees'
+end
+
+post '/add_time' do
+  Checktime.create(
+    employee_id: params[:user_id], 
+    time: Time.parse(params[:in_time]),
+    out: false
+  )
+  Checktime.create(
+    employee_id: params[:user_id], 
+    time: Time.parse(params[:out_time]),
+    out: true
+  )
+  redirect '/edit_employees'
 end
 
 def tester

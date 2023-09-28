@@ -1,0 +1,278 @@
+<style>
+
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* Add a background color when the inputs get focus */
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #04AA6D;
+  color: white;
+  font-size: 1.5vw;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  margin-top: 5vh;
+}
+
+button:hover {
+  opacity:1;
+}
+
+li{
+  list-style: none;
+}
+li::brefore{
+  content: none;
+}
+li a:hover{
+  color: #301934;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #C42D0D;
+  margin-right: 5%;
+}
+
+.update-button{
+  margin-left: 5%;
+  background-color: #176813;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .update-button {
+  float: left;
+  width: 45%;
+  height: 5vh;
+  border-radius: 25px;
+}
+
+/* Add padding to container elements */
+.container {
+  padding: 16px;
+}
+
+
+/* Modal Content/Box */
+.signup {
+  background-color: whitesmoke;
+  
+  border: 2px solid #D8F3EC;
+  height: 92%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border-radius: 25px;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+/* Style the horizontal ruler */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+ 
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";ƒemplo
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .update-button {
+     width: 100%;
+  }
+}
+
+.float-child {
+    width: 50%;
+    float: left;
+    padding: 10px;
+}  
+
+#message {
+  display: none;
+  background: #f1f1f1;
+  color: #000;
+  position: relative;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+
+#message p {
+  padding: 5px 35px;
+  font-size: 12px;
+  margin: 0;
+}
+
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✔";
+}
+
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✖";
+}
+
+.side-by-side {
+  display: flex;
+  justify-content: space-between;
+}
+
+.side-by-side .float-child {
+  flex-basis: 48%; /* Adjust the value as needed */
+}
+
+h1 {
+  font-size: 2vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  display: inline-block;
+  position: relative;
+  padding-bottom: 1%;
+  color: black;
+}
+
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110%;
+    height: 2px;
+    background-color: #000;
+  }
+
+  .my_container {
+    display: flex;
+    align-items: center; /* Center contents vertically within the container */
+}
+
+.my_container p {
+    font-size: 25px;
+    margin: 0 2%; 
+    color: black;
+    flex: 1; /* Take up remaining horizontal space */
+}
+
+a{
+  font-size: 25px;
+  color: darkblue;
+}
+
+.my_inputs{
+  height: 4vh;
+  font-size: 1vw;
+}
+
+.my_labels{
+  height: 1vh;
+  font-size: 1.5vw;
+}
+
+.float-container{
+  margin-top: 1%;
+}
+
+</style> 
+
+<div class = "right">
+<div id="id01" class="signup">
+  <span onclick="window.location.href='/edit_employees'" class="close" title="Close Modal">&times;</span>
+  <form action="/sign_up_process" method = "post">
+    <div class="container">
+      <h1>Edit Employee</h1>
+      <hr>
+        <div class="float-container side-by-side">
+          <div class="float-child">
+            <label for="first_name" class = "my_labels"><b>Clock In</b></label>
+            <input type="text" value="<%= @time.time_in %>" name="in_time" class = "my_inputs" id="in_time" required>
+          </div>
+          <div class="float-child">
+            <label for="last_name" class = "my_labels"><b>Clock Out</b></label>
+            <input type="text" value="<%= @time.time_out %>" name="out_time" class = "my_inputs" id="out_time" required>
+          </div>
+        </div>
+        <div class="float-container side-by-side">
+        <div class = "float-child">
+      </div>
+    </div>
+  
+ 
+
+  <div class="clearfix">
+    <button type="button" onclick="window.location.href='/admin_main'" class="cancelbtn"><b>Cancel</b></button>
+   <button type="submit" formaction = "/update_time" class="update-button"><b>Update Time</b></button>
+</div>
+        <input type="hidden"  value=<%= @time.id_in %>  id="in_id" name="in_id">
+        <input type="hidden"  value=<%= @time.id_out %> id="out_id" name="out_id">
+ </form>
+</div>
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    window.location.href = '/'; // Redirect to index on modal close
+  }
+}
+
+</script>
+
+

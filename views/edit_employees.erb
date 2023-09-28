@@ -125,7 +125,7 @@ h1::after {
 <form action="/delete_process" method = "post">
   <div class="container">
   <div id = "user-table">
-    <h1>Edit Employeess</h1>
+    <h1>Edit Employees</h1>
     <hr>
     <div class = "table-container">
     <table>
@@ -155,13 +155,11 @@ h1::after {
             <button class="work_history" formaction = "/work_history_process" data-id="<%= user.id %>">Download</button>
           </td>
           <td>
-
-              <button formaction = "/switch_work" method = "post" type="submit" class = "work_history">Edit</button>
-
-            </td>
+              <button formaction = "/switch_work" method = "post" type="submit" class = "edit-button" data-id = "<%= user.id %>" >Edit</button>
+          </td>
           <td>
             <button formaction = "/view_pay_reports" method = "post" type="submit" class = "work_history">View</button>
-            <td>
+            </td>
             
         </tr>
       <% end %>

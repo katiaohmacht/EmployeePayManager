@@ -27,3 +27,5 @@ The admin also has a clock in/out function, which takes them to the employee's m
 
 
 *The administrator will only be able to add a new employee that is an administrator if they are the top level admin. Otherwise, this field will not give the employee any special privileges regardless of what they put into the form. 
+
+RUN AUTOCHECK OUT BEFORE ENDING PAY PERIOD 

@@ -122,7 +122,7 @@ h1::after {
 <div class = "right">
 <div id="id01" class="edit">
 <span onclick="window.location.href='/admin_main'" class="close" title="Close Modal">&times;</span>
-<form action="/delete_process" method = "post">
+<form action="/view" method = "post">
   <div class="container">
   <div id = "user-table">
     <h1>View Work History</h1>
@@ -131,19 +131,24 @@ h1::after {
     <table>
     <thead>
       <tr>
-        <th>Employee ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Active Status</th>
+        <th>Time In</th>
+        <th>Time Out</th>
+        <th>Edit</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
-      <% @users.each do |user| %>
+      <% @times.each do |time| %>
         <tr>
-          <td><%= user.employee_id %></td>
-          <td><%= user.first_name %></td>
-          <td><%= user.last_name %></td>
-          <td><%= user.active %></td>
+          <td><%= time.time_in %></td>
+          <td><%= time.time_out %></td>
+          <td> 
+
+            <button class = "edit-button" data-id="<%= time.id_in %>"data-id2="<%= time.id_out %>" formaction = "/time_edit" >Edit</button> 
+          </td>
+          <td>
+            <button class="delete-button" data-id="<%= time.id_in %>"data-id2="<%= time.id_out %>" formaction = "/time_delete" >X</button>
+          </td>
         </tr>
       <% end %>
     </tbody>
@@ -151,7 +156,17 @@ h1::after {
   </div>
   </div>
   <input type="hidden" id="user_id_input" name="user_id">
+   <input type="hidden" id="in_id_input" name="id_in">
+   <input type="hidden" id="out_id_input" name="id_out">
     </div>
+    </form>
+    <form action = "" method = "post">
+    <label for="first_name" class = "my_labels"><b>Add Clock In</b></label>
+      <input type="text" placeholder = "Ex. 2023-8-6 14:32:32" name="in_time" class = "my_inputs" id="in_time" required>
+      <label for="last_name" class = "my_labels"><b>Add Clock Out</b></label>
+      <input type="text" placeholder = "Ex. 2023-8-6 14:32:32" name="out_time" class = "my_inputs" id="out_time" required>
+      <button type="submit" formaction = "/add_time" class="update-button"><b>Add Time</b></button>
+      <input type="hidden" id="user_id_input" value = <%= @user_id %> name="user_id">
     </form>
     </div>
 </div>
@@ -162,16 +177,18 @@ h1::after {
 <script>
   // Fetch user data and update the table
   $(document).ready(function() {
-    $.get('/users', function(data) {
+    $.get('/times', function(data) {
       $('#user-table').html(data);
     });
   });// JavaScript to handle user deletion
   $(document).ready(function() {
     $('.delete-button').click(function() {
-      const userId = $(this).data('id');
+      const id_in = $(this).data('id');
+      const id_out = $(this).data('id2');
   
       // Populate the hidden input field in the form with the user ID
-      $('#user_id_input').val(userId);
+      $('#in_id_input').val(id_in);
+      $('#out_id_input').val(id_out);
   
       // Submit the form
       $('form').submit();
@@ -180,10 +197,12 @@ h1::after {
 
   $(document).ready(function() {
     $('.edit-button').click(function() {
-      const userId = $(this).data('id');
+      const id_in = $(this).data('id');
+      const id_out = $(this).data('id2');
   
       // Populate the hidden input field in the form with the user ID
-      $('#user_id_input').val(userId);
+      $('#in_id_input').val(id_in);
+      $('#out_id_input').val(id_out);
   
       // Submit the form
       $('form').submit();
