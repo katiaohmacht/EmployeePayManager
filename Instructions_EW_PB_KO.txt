@@ -4,7 +4,7 @@ INSTRUCTIONS
 how to run locally: ruby app.rb 
 localhost:4567 on browser
 
-15 erb files, 3 dbs, gemfiles, app.rb, config & models 
+17 erb files, 3 dbs, gemfiles, app.rb, config & models 
 
 Menu #1: Logging in
 Click the login button to navigate to the log in page. Here, enter the Employee ID (a unique integer) and the password. 
@@ -17,15 +17,17 @@ When logging in with an admin id, you are taken to the admin main page. The admi
 
 The admin can add a new user, which will redirect to a sign up form where the admin can enter the new employee's name, id, temporary password, whether they are an administrator*, job, salary, and whether they are hourly or salary. 
 
-The admin also has an edit user button which redirects them to a page that lists the employees and shows functions to edit information, deactivate, download most recent pay period, and view work history for each. When editing a user, they can change their name, if they are admin*, their job, salary, address, whether they are hourly or salary, or active or not. 
+The admin also has an edit user button which redirects them to a page that lists the employees and shows functions to edit information, deactivate, download most recent pay period, and view work history for each. When editing a user, they can change their name, if they are admin*, their job, salary, address, whether they are hourly or salary, or active or not. When deactivating, the admin will be able to still view the employee. Downloading the most recent pay period downloads a pdf that has the hours worked and net pay. The admin can also view and edit hours for the current period as well as download past pay reports. 
 
-The admin also has an option to auto-clock out, which will clock all users that are currently clocked in. 
+The admin also has an option to auto-clock out, which will clock all users that are currently clocked in. !!RUN AUTO CLOCK OUT BEFORE ENDING PAY PERIOD!!
 
 The admin also has the option to run a pay period, which will end the current period when you click the button. 
 
-The admin also has a clock in/out function, which takes them to the employee's main page and provides them the basic functionality that the employee has to record their hours. 
-
+The admin also has a clock in/out function, which takes them to the employee's main page and provides them the basic functionality that the employee has to record their hours and reset their password. 
 
 *The administrator will only be able to add a new employee that is an administrator if they are the top level admin. Otherwise, this field will not give the employee any special privileges regardless of what they put into the form. 
 
-RUN AUTOCHECK OUT BEFORE ENDING PAY PERIOD 
+LOGIN INFO 
+Top Admin - ID: 9876 Password: Passw0rd
+Employee #1 - ID: 
+Employee #2
