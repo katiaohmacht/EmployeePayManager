@@ -574,9 +574,9 @@ post '/run_pay_period' do
   period1 = Payperiod.last
   if period1 != nil
     # If the pay period is run before 7 days after last, go away 
-    # if period1.time + 7*3600*24 > Time.now.to_i
-    #   redirect '/pay_error'
-    # else
+    if period1.time + 7*3600*24 > Time.now.to_i
+      redirect '/pay_error'
+    else
       Payperiod.create(
         time: Time.now
       )
