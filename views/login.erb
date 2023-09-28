@@ -1,7 +1,12 @@
- <style>
+<!--
+Creator: Penelope Brody, Katia Omacht, Ewan Ward
+Teacher: Mr. Crute
+Description: Create login info page - sign in
+Date Created: September 15th, 2023
+Date Last Modified: September 27th, 2023
+-->
 
-
-
+<style>
 /* Full-width input fields */
 input[type=text], input[type=password] {
   width: 100%;
@@ -32,16 +37,21 @@ button {
 }
 
 button:hover {
-  opacity:1;
+  opacity: 1;
 }
 
-li{
+/* Define styles for list items */
+li {
   list-style: none;
 }
-li::brefore{
+
+/* Remove bullet points from list items */
+li::before {
   content: none;
 }
-li a:hover{
+
+/* Change link color on hover */
+li a:hover {
   color: #301934;
 }
 
@@ -52,7 +62,7 @@ li a:hover{
   margin-right: 5%;
 }
 
-.signupbtn{
+.signupbtn {
   margin-left: 5%;
 }
 
@@ -62,23 +72,22 @@ li a:hover{
   width: 45%;
   height: 7vh;
   border-radius: 25px;
-  margin-bottom:5%;
+  margin-bottom: 5%;
 }
 
 /* Add padding to container elements */
 .container {
   padding: 16px;
-  margin:5%;
+  margin: 5%;
 }
-
 
 /* Modal Content/Box */
 .signup {
   background-color: whitesmoke;
   margin-top: 2%;
   border: 2px solid #D8F3EC;
-  padding-left:5%;
-  padding-right:5%;
+  padding-left: 5%;
+  padding-right: 5%;
   height: 80%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   border-radius: 25px;
@@ -91,7 +100,7 @@ hr {
   border: 1px solid #f1f1f1;
   margin-bottom: 25px;
 }
- 
+
 /* The Close Button (x) */
 .close {
   position: absolute;
@@ -118,16 +127,17 @@ hr {
 /* Change styles for cancel button and signup button on extra small screens */
 @media screen and (max-width: 300px) {
   .cancelbtn, .signupbtn {
-     width: 100%;
+    width: 100%;
   }
 }
 
 .float-child {
-    width: 50%;
-    float: left;
-    padding: 10px;
-} 
+  width: 50%;
+  float: left;
+  padding: 10px;
+}
 
+/*Style h1*/
 h1 {
   font-size: 3vw;
   margin-left: 50%;
@@ -137,72 +147,87 @@ h1 {
   padding-bottom: 1%;
   color: black;
 }
-
-
+/*Style h1 line*/
 h1::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 110%;
-    height: 2px;
-    background-color: #000;
-  }
-
-.my_inputs{
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110%;
+  height: 2px;
+  background-color: #000;
+}
+/*Style input for login info*/
+.my_inputs {
   height: 6vh;
   font-size: 1.5vw;
-
 }
-
-.my_labels{
+/*Style labels for login info*/
+.my_labels {
   height: 6vh;
   font-size: 1.5vw;
-
 }
 
-.float-container{
+/*Create container to format*/
+.float-container {
   margin-top: 15%;
 }
+
+/*Center contents*/
 .my_container {
-    display: flex;
-    align-items: center; /* Center contents vertically within the container */
+  display: flex;
+  align-items: center; 
 }
 
+/*Center text*/
 .my_container p {
-    font-size: 25px;
-    margin: 0 5%; 
-    color: black;
-    flex: 1; /* Take up remaining horizontal space */
+  font-size: 25px;
+  margin: 0 5%;
+  color: black;
+  flex: 1; 
 }
 
-a{
+/*Stylize link*/
+a {
   font-size: 25px;
   color: darkblue;
 }
-
 </style> 
 
-<div class = "right">
+<div class="right">
 
+<!-- Modal Container with ID -->
 <div id="id01" class="signup">
+  <!-- Close Button with JavaScript Action -->
   <span onclick="window.location.href='/'" class="close" title="Close Modal">&times;</span>
-  <form action="/login_process" method = "post">
-    <div class="container" style = "background-color: whitesmoke;">
+  
+  <!-- Login Form -->
+  <form action="/login_process" method="post">
+    <!-- Container for Form Elements with Background Color -->
+    <div class="container" style="background-color: whitesmoke;">
+      <!-- Form Title -->
       <h1>Log In</h1>
       <hr>
-      <label for="id" class = "my_labels"><b>Employee ID</b></label>
-      <input type="text" placeholder="Enter Employee ID" name="id" id="id" class = "my_inputs" required>
-        <label for="psw" class = "my_labels"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" id="psw" class = "my_inputs" required>
+      <!-- Employee ID Input Field -->
+      <label for="id" class="my_labels"><b>Employee ID</b></label>
+      <input type="text" placeholder="Enter Employee ID" name="id" id="id" class="my_inputs" required>
+      <!-- Password Input Field -->
+      <label for="psw" class="my_labels"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" id="psw" class="my_inputs" required>
       
-  <div class="clearfix">
-    <button type="button" onclick="window.location.href='/'" class="cancelbtn"><b>Cancel</b></button>
-    <button type="submit" class="signupbtn"><b>Log in</b></button>
- </form>
+      <!-- Buttons Container -->
+      <div class="clearfix">
+        <!-- Cancel Button with Redirect -->
+        <button type="button" onclick="window.location.href='/'" class="cancelbtn"><b>Cancel</b></button>
+        <!-- Login Button -->
+        <button type="submit" class="signupbtn"><b>Log in</b></button>
+      </div>
+    </div>
+  </form>
 </div>
 </div>
+
 
 <script>
 // Get the modal

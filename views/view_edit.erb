@@ -1,7 +1,13 @@
+<!--
+  Creator: Penelope Brody, Katia Omacht, Ewan Ward
+  Teacher: Mr. Crute
+  Description: Create view and edit for employees page 
+  Date Created: September 15th, 2023
+  Date Last Modified: September 27th, 2023
+-->
+
 <style>
-
-
-/* Full-width input fields */
+/* Style for full-width input fields */
 input[type=text], input[type=password] {
   width: 100%;
   padding: 15px;
@@ -17,7 +23,7 @@ input[type=text]:focus, input[type=password]:focus {
   outline: none;
 }
 
-/* Set a style for all buttons */
+/* Style for all buttons */
 button {
   background-color: #04AA6D;
   color: white;
@@ -31,18 +37,13 @@ button {
   margin-top: 5vh;
 }
 
+/* Style for button hover state */
 button:hover {
-  opacity:1;
+  opacity: 1;
 }
 
-li{
+li {
   list-style: none;
-}
-li::brefore{
-  content: none;
-}
-li a:hover{
-  color: #301934;
 }
 
 /* Extra styles for the cancel button */
@@ -52,7 +53,8 @@ li a:hover{
   margin-right: 5%;
 }
 
-.update-button{
+/* Styles for update button */
+.update-button {
   margin-left: 5%;
   background-color: #176813;
 }
@@ -70,11 +72,9 @@ li a:hover{
   padding: 16px;
 }
 
-
 /* Modal Content/Box */
 .signup {
   background-color: whitesmoke;
-  
   border: 2px solid #D8F3EC;
   height: 92%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
@@ -83,13 +83,13 @@ li a:hover{
   margin-right: 5%;
 }
 
-/* Style the horizontal ruler */
+/* Style for the horizontal ruler */
 hr {
   border: 1px solid #f1f1f1;
   margin-bottom: 25px;
 }
- 
-/* The Close Button (x) */
+
+/* Style for the Close Button (x) */
 .close {
   position: absolute;
   right: 35px;
@@ -99,32 +99,33 @@ hr {
   color: #f1f1f1;
 }
 
-.close:hover,
-.close:focus {
+.close:hover, .close:focus {
   color: #f44336;
   cursor: pointer;
 }
 
 /* Clear floats */
 .clearfix::after {
-  content: "";ƒemplo
+  content: "";
   clear: both;
   display: table;
 }
 
-/* Change styles for cancel button and signup button on extra small screens */
+/* Change styles for cancel button and update button on extra small screens */
 @media screen and (max-width: 300px) {
   .cancelbtn, .update-button {
      width: 100%;
   }
 }
 
+/* Styles for floating child elements */
 .float-child {
-    width: 50%;
-    float: left;
-    padding: 10px;
-}  
+  width: 50%;
+  float: left;
+  padding: 10px;
+}
 
+/* Styles for the success or error message */
 #message {
   display: none;
   background: #f1f1f1;
@@ -136,42 +137,36 @@ hr {
   border: 1px solid #ddd;
 }
 
-
+/*Style message text*/
 #message p {
   padding: 5px 35px;
   font-size: 12px;
   margin: 0;
 }
-
+/*Validate style*/
 .valid {
   color: green;
 }
 
+/*Validate format*/
 .valid:before {
   position: relative;
   left: -35px;
   content: "✔";
 }
 
+/*Style if invalid*/
 .invalid {
   color: red;
 }
-
+/*Style format for invalid*/
 .invalid:before {
   position: relative;
   left: -35px;
   content: "✖";
 }
 
-.side-by-side {
-  display: flex;
-  justify-content: space-between;
-}
-
-.side-by-side .float-child {
-  flex-basis: 48%; /* Adjust the value as needed */
-}
-
+/* Styles for header */
 h1 {
   font-size: 2vw;
   margin-left: 50%;
@@ -182,83 +177,91 @@ h1 {
   color: black;
 }
 
-
+/* Styles for header underline */
 h1::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 110%;
-    height: 2px;
-    background-color: #000;
-  }
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110%;
+  height: 2px;
+  background-color: #000;
+}
 
-  .my_container {
-    display: flex;
-    align-items: center; /* Center contents vertically within the container */
+/* Styles for container */
+.my_container {
+  display: flex;
+  align-items: center; /* Center contents vertically within the container */
 }
 
 .my_container p {
-    font-size: 25px;
-    margin: 0 2%; 
-    color: black;
-    flex: 1; /* Take up remaining horizontal space */
+  font-size: 25px;
+  margin: 0 2%; 
+  color: black;
+  flex: 1; /* Take up remaining horizontal space */
 }
 
-a{
+/* Styles for anchor links */
+a {
   font-size: 25px;
   color: darkblue;
 }
 
-.my_inputs{
+/* Styles for input fields */
+.my_inputs {
   height: 4vh;
   font-size: 1vw;
 }
 
-.my_labels{
+/* Styles for labels */
+.my_labels {
   height: 1vh;
   font-size: 1.5vw;
 }
 
-.float-container{
+/* Margin for float container */
+.float-container {
   margin-top: 1%;
 }
-
 </style> 
 
-<div class = "right">
-<div id="id01" class="signup">
-  <span onclick="window.location.href='/edit_employees'" class="close" title="Close Modal">&times;</span>
-  <form action="/sign_up_process" method = "post">
-    <div class="container">
-      <h1>Edit Employee</h1>
-      <hr>
+<div class="right">
+  <div id="id01" class="signup">
+    <!-- Close button with a link to close the modal -->
+    <span onclick="window.location.href='/edit_employees'" class="close" title="Close Modal">&times;</span>
+    <form action="/sign_up_process" method="post">
+      <div class="container">
+        <h1>Edit Employee</h1>
+        <hr>
+        <!-- Two input fields side by side -->
         <div class="float-container side-by-side">
           <div class="float-child">
-            <label for="first_name" class = "my_labels"><b>Clock In</b></label>
-            <input type="text" value="<%= @time.time_in %>" name="in_time" class = "my_inputs" id="in_time" required>
+            <label for="first_name" class="my_labels"><b>Clock In</b></label>
+            <input type="text" value="<%= @time.time_in %>" name="in_time" class="my_inputs" id="in_time" required>
           </div>
           <div class="float-child">
-            <label for="last_name" class = "my_labels"><b>Clock Out</b></label>
-            <input type="text" value="<%= @time.time_out %>" name="out_time" class = "my_inputs" id="out_time" required>
+            <label for="last_name" class="my_labels"><b>Clock Out</b></label>
+            <input type="text" value="<%= @time.time_out %>" name="out_time" class="my_inputs" id="out_time" required>
           </div>
         </div>
+        <!-- Empty div for future content -->
         <div class="float-container side-by-side">
-        <div class = "float-child">
+          <div class="float-child">
+          </div>
+        </div>
+        <div class="clearfix">
+          <!-- Cancel button with a link -->
+          <button type="button" onclick="window.location.href='/admin_main'" class="cancelbtn"><b>Cancel</b></button>
+          <!-- Update button with a form action -->
+          <button type="submit" formaction="/update_time" class="update-button"><b>Update Time</b></button>
+        </div>
+        <!-- Hidden input fields -->
+        <input type="hidden" value=<%= @time.id_in %> id="in_id" name="in_id">
+        <input type="hidden" value=<%= @time.id_out %> id="out_id" name="out_id">
       </div>
-    </div>
-  
- 
-
-  <div class="clearfix">
-    <button type="button" onclick="window.location.href='/admin_main'" class="cancelbtn"><b>Cancel</b></button>
-   <button type="submit" formaction = "/update_time" class="update-button"><b>Update Time</b></button>
-</div>
-        <input type="hidden"  value=<%= @time.id_in %>  id="in_id" name="in_id">
-        <input type="hidden"  value=<%= @time.id_out %> id="out_id" name="out_id">
- </form>
-</div>
+    </form>
+  </div>
 </div>
 
 <script>
@@ -272,7 +275,4 @@ window.onclick = function(event) {
     window.location.href = '/'; // Redirect to index on modal close
   }
 }
-
 </script>
-
-

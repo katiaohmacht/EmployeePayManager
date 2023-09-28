@@ -1,11 +1,17 @@
-<style>
+<!--
+  Creator: Penelope Brody, Katia Omacht, Ewan Ward
+  Teacher: Mr. Crute
+  Description: Create view work history for employee page 
+  Date Created: September 15th, 2023
+  Date Last Modified: September 27th, 2023
+-->
 
+<style>
 /* Add padding to container elements */
 .container {
   padding: 5px;
   margin: 6 auto;
 }
-
 
 /* Modal Content/Box */
 .edit {
@@ -24,7 +30,7 @@ hr {
   border: 1px solid #f1f1f1;
   margin-bottom: 25px;
 }
- 
+
 /* The Close Button (x) */
 .close {
   position: absolute;
@@ -41,8 +47,7 @@ hr {
   cursor: pointer;
 }
 
-
-
+/*Style h1*/
 h1 {
   font-size: 2vw;
   margin-left: 50%;
@@ -53,29 +58,33 @@ h1 {
   color: black;
 }
 
-
+/*Create line underneath h1*/
 h1::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 110%;
-    height: 2px;
-    background-color: #000;
-  }
-
-  .my_container {
-    display: flex;
-    align-items: center; /* Center contents vertically within the container */
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110%;
+  height: 2px;
+  background-color: #000;
 }
 
+/*Center content*/
+.my_container {
+  display: flex;
+  align-items: center; /* Center contents vertically within the container */
+}
+
+/*Make text centered*/
 .my_container p {
-    font-size: 25px;
-    margin: 0 2%; 
-    color: black;
-    flex: 1; /* Take up remaining horizontal space */
+  font-size: 25px;
+  margin: 0 2%;
+  color: black;
+  flex: 1; 
 }
+
+/*Table formatting*/
 #user-table {
   margin-top: 20px;
   border-collapse: collapse;
@@ -83,145 +92,159 @@ h1::after {
   margin: 0 auto;
 }
 
-  #user-table th, #user-table td {
-    border: 1px solid #4CAF50; /* Green border */
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-left: 3vw;
-    padding-right: 3vw;
-    text-align: left;
-  }
-  #user-table th {
-    background-color: #4CAF50; /* Green background for headers */
-    color: white; /* White text for headers */
-  }
-  #user-table tr:nth-child(even) {
-    background-color: #f2f2f2; /* Light gray background for even rows */
-  }
-  #user-table tr:hover {
-    background-color: #D0F0C0; /* Light green background for hover effect */
-  }
-  #user-table td:hover{
-    background-color: #A2E182;
-  }
+#user-table th, #user-table td {
+  border: 1px solid #4CAF50; /* Green border */
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  text-align: left;
+}
 
-  .delete-button {
-      background-color: #ff6347;
-      color: white; /* White text for the delete button */
-      border: none;
-      width: 100%;
-      height: 100%;
-      cursor: pointer;
-    }
+/* Green background for headers */
+#user-table th {
+  background-color: #4CAF50; 
+  color: white; /* White text for headers */
+}
 
-  .table-container {
-    margin: 20px auto;
-  }
+/* Light gray background for even rows */
+#user-table tr:nth-child(even) {
+  background-color: #f2f2f2; 
+}
+
+/* Light green background for hover effect */
+#user-table tr:hover {
+  background-color: #D0F0C0; 
+}
+
+#user-table td:hover {
+  background-color: #A2E182;
+}
+
+/*Style delete button*/
+.delete-button {
+  background-color: #ff6347;
+  color: white; /* White text for the delete button */
+  border: none;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+/*Format table*/
+.table-container {
+  margin: 20px auto;
+}
 </style>
 
-<div class = "right">
-<div id="id01" class="edit">
-<span onclick="window.location.href='/admin_main'" class="close" title="Close Modal">&times;</span>
-<form action="/view" method = "post">
-  <div class="container">
-  <div id = "user-table">
-    <h1>View Work History</h1>
-    <hr>
-    <div class = "table-container">
-    <table>
-    <thead>
-      <tr>
-        <th>Time In</th>
-        <th>Time Out</th>
-        <th>Edit</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @times.each do |time| %>
-        <tr>
-          <td><%= time.time_in %></td>
-          <td><%= time.time_out %></td>
-          <td> 
-
-            <button class = "edit-button" data-id="<%= time.id_in %>"data-id2="<%= time.id_out %>" formaction = "/time_edit" >Edit</button> 
-          </td>
-          <td>
-            <button class="delete-button" data-id="<%= time.id_in %>"data-id2="<%= time.id_out %>" formaction = "/time_delete" >X</button>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  </div>
-  </div>
-  <input type="hidden" id="user_id_input" name="user_id">
-   <input type="hidden" id="in_id_input" name="id_in">
-   <input type="hidden" id="out_id_input" name="id_out">
-    </div>
-    </form>
-    <form action = "" method = "post">
-    <label for="first_name" class = "my_labels"><b>Add Clock In</b></label>
-      <input type="text" placeholder = "Ex. 2023-8-6 14:32:32" name="in_time" class = "my_inputs" id="in_time" required>
-      <label for="last_name" class = "my_labels"><b>Add Clock Out</b></label>
-      <input type="text" placeholder = "Ex. 2023-8-6 14:32:32" name="out_time" class = "my_inputs" id="out_time" required>
-      <button type="submit" formaction = "/add_time" class="update-button"><b>Add Time</b></button>
-      <input type="hidden" id="user_id_input" value = <%= @user_id %> name="user_id">
-    </form>
-    </div>
-</div>
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-  // Fetch user data and update the table
-  $(document).ready(function() {
-    $.get('/times', function(data) {
-      $('#user-table').html(data);
-    });
-  });// JavaScript to handle user deletion
-  $(document).ready(function() {
-    $('.delete-button').click(function() {
-      const id_in = $(this).data('id');
-      const id_out = $(this).data('id2');
-  
-      // Populate the hidden input field in the form with the user ID
-      $('#in_id_input').val(id_in);
-      $('#out_id_input').val(id_out);
-  
-      // Submit the form
-      $('form').submit();
-    });
-  });
-
-  $(document).ready(function() {
-    $('.edit-button').click(function() {
-      const id_in = $(this).data('id');
-      const id_out = $(this).data('id2');
-  
-      // Populate the hidden input field in the form with the user ID
-      $('#in_id_input').val(id_in);
-      $('#out_id_input').val(id_out);
-  
-      // Submit the form
-      $('form').submit();
-    });
-  });
-
-// Work history download
-$(document).ready(function () {
-  $('.work_history').click(function () {
-    const userId = $(this).data('id');
-      
-     // Populate the hidden input field in the form with the user ID
-    $('#user_id_input').val(userId);
-
-    // Submit the form
-    $('form').submit();
-    
-  });
-});
-
-</script>
-
+<div class="right">
+  <div id="id01" class="edit">
+    <!-- Close button with a link to close the modal -->
+    <span onclick="window.location.href='/admin_main'" class="close" title="Close Modal">&times;</span>
+    <form action="/view" method="post">
+      <div class="container">
+        <div id="user-table">
+          <h1>View Work History</h1>
+          <hr>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Time In</th>
+                  <th>Time Out</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Loop through times and populate the table rows -->
+                <% @times.each do |time| %>
+                <tr>
+                  <td><%= time.time_in %></td>
+                  <td><%= time.time_out %></td>
+                  <td>
+                    <!-- Edit button with form action -->
+                    <button class="edit-button" data-id="<%= time.id_in %>" data-id2="<%= time.id_out %>"
+                      formaction="/time_edit">Edit</button>
+                  </td>
+                  <td>
+                    <!-- Delete button with form action -->
+                    <button class="delete-button" data-id="<%= time.id_in %>" data-id2="<%= time.id_out %>"
+                      formaction="/time_delete">X</button>
+                  </td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Hidden input fields for form data -->
+        <input type="hidden" id="user_id_input" name="user_id">
+        <input type="hidden" id="in_id_input" name="id_in">
+        <input type="hidden" id="out_id_input" name="id_out">
+        </div>
+        </form>
+        <form action="" method="post">
+          <label for="first_name" class="my_labels"><b>Add Clock In</b></label>
+          <input type="text" placeholder="Ex. 2023-8-6 14:32:32" name="in_time" class="my_inputs" id="in_time" required>
+          <label for="last_name" class="my_labels"><b>Add Clock Out</b></label>
+          <input type="text" placeholder="Ex. 2023-8-6 14:32:32" name="out_time" class="my_inputs" id="out_time" required>
+          <button type="submit" formaction="/add_time" class="update-button"><b>Add Time</b></button>
+          <input type="hidden" id="user_id_input" value=<%= @user_id %> name="user_id">
+        </form>
+        </div>
+        </div>
+        <!-- Include jQuery library -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
+        <script>
+        // Fetch user data and update the table
+        $(document).ready(function() {
+          $.get('/times', function(data) {
+            $('#user-table').html(data);
+          });
+        });
+        
+        // JavaScript to handle user deletion
+        $(document).ready(function() {
+          $('.delete-button').click(function() {
+            const id_in = $(this).data('id');
+            const id_out = $(this).data('id2');
+        
+            // Populate the hidden input fields in the form with the user IDs
+            $('#in_id_input').val(id_in);
+            $('#out_id_input').val(id_out);
+        
+            // Submit the form
+            $('form').submit();
+          });
+        });
+        
+        $(document).ready(function() {
+          $('.edit-button').click(function() {
+            const id_in = $(this).data('id');
+            const id_out = $(this).data('id2');
+        
+            // Populate the hidden input fields in the form with the user IDs
+            $('#in_id_input').val(id_in);
+            $('#out_id_input').val(id_out);
+        
+            // Submit the form
+            $('form').submit();
+          });
+        });
+        
+        // Work history download
+        $(document).ready(function() {
+          $('.work_history').click(function() {
+            const userId = $(this).data('id');
+        
+            // Populate the hidden input field in the form with the user ID
+            $('#user_id_input').val(userId);
+        
+            // Submit the form
+            $('form').submit();
+          });
+        });
+        </script>
+        

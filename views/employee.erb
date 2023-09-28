@@ -1,88 +1,110 @@
-<!-- index.erb -->
+<!--
+Creator: Penelope Brody, Katia Omacht, Ewan Ward
+Teacher: Mr. Crute
+Description: Create employee main page 
+Date Created: September 15th, 2023
+Date Last Modified: September 27th, 2023
+-->
+
+<!-- Include Plotly library -->
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 <style>
-.button-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  height: 60%; 
-}
+  /* Styles for button container */
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 60%;
+  }
 
-.my_buttons{
-  width: 20vw; 
-  height: 100%;
-  font-size: 2vw;
-  border-radius: 25px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  background-color: #FFFFE0;
-}
+  /* Styles for custom buttons */
+  .my_buttons {
+    width: 20vw;
+    height: 100%;
+    font-size: 2vw;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    background-color: #FFFFE0;
+  }
 
-button {
-width: 20%;
-height: 10%;
-font-size: 2vw;
-border-radius: 25px;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-margin-top: 20px;
-background-color: #FFFFE0;
-}
+  /* Styles for generic buttons */
+  button {
+    width: 20%;
+    height: 10%;
+    font-size: 2vw;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+    background-color: #FFFFE0;
+  }
 
-button:hover {
-  background-color: grey;
-}
+  /* Button hover effect */
+  button:hover {
+    background-color: grey;
+  }
 
-button:active {
-  background-color: #282828;
-}
+  /* Button active effect */
+  button:active {
+    background-color: #282828;
+  }
 
-#sign_out:hover{
-background-color: grey;
-}
+  /* Styles for the sign out button */
+  #sign_out:hover {
+    background-color: grey;
+  }
 
-#sign_out:active{
-background-color: #282828;
-}
+  #sign_out:active {
+    background-color: #282828;
+  }
 
-#container-1 {
-  margin-top: 0%;
-}
+  /* Adjustments to container-1 */
+  #container-1 {
+    margin-top: 0%;
+  }
 
-#sign_out{
-width: 94%;
-margin-right: 4%;
-margin-top: 36%
-font-size: 2vw;
-border-radius: 25px;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-background-color: #FFFFE0;
-}
+  /* Styles for the sign out button within container-1 */
+  #sign_out {
+    width: 94%;
+    margin-right: 4%;
+    margin-top: 36%;
+    font-size: 2vw;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    background-color: #FFFFE0;
+  }
 </style>
-<div class = "right">
-<div id="container-1">
-<% if @current_user != nil %>
-  <h5 id="my_title">Welcome, <%="#{@current_user.first_name.titleize} #{@current_user.last_name.titleize} "%>!</h5>
-<% else %>
-<h5 id = "my_title">Employee</h5>
-<% end %>
-</div>
-<div class="button-container">
-  <form action="/login_process" method = "post">
-    <button class = "my_buttons" id = "admin" type = "submit" formaction = "/clockin" method = "post"><b>Clock In</b></button>
-  </form>
-  <form action="/login_process" method = "post">
-    <button class = "my_buttons" id = "employee" type = "submit" formaction = "/clockout" method = "post"><b> Clock Out</b></button>
-  </form>
 
-<form action="/resetpsw" method = "post">
-      <button class = "my_buttons" id = "resetbtn" type = "submit" formaction = "/resetpsw" method = "post"><b>Reset Password</b></button>
+<div class="right">
+  <div id="container-1">
+    <!-- Display a welcome message if @current_user exists -->
+    <% if @current_user != nil %>
+    <h5 id="my_title">Welcome, <%="#{@current_user.first_name.titleize} #{@current_user.last_name.titleize} "%>!</h5>
+    <% else %>
+    <!-- Display "Employee" if @current_user is not defined -->
+    <h5 id="my_title">Employee</h5>
+    <% end %>
+  </div>
+  <div class="button-container">
+    <!-- Clock In button form -->
+    <form action="/login_process" method="post">
+      <button class="my_buttons" id="admin" type="submit" formaction="/clockin" method="post"><b>Clock In</b></button>
+    </form>
+    <!-- Clock Out button form -->
+    <form action="/login_process" method="post">
+      <button class="my_buttons" id="employee" type="submit" formaction="/clockout" method="post"><b> Clock Out</b></button>
+    </form>
+    <!-- Reset Password button form -->
+    <form action="/resetpsw" method="post">
+      <button class="my_buttons" id="resetbtn" type="submit" formaction="/resetpsw" method="post"><b>Reset Password</b></button>
+    </form>
+  </div>
+</div>
+  <!-- Sign Out button form -->
+  <form action="/login_process" method="post">
+    <button id="sign_out" type="submit" formaction="/signout" method="post"><b>Sign Out</b></button>
   </form>
-</div>
-
-</div>
-<form action="/login_process" method = "post">
-<button id = "sign_out" type = "submit" formaction = "/signout" method = "post"><b>Sign Out</b></button>
-</form> 
 </div>
  
  

@@ -1,11 +1,17 @@
-<style>
+<!--
+Creator: Penelope Brody, Katia Omacht, Ewan Ward
+Teacher: Mr. Crute
+Description: Create edit page 
+Date Created: September 15th, 2023
+Date Last Modified: September 27th, 2023
+-->
 
+<style>
 /* Add padding to container elements */
 .container {
   padding: 5px;
   margin: 6 auto;
 }
-
 
 /* Modal Content/Box */
 .edit {
@@ -24,7 +30,7 @@ hr {
   border: 1px solid #f1f1f1;
   margin-bottom: 25px;
 }
- 
+
 /* The Close Button (x) */
 .close {
   position: absolute;
@@ -41,8 +47,7 @@ hr {
   cursor: pointer;
 }
 
-
-
+/* Style for h1 element */
 h1 {
   font-size: 2vw;
   margin-left: 50%;
@@ -53,29 +58,33 @@ h1 {
   color: black;
 }
 
-
+/* Styling for the h1's after pseudo-element */
 h1::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 110%;
-    height: 2px;
-    background-color: #000;
-  }
-
-  .my_container {
-    display: flex;
-    align-items: center; /* Center contents vertically within the container */
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110%;
+  height: 2px;
+  background-color: #000;
 }
 
+/* Styling for a container with flex display */
+.my_container {
+  display: flex;
+  align-items: center; /* Center contents vertically within the container */
+}
+
+/* Styling for paragraphs within .my_container */
 .my_container p {
-    font-size: 25px;
-    margin: 0 2%; 
-    color: black;
-    flex: 1; /* Take up remaining horizontal space */
+  font-size: 25px;
+  margin: 0 2%;
+  color: black;
+  flex: 1; /* Take up remaining horizontal space */
 }
+
+/* Styling for the user table */
 #user-table {
   margin-top: 20px;
   border-collapse: collapse;
@@ -83,96 +92,119 @@ h1::after {
   margin: 0 auto;
 }
 
-  #user-table th, #user-table td {
-    border: 1px solid #4CAF50; /* Green border */
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-left: 2vw;
-    padding-right: 2vw;
-    text-align: left;
-  }
-  #user-table th {
-    background-color: #4CAF50; /* Green background for headers */
-    color: white; /* White text for headers */
-  }
+/* Styling for table headers and data cells */
+#user-table th,
+#user-table td {
+  border: 1px solid #4CAF50; /* Green border */
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  text-align: left;
+}
+
+/* Styling for table headers */
+#user-table th {
+  background-color: #4CAF50; /* Green background for headers */
+  color: white; /* White text for headers */
+
+  /* Styling for even rows */
   #user-table tr:nth-child(even) {
     background-color: #f2f2f2; /* Light gray background for even rows */
   }
+
+  /* Styling for row hover effect */
   #user-table tr:hover {
     background-color: #D0F0C0; /* Light green background for hover effect */
   }
-  #user-table td:hover{
+
+  /* Styling for hovered data cells */
+  #user-table td:hover {
     background-color: #A2E182;
   }
 
+  /* Styling for the delete button */
   .delete-button {
-      background-color: #ff6347;
-      color: white; /* White text for the delete button */
-      border: none;
-      width: 100%;
-      height: 100%;
-      cursor: pointer;
-    }
+    background-color: #ff6347;
+    color: white; /* White text for the delete button */
+    border: none;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
 
+  /* Styling for the table container */
   .table-container {
     margin: 20px auto;
   }
 </style>
 
-<div class = "right">
-<div id="id01" class="edit">
-<span onclick="window.location.href='/admin_main'" class="close" title="Close Modal">&times;</span>
-<form action="/delete_process" method = "post">
-  <div class="container">
-  <div id = "user-table">
-    <h1>Edit Employees</h1>
-    <hr>
-    <div class = "table-container">
-    <table>
-    <thead>
-      <tr>
-        <th>Employee ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Active Status</th>
-        <th> Edit </th>
-        <th>Deactivate</th>
-        <th>Pay Period</th>
-        <th>Edit Work History</th>
-        <th>View Past Pay Periods</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @users.each do |user| %>
-        <tr>
-          <td><%= user.employee_id %></td>
-          <td><%= user.first_name %></td>
-          <td><%= user.last_name %></td>
-          <td><%= user.active %></td>
-          <td> <button class = "edit-button" formaction = "/edit" data-id = "<%= user.id %>" >Edit</button> </td>
-          <td><button class="delete-button" data-id="<%= user.id %>">X</button></td>
-          <td>
-            <button class="work_history" formaction = "/work_history_process" data-id="<%= user.id %>">Download</button>
-          </td>
-          <td>
-              <button formaction = "/switch_work" method = "post" type="submit" class = "edit-button" data-id = "<%= user.id %>" >Edit</button>
-          </td>
-          <td>
-            <button formaction = "/view_pay_reports" method = "post" type="submit" class = "work_history">View</button>
-            </td>
-            
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  </div>
-  </div>
-  <input type="hidden" id="user_id_input" name="user_id">
-    </div>
-    </form>
-    </div>
-</div>
 
+<div class="right">
+  <div id="id01" class="edit">
+    <!-- Close button to close the modal -->
+    <span onclick="window.location.href='/admin_main'" class="close" title="Close Modal">&times;</span>
+    <form action="/delete_process" method="post">
+      <div class="container">
+        <div id="user-table">
+          <h1>Edit Employees</h1>
+          <hr>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <!-- Table headers -->
+                  <th>Employee ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Active Status</th>
+                  <th>Edit</th>
+                  <th>Deactivate</th>
+                  <th>Pay Period</th>
+                  <th>Edit Work History</th>
+                  <th>View Past Pay Periods</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Loop through user data and populate the table -->
+                <% @users.each do |user| %>
+                <tr>
+                  <td><%= user.employee_id %></td>
+                  <td><%= user.first_name %></td>
+                  <td><%= user.last_name %></td>
+                  <td><%= user.active %></td>
+                  <td>
+                    <!-- Edit button for user -->
+                    <button class="edit-button" formaction="/edit" data-id="<%= user.id %>">Edit</button>
+                  </td>
+                  <td>
+                    <!-- Delete button for user -->
+                    <button class="delete-button" data-id="<%= user.id %>">X</button>
+                  </td>
+                  <td>
+                    <!-- Button to download work history -->
+                    <button class="work_history" formaction="/work_history_process" data-id="<%= user.id %>">Download</button>
+                  </td>
+                  <td>
+                    <!-- Edit Work History button -->
+                    <button formaction="/switch_work" method="post" type="submit" class="edit-button" data-id="<%= user.id %>">Edit</button>
+                  </td>
+                  <td>
+                    <!-- View Past Pay Periods button -->
+                    <button formaction="/view_pay_reports" method="post" type="submit" class="work_history">View</button>
+                  </td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Hidden input field to store user ID -->
+        <input type="hidden" id="user_id_input" name="user_id">
+      </div>
+    </form>
+  </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -182,7 +214,9 @@ h1::after {
     $.get('/users', function(data) {
       $('#user-table').html(data);
     });
-  });// JavaScript to handle user deletion
+  });
+
+  // JavaScript to handle user deletion
   $(document).ready(function() {
     $('.delete-button').click(function() {
       const userId = $(this).data('id');
@@ -195,6 +229,7 @@ h1::after {
     });
   });
 
+  // JavaScript to handle user editing
   $(document).ready(function() {
     $('.edit-button').click(function() {
       const userId = $(this).data('id');
@@ -207,19 +242,18 @@ h1::after {
     });
   });
 
-// Work history download
-$(document).ready(function () {
-  $('.work_history').click(function () {
-    const userId = $(this).data('id');
+  // JavaScript for Work History download
+  $(document).ready(function () {
+    $('.work_history').click(function () {
+      const userId = $(this).data('id');
       
-     // Populate the hidden input field in the form with the user ID
-    $('#user_id_input').val(userId);
+      // Populate the hidden input field in the form with the user ID
+      $('#user_id_input').val(userId);
 
-    // Submit the form
-    $('form').submit();
-    
+      // Submit the form
+      $('form').submit();
+    });
   });
-});
-
 </script>
+
 

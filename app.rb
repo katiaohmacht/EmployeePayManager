@@ -1,3 +1,12 @@
+
+  #Creator: Penelope Brody, Katia Omacht, Ewan Ward
+  #Teacher: Mr. Crute
+  #Description: Create app page with ruby
+  #Date Created: September 15th, 2023
+  #Date Last Modified: September 27th, 2023
+
+
+#Add necessary gems
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'bcrypt'
@@ -104,6 +113,7 @@ get '/edit_employees' do
   erb :edit_employees
 end
 
+# View work history page
 get '/view' do
   @page_title = "Work History"
   current_user
@@ -112,6 +122,7 @@ get '/view' do
   end
 end
 
+# Edit employee page
 post '/edit' do
   @page_title = "Edit Employee"
   current_user
@@ -122,6 +133,7 @@ post '/edit' do
   erb :edit_employee_form
 end
 
+# Edit employee form page
 get '/edit_employee_form' do
   @page_title = "Edit Employee"
   current_user
@@ -131,8 +143,6 @@ get '/edit_employee_form' do
   @users = User.all
   erb :admin_main
 end
-
-
 
 
 # Add a new route to handle the delete request
@@ -280,13 +290,9 @@ def retrieve(pdf, id, start_date, end_date)
   if total + elapsed_time > threshold
     #we are above threshold
     reg = threshold - (regular + regular_holiday)
-    # if reg < 0
-    #   reg = 0
-    # end
   end
-  
+  #Account for holidays
   over = elapsed_time-reg
-  #pdf.text "#{over} #{reg}"
   holiday = isHoliday(current)
   if holiday 
     overtime_holiday+= over
@@ -309,6 +315,7 @@ def retrieve(pdf, id, start_date, end_date)
   pay(pdf, id, total, regular, overtime, regular_holiday, overtime_holiday)
 end
 
+#Check whether it is a holiday
 def isHoliday(time)
   holidayList = ["Christmas", "Easter", "Juneteenth", "New Year\'s Day", "Thanksgiving"]
   day = time.day
@@ -366,6 +373,7 @@ get '/admin_main' do
   erb :admin_main
 end
 
+# For employee page
 get '/employee' do
   @page_title = "Employee"
   current_user
@@ -375,6 +383,7 @@ get '/employee' do
   erb :employee
 end
 
+#For login page
 get '/login' do
   @page_title = "Login"
   if @current_user != nil
@@ -384,6 +393,7 @@ get '/login' do
   erb :login
 end
 
+# For reset password page
 get '/reset' do
   @page_title = "Reset Password"
   current_user
@@ -400,6 +410,7 @@ get '/confirmation_out' do
   erb :confirmation_out
 end
 
+# Confirm clocked out page
 get '/confirmation_in' do
   @page_title = "Confirmation In"
   erb :confirmation_in
@@ -495,14 +506,17 @@ post '/signout' do
   redirect '/'
 end
 
+# Add employee
 post '/new_user' do
   redirect '/add_employee'
 end
 
+#Edit emplyee
 post '/edit_employees' do
   redirect '/edit_employees'
 end
 
+#Login
 post '/take_to_login' do
   redirect '/login'
 end
@@ -572,6 +586,7 @@ post '/run_pay_period' do
   end
 end
 
+#Edit employee form
 get '/edit_employee_form' do
   @page_title = "Edit Employee"
   current_user
@@ -582,10 +597,12 @@ get '/edit_employee_form' do
   erb :admin_main
 end
 
+#Go to employee page
 post '/navigate_clock' do
   redirect '/employee'
 end
 
+#Switch to view page and calculate time
 post '/switch_work' do
   startperiod = Payperiod.last.time
   inout = Checktime.where(employee_id: params[:user_id]).where(time: startperiod..Time.now.to_i)
@@ -608,6 +625,7 @@ post '/switch_work' do
   erb :view
 end
 
+# Submit reset psw
 post '/reset_button' do
   current_user
 
@@ -620,11 +638,12 @@ post '/reset_button' do
   redirect '/employee'
 end
 
-
+#Go to reset page
 post '/resetpsw' do
   redirect '/reset'
 end
 
+#Calculate time in and our
 post '/time_edit' do
   # id_in and id_out
   @page_title = "Edit Time"
@@ -642,6 +661,7 @@ post '/time_edit' do
   erb :view_edit
 end
 
+#Update times
 post '/update_time' do
   # in_time, in_id	, out_time, out_id
   
@@ -658,6 +678,7 @@ post '/update_time' do
   redirect '/edit_employees'
 end
 
+#Delete times
 post '/time_delete' do
   # id_in and id_out
   @page_title = "Delete Time"
@@ -670,6 +691,7 @@ post '/time_delete' do
   redirect '/edit_employees'
 end
 
+#Add times
 post '/add_time' do
   Checktime.create(
     employee_id: params[:user_id], 
@@ -684,6 +706,7 @@ post '/add_time' do
   redirect '/edit_employees'
 end
 
+#Create tester
 def tester
   Payperiod.create(
     time: Time.parse("2022-12-30") 

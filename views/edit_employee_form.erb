@@ -1,189 +1,208 @@
+<!--
+Creator: Penelope Brody, Katia Omacht, Ewan Ward
+Teacher: Mr. Crute
+Description: Create form to edit employee information
+Date Created: September 15th, 2023
+Date Last Modified: September 27th, 2023
+-->
+
 <style>
-
-
-/* Full-width input fields */
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-}
-
-/* Add a background color when the inputs get focus */
-input[type=text]:focus, input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-/* Set a style for all buttons */
-button {
-  background-color: #04AA6D;
-  color: white;
-  font-size: 1.5vw;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-  margin-top: 5vh;
-}
-
-button:hover {
-  opacity:1;
-}
-
-li{
-  list-style: none;
-}
-li::brefore{
-  content: none;
-}
-li a:hover{
-  color: #301934;
-}
-
-/* Extra styles for the cancel button */
-.cancelbtn {
-  padding: 14px 20px;
-  background-color: #C42D0D;
-  margin-right: 5%;
-}
-
-.update-button{
-  margin-left: 5%;
-  background-color: #176813;
-}
-
-/* Float cancel and signup buttons and add an equal width */
-.cancelbtn, .update-button {
-  float: left;
-  width: 45%;
-  height: 5vh;
-  border-radius: 25px;
-}
-
-/* Add padding to container elements */
-.container {
-  padding: 16px;
-}
-
-
-/* Modal Content/Box */
-.signup {
-  background-color: whitesmoke;
-  
-  border: 2px solid #D8F3EC;
-  height: 92%;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  border-radius: 25px;
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
-/* Style the horizontal ruler */
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
-}
- 
-/* The Close Button (x) */
-.close {
-  position: absolute;
-  right: 35px;
-  top: 15px;
-  font-size: 40px;
-  font-weight: bold;
-  color: #f1f1f1;
-}
-
-.close:hover,
-.close:focus {
-  color: #f44336;
-  cursor: pointer;
-}
-
-/* Clear floats */
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-/* Change styles for cancel button and signup button on extra small screens */
-@media screen and (max-width: 300px) {
-  .cancelbtn, .update-button {
-     width: 100%;
+  /* Styling for full-width input fields */
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
   }
-}
 
-.float-child {
+  /* Add a background color when input fields get focus */
+  input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+
+  /* Styling for all buttons */
+  button {
+    background-color: #04AA6D;
+    color: white;
+    font-size: 1.5vw;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+    margin-top: 5vh;
+  }
+
+  /* Button hover effect */
+  button:hover {
+    opacity: 1;
+  }
+
+  /* Remove list-style from 'li' elements */
+  li {
+    list-style: none;
+  }
+
+  /* Remove bullets before 'li' elements */
+  li::before {
+    content: none;
+  }
+
+  /* Styling for links within 'li' elements on hover */
+  li a:hover {
+    color: #301934;
+  }
+
+  /* Extra styles for the cancel button */
+  .cancelbtn {
+    padding: 14px 20px;
+    background-color: #C42D0D;
+    margin-right: 5%;
+  }
+
+  /* Styling for update button */
+  .update-button {
+    margin-left: 5%;
+    background-color: #176813;
+  }
+
+  /* Float cancel and update buttons and give them equal width */
+  .cancelbtn, .update-button {
+    float: left;
+    width: 45%;
+    height: 5vh;
+    border-radius: 25px;
+  }
+
+  /* Add padding to container elements */
+  .container {
+    padding: 16px;
+  }
+
+  /* Styling for the modal box */
+  .signup {
+    background-color: whitesmoke;
+    border: 2px solid #D8F3EC;
+    height: 92%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    border-radius: 25px;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  /* Styling for the horizontal ruler */
+  hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+  }
+
+  /* Styling for the close button (x) */
+  .close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+  }
+
+  /* Close button hover and focus styles */
+  .close:hover,
+  .close:focus {
+    color: #f44336;
+    cursor: pointer;
+  }
+
+  /* Clear floats */
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  /* Change styles for cancel and update buttons on extra small screens */
+  @media screen and (max-width: 300px) {
+    .cancelbtn, .update-button {
+      width: 100%;
+    }
+  }
+
+  /* Styling for the float container */
+  .float-child {
     width: 50%;
     float: left;
     padding: 10px;
-}  
+  }
 
-#message {
-  display: none;
-  background: #f1f1f1;
-  color: #000;
-  position: relative;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-}
+  /* Styling for the message box */
+  #message {
+    display: none;
+    background: #f1f1f1;
+    color: #000;
+    position: relative;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+  }
 
+  /* Styling for the message box paragraph */
+  #message p {
+    padding: 5px 35px;
+    font-size: 12px;
+    margin: 0;
+  }
 
-#message p {
-  padding: 5px 35px;
-  font-size: 12px;
-  margin: 0;
-}
+  /* Styling for valid input */
+  .valid {
+    color: green;
+  }
 
-.valid {
-  color: green;
-}
+  .valid:before {
+    position: relative;
+    left: -35px;
+    content: "✔";
+  }
 
-.valid:before {
-  position: relative;
-  left: -35px;
-  content: "✔";
-}
+  /* Styling for invalid input */
+  .invalid {
+    color: red;
+  }
 
-.invalid {
-  color: red;
-}
+  .invalid:before {
+    position: relative;
+    left: -35px;
+    content: "✖";
+  }
 
-.invalid:before {
-  position: relative;
-  left: -35px;
-  content: "✖";
-}
+  /* Styling for side-by-side layout */
+  .side-by-side {
+    display: flex;
+    justify-content: space-between;
+  }
 
-.side-by-side {
-  display: flex;
-  justify-content: space-between;
-}
+  /* Styling for the side-by-side child elements */
+  .side-by-side .float-child {
+    flex-basis: 48%; /* Adjust the value as needed */
+  }
 
-.side-by-side .float-child {
-  flex-basis: 48%; /* Adjust the value as needed */
-}
+  /* Styling for h1 elements */
+  h1 {
+    font-size: 2vw;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+    position: relative;
+    padding-bottom: 1%;
+    color: black;
+  }
 
-h1 {
-  font-size: 2vw;
-  margin-left: 50%;
-  transform: translateX(-50%);
-  display: inline-block;
-  position: relative;
-  padding-bottom: 1%;
-  color: black;
-}
-
-
-h1::after {
+  /* Styling for h1 elements with an after pseudo-element */
+  h1::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -194,124 +213,102 @@ h1::after {
     background-color: #000;
   }
 
+  /* Styling for the container with class "my_container" */
   .my_container {
     display: flex;
     align-items: center; /* Center contents vertically within the container */
-}
+  }
 
-.my_container p {
+  /* Styling for paragraphs within "my_container" */
+  .my_container p {
     font-size: 25px;
-    margin: 0 2%; 
+    margin: 0 2%;
     color: black;
     flex: 1; /* Take up remaining horizontal space */
-}
+  }
 
-a{
-  font-size: 25px;
-  color: darkblue;
-}
+  /* Styling for links */
+  a {
+    font-size: 25px;
+    color: darkblue;
+  }
 
-.my_inputs{
-  height: 4vh;
-  font-size: 1vw;
-}
+  /* Styling for input elements with class "my_inputs" */
+  .my_inputs {
+    height: 4vh;
+    font-size: 1vw;
+  }
 
-.my_labels{
-  height: 1vh;
-  font-size: 1.5vw;
-}
+  /* Styling for labels with class "my_labels" */
+  .my_labels {
+    height: 1vh;
+    font-size: 1.5vw;
+  }
 
-.float-container{
-  margin-top: 1%;
-}
+  /* Styling for a float container with class "float-container" */
+  .float-container {
+    margin-top: 1%;
+  }
+</style>
 
-</style> 
-
-<div class = "right">
+<div class="right">
 <div id="id01" class="signup">
   <span onclick="window.location.href='/edit_employees'" class="close" title="Close Modal">&times;</span>
-  <form action="/sign_up_process" method = "post">
+  <form action="/sign_up_process" method="post">
     <div class="container">
       <h1>Edit Employee</h1>
       <hr>
-        <div class="float-container side-by-side">
-          <div class="float-child">
-            <label for="first_name" class = "my_labels"><b>First Name</b></label>
-            <input type="text" value=<%= @employee.first_name %> name="first_name" class = "my_inputs" id="first_name" required>
-          </div>
-          <div class="float-child">
-            <label for="last_name" class = "my_labels"><b>Last Name</b></label>
-            <input type="text" value=<%= @employee.last_name %> name="last_name" class = "my_inputs" id="last_name" required>
-          </div>
+      <div class="float-container side-by-side">
+        <div class="float-child">
+          <label for="first_name" class="my_labels"><b>First Name</b></label>
+          <input type="text" value=<%= @employee.first_name %> name="first_name" class="my_inputs" id="first_name" required>
         </div>
-        <div class="float-container side-by-side">
-        <div class = "float-child">
+        <div class="float-child">
+          <label for="last_name" class="my_labels"><b>Last Name</b></label>
+          <input type="text" value=<%= @employee.last_name %> name="last_name" class="my_inputs" id="last_name" required>
+        </div>
       </div>
+      <div class="float-container side-by-side">
+        <div class="float-child">
+        </div>
+      </div>
+      <div class="float-container side-by-side">
+        <div class="float-child">
+          <label for="admin" class="my_labels"><b>Administrator Code</b></label>
+          <input type="text" value=<%= @employee.admin %> class="my_inputs" name="admin" required>
+        </div>
+      </div>
+      <div class="float-container side-by-side">
+        <div class="float-child">
+          <label for="job" class="my_labels"><b>Job</b></label>
+          <input type="text" value=<%= @employee.job %> class="my_inputs" name="job" required>
+        </div>
+        <div class="float-child">
+          <label for="salary" class="my_labels"><b>Salary</b></label>
+          <input type="text" value=<%= @employee.salary %> class="my_inputs" name="salary" required>
+        </div>
+      </div>
+      <label for="address" class="my_labels"><b>Address</b></label>
+      <input type="text" value=<%= @employee.address %> class="my_inputs" name="address" required>
+      <label for="Hourly/Salary" class="my_labels"><b>Hourly/Salary</b></label>
+      <input type="text" value=<%= @employee.hourly %> class="my_inputs" name="hourly" required>
+      <label for="Active" class="my_labels"><b>Active Status</b></label>
+      <input type="text" value=<%= @employee.active %> class="my_inputs" name="active" required>
+      <div class="clearfix">
+        <button type="button" onclick="window.location.href='/admin_main'" class="cancelbtn"><b>Cancel</b></button>
+        <button type="submit" data-id="<%= @employee.id %>" formaction="/update_employee" class="update-button"><b>Update Employee</b></button>
+      </div>
+      <input type="hidden" id="user_id_input" name="user_id">
     </div>
-  
-    <div class = "float-container side-by-side">
-      <div class="float-child">
-        <label for="admin" class = "my_labels"><b>Administrator Code</b></label>
-        <input type="text" value=<%= @employee.admin %>  class = "my_inputs" name = "admin" required>
-      </div>
-        </div>
-  <div class="float-container side-by-side">
-  <div class = "float-child">
-        <label for="job" class = "my_labels"><b>Job</b></label>
-  <input type="text" value=<%= @employee.job %> class = "my_inputs" name="job" required>
-  </div> 
-  <div class = "float-child">
-  <label for="salary" class = "my_labels"><b>Salary</b></label>
-  <input type="text" value=<%= @employee.salary %> class = "my_inputs" name="salary" required>
-  </div></div>
-  <label for="address" class = "my_labels"><b>Address</b></label>
-  <input type="text" value=<%= @employee.address %> class = "my_inputs" name="address" required>
-  <label for="Hourly/Salary" class = "my_labels"><b>Hourly/Salary</b></label>
-  <input type="text" value=<%= @employee.hourly %>  class = "my_inputs" name="hourly" required>
-  <label for="Active" class = "my_labels"><b>Active Status</b></label>
-  <input type="text" value=<%= @employee.active %>  class = "my_inputs" name="active" required>
-
- 
-
-  <div class="clearfix">
-    <button type="button" onclick="window.location.href='/admin_main'" class="cancelbtn"><b>Cancel</b></button>
-  <button type="submit" data-id="<%= @employee.id %>" formaction = "/update_employee" class="update-button"><b>Update Employee</b></button>
-</div>
-        <input type="hidden" id="user_id_input" name="user_id">
- </form>
+  </form>
 </div>
 </div>
 
 <script>
-// Get the modal
-var modal = document.getElementById('id01');
+  // JavaScript to handle modal behavior
+  var modal = document.getElementById('id01');
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-    window.location.href = '/'; // Redirect to index on modal close
-  }
-}
-
-var myInput = document.querySelector('input[name="psw"]');
-var letter = document.getElementById("letter");
-var capital = document.getElementById("capital");
-var number = document.getElementById("number");
-var length = document.getElementById("length");
-
-// When the user clicks on the password field, show the message box
-myInput.onfocus = function() {
-  document.getElementById("message").style.display = "block";
-}
-
-// When the user clicks outside of the password field, hide the message box
-myInput.onblur = function() {
-  document.getElementById("message").style.display = "none";
-}
-
-// When the user starts to type something inside the password field
-myInput.onkeyup = function() {
+  // Close the modal when clicking outside
   // Validate lowercase letters
   var lowerCaseLetters = /[a-z]/g;
   if (myInput.value.match(lowerCaseLetters)) {
@@ -350,24 +347,22 @@ myInput.onkeyup = function() {
     length.classList.remove("valid");
     length.classList.add("invalid");
   }
-}
+  }
 </script>
-
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-  // JavaScript to handle user deletion
+  // JavaScript to handle user update
   $(document).ready(function() {
-    $('.update-button').click(function() {
-      const userId = $(this).data('id');
-  
-      // Populate the hidden input field in the form with the user ID
-      $('#user_id_input').val(userId);
-  
-      // Submit the form
-      $('form').submit();
-    });
+  $('.update-button').click(function() {
+    const userId = $(this).data('id');
+
+    // Populate the hidden input field in the form with the user ID
+    $('#user_id_input').val(userId);
+
+    // Submit the form
+    $('form').submit();
   });
-  
+  });
 </script>

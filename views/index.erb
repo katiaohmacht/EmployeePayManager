@@ -1,31 +1,50 @@
-<!-- index.erb -->
+<!--
+Creator: Penelope Brody, Katia Omacht, Ewan Ward
+Teacher: Mr. Crute
+Description: Create index page with login button
+Date Created: September 15th, 2023
+Date Last Modified: September 27th, 2023
+-->
+
+<!-- Include Plotly library -->
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 <style>
+  /* Styles for buttons */
   button {
     width: 20%;
     height: 10%;
     font-size: 2vw;
     border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    margin-top: 20%;
+    margin-top: 20%; /* Margin from the top */
     background-color: #FFFFE0;
   }
+
+  /* Button hover effect */
   button:hover {
-    background-color: grey;
+    background-color: grey; /* Change background color on hover */
   }
+
+  /* Button active effect */
   button:active {
-    background-color: #282828;
+    background-color: #282828; /* Change background color on click/press */
   }
+
+  /* Styles for the "employee" button */
   #employee {
-    position: relative;
-    margin: 0 auto;
-    margin-top: 20%;
-    display: block;
+    position: relative; /* Allows for custom positioning */
+    margin: 0 auto; /* Center the button horizontally */
+    margin-top: 20%; /* Margin from the top */
+    display: block; /* Display as a block element */
   }
 </style>
+
 <div class="right">
   <div id="container-1">
+    <!-- Title for the page -->
     <h5 id="my_title">Employee Pay Manager</h5>
   </div>
+  <!-- "Log In" button -->
   <button id="employee" type="button" onclick="window.location.href = '/login'" method="post"><b>LOG IN</b></button>
 </div>
