@@ -6,6 +6,31 @@ Date Created: September 15th, 2023
 Date Last Modified: September 27th, 2023
 -->
 <style>
+
+  /* The Close Button (x) */
+  .close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+  }
+
+  /*Close button styling*/
+  .close:hover,
+  .close:focus {
+    color: #f44336;
+    cursor: pointer;
+  }
+
+  /* Clear floats */
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
   /* Full-width input fields */
   input[type=text], input[type=password] {
     width: 100%;
@@ -33,22 +58,6 @@ Date Last Modified: September 27th, 2023
     cursor: pointer;
     width: 100%;
     opacity: 0.9;
-  }
-
-  /*Set button hover opacity*/
-  button:hover {
-    opacity:1;
-  }
-
-  /*Set list styles*/
-  li{
-    list-style: none;
-  }
-  li::before{
-    content: none;
-  }
-  li a:hover{
-    color: #301934;
   }
 
   /* Extra styles for the cancel button */
@@ -99,29 +108,6 @@ Date Last Modified: September 27th, 2023
     margin-bottom: 25px;
   }
   
-  /* The Close Button (x) */
-  .close {
-    position: absolute;
-    right: 35px;
-    top: 15px;
-    font-size: 40px;
-    font-weight: bold;
-    color: #f1f1f1;
-  }
-
-  /*Close button styling*/
-  .close:hover,
-  .close:focus {
-    color: #f44336;
-    cursor: pointer;
-  }
-
-  /* Clear floats */
-  .clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
-  }
 
   /* Change styles for cancel button and signup button on extra small screens */
   @media screen and (max-width: 300px) {
@@ -217,8 +203,8 @@ Date Last Modified: September 27th, 2023
         <input type="password" placeholder="Enter New Password" name="psw" id="psw" class="my_inputs" required>
 
         <div class="clearfix">
-          <!-- Cancel button that redirects to the home page -->
-          <button type="button" onclick="window.location.href='/'" class="cancelbtn"><b>Cancel</b></button>
+          <!-- Cancel button that redirects to the employee page -->
+          <button type="button" onclick="window.location.href='/employee'" class="cancelbtn"><b>Cancel</b></button>
 
           <!-- Submit button for confirming the new password, with a custom form action -->
           <button type="submit" formaction="/reset_button" class="signupbtn"><b>Confirm New Password</b></button>

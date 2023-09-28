@@ -1,89 +1,115 @@
+<!--
+Creator: Penelope Brody, Katia Omacht, Ewan Ward
+Teacher: Mr. Crute
+Description: Create admin main page once logged in
+Date Created: September 15th, 2023
+Date Last Modified: September 27th, 2023
+-->
+
 <style>
+    /* Style for the button container */
     .button-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-evenly;
-        height: 60%; 
+        height: 60%;
     }
 
-    .my_buttons{
-        width: 20vw; 
+    /* Style for buttons with the class "my_buttons" */
+    .my_buttons {
+        width: 20vw;
         height: 100%;
         font-size: 2vw;
         border-radius: 25px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         background-color: #FFFFE0;
     }
-    button {
-      width: 20%;
-      height: 10%;
-      font-size: 2vw;
-      border-radius: 25px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      margin-top: 20px;
-      background-color: #FFFFE0;
-  }
 
+    /* Generic button style */
+    button {
+        width: 20%;
+        height: 10%;
+        font-size: 2vw;
+        border-radius: 25px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        margin-top: 20px;
+        background-color: #FFFFE0;
+    }
+
+    /* Button hover effect */
     button:hover {
         background-color: grey;
     }
 
+    /* Button click effect */
     button:active {
         background-color: #282828;
     }
 
-    #sign_out:hover{
-      background-color: grey;
+    /* Styling for the "Sign Out" button on hover */
+    #sign_out:hover {
+        background-color: grey;
     }
 
-    #sign_out:active{
-      background-color: #282828;
+    /* Styling for the "Sign Out" button on click */
+    #sign_out:active {
+        background-color: #282828;
     }
 
+    /* Adjust the margin-top for the container with ID "container-1" */
     #container-1 {
         margin-top: 0%;
     }
 
-    #sign_out{
-      width: 94%;
-      margin-right: 4%;
-      margin-top: 36%
-      font-size: 2vw;
-      border-radius: 25px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      background-color: #FFFFE0;
+    /* Styling for the "Sign Out" button */
+    #sign_out {
+        width: 94%;
+        margin-right: 4%;
+        margin-top: 36%;
+        font-size: 2vw;
+        border-radius: 25px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        background-color: #FFFFE0;
     }
 </style>
 
 <div class="right">
     <div id="container-1">
+        <!-- Displaying the administrator's name -->
         <h5 id="my_title">Administrator - <%= "#{@current_user.first_name.titleize} #{@current_user.last_name.titleize}" %></h5>
     </div>
 
+    <!-- Button container for various actions -->
     <div class="button-container">
         <form action="/new_user" method="post">
-            <button class = "my_buttons" type="submit" formaction="/new_user"><b>Add New User</b></button>
+            <!-- Button to add a new user -->
+            <button class="my_buttons" type="submit" formaction="/new_user"><b>Add New User</b></button>
         </form>
 
         <form action="/remove_user" method="post">
-            <button class = "my_buttons" type="submit" formaction="/edit_employees"><b>Edit User</b></button>
-        </form>
-        
-        <form action="/remove_user" method="post">
-            <button class = "my_buttons" type="submit" formaction="/auto_clock"><b>Auto Clock Out</b></button>
-        </form>
-        
-        <form action="/remove_user" method="post">
-            <button class = "my_buttons" type="submit" formaction="/run_pay_period"><b>Run Pay Period</b></button>
+            <!-- Button to edit users -->
+            <button class="my_buttons" type="submit" formaction="/edit_employees"><b>Edit User</b></button>
         </form>
 
-        <form action = "/navigate_clock" method = "post">
-            <button class = "my_buttons" type="submit" formaction = "/navigate_clock" ><b>Clock In/Out</b></button>
+        <form action="/remove_user" method="post">
+            <!-- Button for auto clock out -->
+            <button class="my_buttons" type="submit" formaction="/auto_clock"><b>Auto Clock Out</b></button>
+        </form>
+
+        <form action="/remove_user" method="post">
+            <!-- Button to run pay period -->
+            <button class="my_buttons" type="submit" formaction="/run_pay_period"><b>Run Pay Period</b></button>
+        </form>
+
+        <form action="/navigate_clock" method="post">
+            <!-- Button for clocking in/out -->
+            <button class="my_buttons" type="submit" formaction="/navigate_clock"><b>Clock In/Out</b></button>
         </form>
     </div>
 </div>
 
 <form action="/login_process" method="post">
+    <!-- Sign out button at the bottom -->
     <button id="sign_out" type="submit" formaction="/signout"><b>Sign Out</b></button>
 </form>

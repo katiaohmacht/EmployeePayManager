@@ -31,6 +31,22 @@ a {
   color: black;
 }
 
+  /*Set button hover opacity*/
+  button:hover {
+    opacity:1;
+  }
+
+  /*Set list styles*/
+  li{
+    list-style: none;
+  }
+  li::before{
+    content: none;
+  }
+  li a:hover{
+    color: #301934;
+  }
+
 #container-1 {
   display: flex;
   align-items: center;
@@ -50,3 +66,4 @@ a {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   padding: 2%;
 }
+
